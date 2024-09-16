@@ -30,9 +30,10 @@ interface UserState {
   deleteStatus: string;
 }
 
+const storedUser = sessionStorage.getItem('user');
+
 const initialState: UserState = {
-  user: {},
-  // user: JSON.parse(sessionStorage.getItem('user')) || null,
+  user: storedUser ? JSON.parse(storedUser) : {},
   newUser: null,
   status: 'idle',
   error: null,

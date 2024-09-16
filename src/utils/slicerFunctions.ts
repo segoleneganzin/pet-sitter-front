@@ -2,8 +2,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 // Create a typed thunk action
-export const createThunkAction = (type: string, apiFunction: any) => {
-  return createAsyncThunk(type, async (params) => {
+// export const createThunkAction = (type: string, apiFunction: any) => {
+//   return createAsyncThunk(type, async (params) => {
+//     const response = await apiFunction(params);
+//     return response;
+//   });
+// };
+export const createThunkAction = <T = void>(
+  type: string,
+  apiFunction: (params?: T) => Promise<any>
+) => {
+  return createAsyncThunk(type, async (params?: T) => {
     const response = await apiFunction(params);
     return response;
   });

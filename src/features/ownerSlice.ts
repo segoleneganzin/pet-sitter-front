@@ -24,10 +24,12 @@ interface OwnerState {
   updateStatus: string;
 }
 
+const storedOwners = sessionStorage.getItem('owners');
+const storedOwner = sessionStorage.getItem('owner');
+
 const initialState: OwnerState = {
-  owners: [],
-  // owners: JSON.parse(sessionStorage.getItem('owners')) || [],
-  owner: {},
+  owners: storedOwners ? JSON.parse(storedOwners) : [],
+  owner: storedOwner ? JSON.parse(storedOwner) : {},
   status: 'idle',
   error: null,
   updateStatus: 'idle',
@@ -42,13 +44,20 @@ export const ownerSlice = createSlice({
       state.updateStatus = 'idle';
       state.error = null;
     },
-    clearSitters: (state) => {
+    clearOwners: (state) => {
       state.owners = [];
       state.owner = {};
       state.status = 'idle';
       state.error = null;
       state.updateStatus = 'idle';
       sessionStorage.removeItem('owners');
+      sessionStorage.removeItem('owner');
+    },
+    clearOwner: (state) => {
+      state.owner = {};
+      state.status = 'idle';
+      state.error = null;
+      state.updateStatus = 'idle';
       sessionStorage.removeItem('owner');
     },
   },
@@ -66,7 +75,8 @@ export const ownerSlice = createSlice({
   },
 });
 
-export const { resetUpdateStatus, clearSitters } = ownerSlice.actions;
+export const { resetUpdateStatus, clearOwners, clearOwner } =
+  ownerSlice.actions;
 
 export const {
   selectOwners,

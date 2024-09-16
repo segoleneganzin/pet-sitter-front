@@ -1,19 +1,5 @@
+import { I_Sitter, I_SitterDocument } from '../models/Sitter';
 import { callApi } from './apiClient';
-
-interface I_Sitter {
-  profilePicture: string;
-  firstName: string;
-  lastName: string;
-  tel: string;
-  city: string;
-  country: string;
-  presentation: string;
-  acceptedPets: ('cat' | 'dog' | 'nac')[];
-}
-
-interface I_SitterDocument extends I_Sitter {
-  id: string;
-}
 
 export const getAllSitters = async (): Promise<I_SitterDocument[]> => {
   try {

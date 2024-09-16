@@ -20,7 +20,7 @@ const Landing: React.FC<LandingProps> = ({ setCurrentElement }) => {
         Connexion
       </a>
       <h1>Pet Sitter App</h1>
-      <Link to={'/pet-sitters'}>Trouvez votre futur pet sitter</Link>
+      <Link to={'/sitters'}>Trouvez votre futur pet sitter</Link>
       <p>
         Créer un compte ?{' '}
         <a href='' onClick={(e) => handleClick(e, 'signUp')}>

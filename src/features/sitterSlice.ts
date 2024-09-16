@@ -4,6 +4,7 @@ import {
   handleAsyncActions,
 } from '../utils/slicerFunctions';
 import { getAllSitters, getSitter, updateSitter } from '../services/sitterApi';
+import { I_Sitter } from '../models/Sitter';
 
 const GET_ALL_SITTERS = 'user/getAllSitters';
 const GET_SITTER = 'user/getSitter';
@@ -13,21 +14,23 @@ export const getAllSittersAsync = createThunkAction(
   GET_ALL_SITTERS,
   getAllSitters
 );
-export const getSitterAsync = createThunkAction(GET_SITTER, getSitter);
+export const getSitterAsync = createThunkAction<string>(GET_SITTER, getSitter);
 export const updateSitterAsync = createThunkAction(UPDATE_SITTER, updateSitter);
 
 interface SitterState {
-  sitters: object[];
-  sitter: object;
+  sitters: I_Sitter[];
+  sitter: I_Sitter | null;
   status: string;
   error: string | null;
   updateStatus: string;
 }
 
+const storedSitters = sessionStorage.getItem('sitters');
+const storedSitter = sessionStorage.getItem('sitter');
+
 const initialState: SitterState = {
-  sitters: [],
-  // sitters: JSON.parse(sessionStorage.getItem('sitters')) || [],
-  sitter: {},
+  sitters: storedSitters ? JSON.parse(storedSitters) : [],
+  sitter: storedSitter ? JSON.parse(storedSitter) : null,
   status: 'idle',
   error: null,
   updateStatus: 'idle',
@@ -44,11 +47,18 @@ export const sitterSlice = createSlice({
     },
     clearSitters: (state) => {
       state.sitters = [];
-      state.sitter = {};
+      state.sitter = null;
       state.status = 'idle';
       state.error = null;
       state.updateStatus = 'idle';
       sessionStorage.removeItem('sitters');
+      sessionStorage.removeItem('sitter');
+    },
+    clearSitter: (state) => {
+      state.sitter = null;
+      state.status = 'idle';
+      state.error = null;
+      state.updateStatus = 'idle';
       sessionStorage.removeItem('sitter');
     },
   },
@@ -66,7 +76,8 @@ export const sitterSlice = createSlice({
   },
 });
 
-export const { resetUpdateStatus, clearSitters } = sitterSlice.actions;
+export const { resetUpdateStatus, clearSitters, clearSitter } =
+  sitterSlice.actions;
 
 export const {
   selectSitters,

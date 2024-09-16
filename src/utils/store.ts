@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../features/userSlice';
+import sitterReducer from '../features/sitterSlice';
+import ownerReducer from '../features/ownerSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    sitter: sitterReducer,
+    owner: ownerReducer,
   },
 });
 

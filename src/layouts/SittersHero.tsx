@@ -1,4 +1,4 @@
-const PetSittersHero: React.FC = () => {
+const SittersHero: React.FC = () => {
   return (
     <section>
       <h1>Bonjour</h1>
@@ -7,4 +7,4 @@ const PetSittersHero: React.FC = () => {
   );
 };
 
-export default PetSittersHero;
+export default SittersHero;
