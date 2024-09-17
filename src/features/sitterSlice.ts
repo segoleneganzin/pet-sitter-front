@@ -1,8 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import {
-  createThunkAction,
-  handleAsyncActions,
-} from '../utils/slicerFunctions';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { handleAsyncActions } from '../utils/slicerFunctions';
 import { getAllSitters, getSitter, updateSitter } from '../services/sitterApi';
 import { I_Sitter } from '../models/Sitter';
 
@@ -10,14 +7,37 @@ const GET_ALL_SITTERS = 'user/getAllSitters';
 const GET_SITTER = 'user/getSitter';
 const UPDATE_SITTER = 'user/updateSitter';
 
-export const getAllSittersAsync = createThunkAction(
+export const getAllSittersAsync = createAsyncThunk(
   GET_ALL_SITTERS,
-  getAllSitters
+  async () => {
+    const response = await getAllSitters();
+    return response;
+  }
 );
-export const getSitterAsync = createThunkAction<string>(GET_SITTER, getSitter);
-export const updateSitterAsync = createThunkAction(UPDATE_SITTER, updateSitter);
+export const getSitterAsync = createAsyncThunk(
+  GET_SITTER,
+  async (id: string) => {
+    const response = await getSitter(id);
+    return response;
+  }
+);
+export const updateSitterAsync = createAsyncThunk(
+  UPDATE_SITTER,
+  async ({
+    sitterId,
+    datas,
+    token,
+  }: {
+    sitterId: string;
+    datas: I_Sitter;
+    token: string;
+  }) => {
+    const response = await updateSitter({ sitterId, datas, token });
+    return response;
+  }
+);
 
-interface SitterState {
+interface I_SitterState {
   sitters: I_Sitter[];
   sitter: I_Sitter | null;
   status: string;
@@ -28,7 +48,7 @@ interface SitterState {
 const storedSitters = sessionStorage.getItem('sitters');
 const storedSitter = sessionStorage.getItem('sitter');
 
-const initialState: SitterState = {
+const initialState: I_SitterState = {
   sitters: storedSitters ? JSON.parse(storedSitters) : [],
   sitter: storedSitter ? JSON.parse(storedSitter) : null,
   status: 'idle',

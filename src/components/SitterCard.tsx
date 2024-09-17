@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { I_Sitter } from '../models/Sitter';
 
 interface SitterCardProps {
@@ -5,16 +6,18 @@ interface SitterCardProps {
 }
 const SitterCard: React.FC<SitterCardProps> = ({ sitter }) => {
   return (
-    <article>
-      <h3>
-        {sitter.firstName} {sitter.lastName}
-      </h3>
-      <p>
-        {sitter.city} <br />
-        {sitter.country} <br />
-        {sitter.acceptedPets.join(' ')} <br />
-      </p>
-    </article>
+    <Link to={`/sitter/${sitter.id}`}>
+      <article>
+        <h3>
+          {sitter.firstName} {sitter.lastName}
+        </h3>
+        <p>
+          {sitter.city} <br />
+          {sitter.country} <br />
+          {sitter.acceptedPets.join(' ')} <br />
+        </p>
+      </article>
+    </Link>
   );
 };
 

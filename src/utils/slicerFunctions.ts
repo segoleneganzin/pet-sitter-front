@@ -1,22 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createAsyncThunk } from '@reduxjs/toolkit';
 
-// Create a typed thunk action
-// export const createThunkAction = (type: string, apiFunction: any) => {
-//   return createAsyncThunk(type, async (params) => {
-//     const response = await apiFunction(params);
-//     return response;
-//   });
-// };
-export const createThunkAction = <T = void>(
-  type: string,
-  apiFunction: (params?: T) => Promise<any>
-) => {
-  return createAsyncThunk(type, async (params?: T) => {
-    const response = await apiFunction(params);
-    return response;
-  });
-};
+import { translateErrorMessage } from './apiResponseTranslate';
 
 // Handle async actions and update the state accordingly
 export const handleAsyncActions = (
@@ -36,11 +20,11 @@ export const handleAsyncActions = (
         state[statusKey] = 'succeeded';
         state[slicer] = action.payload.body || action.payload.file;
         state.error = null;
-        if (slicer === 'login') {
-          sessionStorage.setItem('login', JSON.stringify(state.login));
+        if (slicer === 'token') {
+          sessionStorage.setItem('token', JSON.stringify(action.payload.body));
         }
-        if (slicer === 'user') {
-          sessionStorage.setItem('user', JSON.stringify(state.user));
+        if (slicer === 'user' || slicer === 'newUser') {
+          sessionStorage.setItem('user', JSON.stringify(action.payload.body));
         }
       }
     )
@@ -48,7 +32,9 @@ export const handleAsyncActions = (
       thunk.rejected,
       (state: any, action: { error: { message: string } }) => {
         state[statusKey] = 'failed';
-        state.error = action.error.message || 'Unknown error';
+        state.error =
+          translateErrorMessage(action.error.message) ||
+          "Une erreur s'est produite, veuillez réessayer plus tard";
       }
     );
 };

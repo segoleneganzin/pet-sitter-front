@@ -1,23 +1,11 @@
+import { I_Owner, I_OwnerDocument } from '../models/owner';
 import { callApi } from './apiClient';
-
-interface I_Owner {
-  profilePicture: string;
-  firstName: string;
-  lastName: string;
-  city: string;
-  country: string;
-  pets: string[];
-}
-
-interface I_OwnerDocument extends I_Owner {
-  id: string;
-}
 
 export const getAllOwners = async (): Promise<I_OwnerDocument[]> => {
   try {
     return await callApi({
       method: 'GET',
-      url: '/Owners',
+      url: '/owners',
     });
   } catch (error) {
     throw new Error(
@@ -30,7 +18,7 @@ export const getOwner = async (ownerId: string): Promise<I_OwnerDocument> => {
   try {
     return await callApi({
       method: 'GET',
-      url: `/Owners/${ownerId}`,
+      url: `/owners/${ownerId}`,
     });
   } catch (error) {
     throw new Error(
@@ -54,7 +42,7 @@ export const updateOwner = async ({
     }
     return await callApi({
       method: 'PATCH',
-      url: `/Owners/${ownerId}`,
+      url: `/owners/${ownerId}`,
       data: datas,
       token: token,
     });

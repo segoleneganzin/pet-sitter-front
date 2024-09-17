@@ -43,6 +43,7 @@ export const callApi = async <T>({
 
     // Make the API call
     const response: AxiosResponse<T> = await apiClient(config);
+    console.log('API response:', response);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {

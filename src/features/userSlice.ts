@@ -1,28 +1,49 @@
-import { createSlice } from '@reduxjs/toolkit';
-import {
-  createThunkAction,
-  handleAsyncActions,
-} from '../utils/slicerFunctions';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { handleAsyncActions } from '../utils/slicerFunctions';
 import {
   createUser,
   getUser,
   updateUser,
   deleteUser,
 } from '../services/userApi';
+import { I_UserUpdate, I_UserCreate, I_UserDocument } from '../models/user';
 
 const CREATE_USER = 'user/createUser';
 const GET_USER = 'user/getUser';
 const UPDATE_USER = 'user/updateUser';
 const DELETE_USER = 'user/deleteUser';
 
-export const createUserAsync = createThunkAction(CREATE_USER, createUser);
-export const getUserAsync = createThunkAction(GET_USER, getUser);
-export const updateUserAsync = createThunkAction(UPDATE_USER, updateUser);
-export const deleteUserAsync = createThunkAction(DELETE_USER, deleteUser);
+export const createUserAsync = createAsyncThunk(
+  CREATE_USER,
+  async (datas: I_UserCreate) => {
+    const response = await createUser(datas);
+    return response;
+  }
+);
+export const getUserAsync = createAsyncThunk(
+  GET_USER,
+  async (token: string) => {
+    const response = await getUser(token);
+    return response;
+  }
+);
+export const updateUserAsync = createAsyncThunk(
+  UPDATE_USER,
+  async ({ datas, token }: { datas: I_UserUpdate; token: string }) => {
+    const response = await updateUser({ datas, token });
+    return response;
+  }
+);
+export const deleteUserAsync = createAsyncThunk(
+  DELETE_USER,
+  async (token: string) => {
+    const response = await deleteUser(token);
+    return response;
+  }
+);
 
-interface UserState {
-  user: object;
-  newUser: object | null;
+interface I_UserState {
+  user: I_UserDocument | null;
   status: string;
   error: string | null;
   newUserStatus: string;
@@ -32,9 +53,8 @@ interface UserState {
 
 const storedUser = sessionStorage.getItem('user');
 
-const initialState: UserState = {
-  user: storedUser ? JSON.parse(storedUser) : {},
-  newUser: null,
+const initialState: I_UserState = {
+  user: storedUser ? JSON.parse(storedUser) : null,
   status: 'idle',
   error: null,
   newUserStatus: 'idle',
@@ -60,7 +80,7 @@ export const userSlice = createSlice({
       state.error = null;
     },
     clearUser: (state) => {
-      state.user = {};
+      state.user = null;
       state.status = 'idle';
       state.error = null;
       state.updateStatus = 'idle';
@@ -70,7 +90,7 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    handleAsyncActions(builder, createUserAsync, 'newUser', 'newUserStatus');
+    handleAsyncActions(builder, createUserAsync, 'user', 'newUserStatus');
     handleAsyncActions(builder, getUserAsync, 'user', 'status');
     handleAsyncActions(builder, updateUserAsync, 'user');
     handleAsyncActions(builder, deleteUserAsync, 'deleteUser', 'deleteStatus');

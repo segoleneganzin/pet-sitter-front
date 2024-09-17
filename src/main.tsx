@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './utils/store';
 import Router from './Router';
+import 'sg-form-lib/style.css';
+import 'sg-modal-lib/style.css';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>

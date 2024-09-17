@@ -1,24 +1,39 @@
-import { createSlice } from '@reduxjs/toolkit';
-import {
-  createThunkAction,
-  handleAsyncActions,
-} from '../utils/slicerFunctions';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { handleAsyncActions } from '../utils/slicerFunctions';
 import { getAllOwners, getOwner, updateOwner } from '../services/ownerApi';
+import { I_Owner } from '../models/owner';
 
 const GET_ALL_OWNERS = 'user/getAllOwners';
 const GET_OWNER = 'user/getOwner';
 const UPDATE_OWNER = 'user/updateOwner';
 
-export const getAllOwnersAsync = createThunkAction(
-  GET_ALL_OWNERS,
-  getAllOwners
+export const getAllOwnersAsync = createAsyncThunk(GET_ALL_OWNERS, async () => {
+  const response = await getAllOwners();
+  return response;
+});
+export const getOwnerAsync = createAsyncThunk(GET_OWNER, async (id: string) => {
+  const response = await getOwner(id);
+  return response;
+});
+export const updateOwnerAsync = createAsyncThunk(
+  UPDATE_OWNER,
+  async ({
+    ownerId,
+    datas,
+    token,
+  }: {
+    ownerId: string;
+    datas: I_Owner;
+    token: string;
+  }) => {
+    const response = await updateOwner({ ownerId, datas, token });
+    return response;
+  }
 );
-export const getOwnerAsync = createThunkAction(GET_OWNER, getOwner);
-export const updateOwnerAsync = createThunkAction(UPDATE_OWNER, updateOwner);
 
-interface OwnerState {
-  owners: object[];
-  owner: object;
+interface I_OwnerState {
+  owners: I_Owner[];
+  owner: I_Owner | null;
   status: string;
   error: string | null;
   updateStatus: string;
@@ -27,7 +42,7 @@ interface OwnerState {
 const storedOwners = sessionStorage.getItem('owners');
 const storedOwner = sessionStorage.getItem('owner');
 
-const initialState: OwnerState = {
+const initialState: I_OwnerState = {
   owners: storedOwners ? JSON.parse(storedOwners) : [],
   owner: storedOwner ? JSON.parse(storedOwner) : {},
   status: 'idle',
@@ -46,7 +61,7 @@ export const ownerSlice = createSlice({
     },
     clearOwners: (state) => {
       state.owners = [];
-      state.owner = {};
+      state.owner = null;
       state.status = 'idle';
       state.error = null;
       state.updateStatus = 'idle';
@@ -54,7 +69,7 @@ export const ownerSlice = createSlice({
       sessionStorage.removeItem('owner');
     },
     clearOwner: (state) => {
-      state.owner = {};
+      state.owner = null;
       state.status = 'idle';
       state.error = null;
       state.updateStatus = 'idle';
