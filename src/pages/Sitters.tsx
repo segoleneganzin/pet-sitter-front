@@ -2,13 +2,11 @@ import { useState, useEffect, useMemo } from 'react';
 import SittersFilter from '../layouts/SittersFilter';
 import SittersHero from '../layouts/SittersHero';
 import SittersList from '../layouts/SittersList';
-import { I_Sitter } from '../models/sitter';
+import { I_SitterDocument } from '../models/sitter';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import {
-  clearSitter,
   getAllSittersAsync,
   resetSitterStatus,
-  selectSitter,
   selectSitterError,
   selectSitters,
   selectSitterStatus,
@@ -19,21 +17,14 @@ import Error from '../components/Error';
 
 const Sitters = () => {
   const dispatch = useAppDispatch();
-  const [sitters, setSitters] = useState<I_Sitter[] | null>([]);
+  const [sitters, setSitters] = useState<I_SitterDocument[] | null>([]);
 
-  const sitterFromStore = useAppSelector(selectSitter);
   const sittersFromStore = useAppSelector(selectSitters);
   const sitterStatus = useAppSelector(selectSitterStatus);
   const sitterError = useAppSelector(selectSitterError);
 
   // Memoize originalSitters to prevent unnecessary recalculation
   const originalSitters = useMemo(() => sittersFromStore, [sittersFromStore]);
-
-  useEffect(() => {
-    if (sitterFromStore) {
-      dispatch(clearSitter());
-    }
-  }, [dispatch, sitterFromStore]);
 
   useEffect(() => {
     if (sittersFromStore.length === 0) {

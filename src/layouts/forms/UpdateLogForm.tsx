@@ -15,10 +15,10 @@ import { I_UserUpdate } from '../../models/user';
 const UpdateLogForm = () => {
   const dispatch = useAppDispatch();
 
-  const login = useAppSelector((state) => selectLogin(state));
-  const user = useAppSelector((state) => selectUser(state));
-  const userError = useAppSelector((state) => selectUserError(state));
-  const userStatus = useAppSelector((state) => selectUserStatus(state));
+  const login = useAppSelector(selectLogin);
+  const user = useAppSelector(selectUser);
+  const userError = useAppSelector(selectUserError);
+  const userStatus = useAppSelector(selectUserStatus);
 
   const [choice, setChoice] = useState<'email' | 'password' | null>(null);
   const [errorMessage, setErrorMessage] = useState('');

@@ -18,10 +18,9 @@ const SignInForm = () => {
   const dispatch = useAppDispatch();
 
   // Get states from the Redux store
-  const userStatus = useAppSelector((state) => selectUserStatus(state));
-  const error = useAppSelector((state) => selectAuthError(state));
-  const login = useAppSelector((state) => selectLogin(state));
-  // const user = useAppSelector((state) => selectUser(state));
+  const userStatus = useAppSelector(selectUserStatus);
+  const error = useAppSelector(selectAuthError);
+  const login = useAppSelector(selectLogin);
 
   const [formValues, setFormValues] = useState({
     email: localStorage.getItem('userEmail') || '',

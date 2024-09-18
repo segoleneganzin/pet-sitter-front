@@ -1,8 +1,8 @@
 import SitterCard from '../components/SitterCard';
-import { I_Sitter } from '../models/sitter';
+import { I_SitterDocument } from '../models/sitter';
 
 interface I_SittersListProps {
-  sitters: I_Sitter[] | null;
+  sitters: I_SitterDocument[] | null;
 }
 
 const SittersList: React.FC<I_SittersListProps> = ({ sitters }) => {

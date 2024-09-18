@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useAppSelector } from '../utils/hooks/reduxHooks';
 import emailjs from '@emailjs/browser';
 import { Form } from 'sg-form-lib';
 import { Modal } from 'sg-modal-lib';
 import { getUserEmail } from '../services/userApi';
 import { formFieldsContact } from '../utils/formFieldsConfig/formFieldsContact';
-import { selectSitter } from '../features/sitterSlice';
+import { I_SitterDocument } from '../models/sitter';
 
 interface I_ContactProps {
   toggleModal: () => void;
   contactModalOpen: boolean;
+  sitter: I_SitterDocument;
 }
 
 interface I_FormValues {
@@ -24,8 +24,8 @@ interface I_FormValues {
 const Contact: React.FC<I_ContactProps> = ({
   toggleModal,
   contactModalOpen,
+  sitter,
 }) => {
-  const sitter = useAppSelector(selectSitter);
   const [isSend, setIsSend] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [btnText, setBtnText] = useState('Annuler');

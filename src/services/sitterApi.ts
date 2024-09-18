@@ -1,5 +1,5 @@
 import { I_ApiResponse } from '../models/api';
-import { I_Sitter, I_SitterDocument } from '../models/Sitter';
+import { I_Sitter, I_SitterDocument } from '../models/sitter';
 import { callApi } from './apiClient';
 
 export const getAllSitters = async (): Promise<

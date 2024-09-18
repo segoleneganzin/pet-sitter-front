@@ -27,9 +27,9 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
   const dispatch = useAppDispatch();
 
   // Get states from the Redux store
-  const user = useAppSelector((state) => selectUser(state));
-  const userStatus = useAppSelector((state) => selectUserStatus(state));
-  const errorUser = useAppSelector((state) => selectUserError(state));
+  const user = useAppSelector(selectUser);
+  const userStatus = useAppSelector(selectUserStatus);
+  const errorUser = useAppSelector(selectUserError);
 
   const [errorMessage, setErrorMessage] = useState('');
   const [logPassword, setLogPassword] = useState<string>('');

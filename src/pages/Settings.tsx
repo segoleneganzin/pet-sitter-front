@@ -37,17 +37,17 @@ const Settings = () => {
     setSettings(settings);
   };
 
+  // to secure access
   useEffect(() => {
     if (user && user.role === 'owner') {
-      if (owner?.id !== user?.profileId) {
+      if (owner?.id !== user.profileId) {
         dispatch(getOwnerAsync(user.profileId));
       }
     }
   }, [dispatch, user, owner]);
-
   useEffect(() => {
     if (user && user.role === 'sitter') {
-      if (sitter?.id !== user?.profileId) {
+      if (sitter?.id !== user.profileId) {
         dispatch(getSitterAsync(user.profileId));
       }
     }

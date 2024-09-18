@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { I_Sitter } from '../models/sitter';
+import { I_SitterDocument } from '../models/sitter';
 import Loader from '../components/Loader';
 import Contact from '../components/Contact';
 import PageLayout from '../layouts/PageLayout';
@@ -8,7 +8,7 @@ import { getSitter } from '../services/sitterApi';
 
 const Sitter = () => {
   const { id } = useParams<{ id: string }>();
-  const [sitter, setSitter] = useState<I_Sitter | null>();
+  const [sitter, setSitter] = useState<I_SitterDocument | null>();
   const [imgSrc, setImgSrc] = useState<string>('');
   const [contactModalOpen, setContactModalOpen] = useState<boolean>(false);
 
@@ -65,6 +65,7 @@ const Sitter = () => {
         <Contact
           toggleModal={toggleContactModal}
           contactModalOpen={contactModalOpen}
+          sitter={sitter}
         />
       )}
     </PageLayout>
