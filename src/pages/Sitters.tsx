@@ -2,8 +2,8 @@ import { useState, useEffect, useMemo } from 'react';
 import SittersFilter from '../layouts/SittersFilter';
 import SittersHero from '../layouts/SittersHero';
 import SittersList from '../layouts/SittersList';
-import { I_Sitter } from '../models/Sitter';
-import { useAppDispatch, useAppSelector } from '../utils/reduxHooks';
+import { I_Sitter } from '../models/sitter';
+import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import {
   clearSitter,
   getAllSittersAsync,

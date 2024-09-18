@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../utils/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 import { Form } from 'sg-form-lib';
-import { formFieldsSignUp } from '../../utils/formFieldsConfig/formFieldsSignUp';
+import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
 import {
   createUserAsync,
   selectUser,
@@ -14,7 +14,7 @@ import { loginAsync } from '../../features/authSlice';
 import Loader from '../../components/Loader';
 import { I_UserCreate } from '../../models/user';
 
-interface SignUpFormProps {
+interface I_SignUpFormProps {
   role: 'sitter' | 'owner'; // Define role prop type
 }
 
@@ -22,7 +22,7 @@ interface I_FormData extends I_UserCreate {
   passwordConfirmation: string;
 }
 
-const SignUpForm = ({ role }: SignUpFormProps) => {
+const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -85,7 +85,7 @@ const SignUpForm = ({ role }: SignUpFormProps) => {
   return (
     <div className='form__container'>
       <Form
-        fieldsConfig={formFieldsSignUp}
+        fieldsConfig={formFieldsProfile}
         onSubmitFunction={handleForm}
         btnText={"M'inscrire"}
         errorMessage={errorMessage || errorUser}

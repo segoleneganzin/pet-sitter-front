@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { I_Sitter } from '../models/Sitter';
+import { I_Sitter } from '../models/sitter';
 
-interface SittersFilterProps {
+interface I_SittersFilterProps {
   setSitters: (element: I_Sitter[]) => void;
   originalSitters: I_Sitter[];
 }
 
-const SittersFilter: React.FC<SittersFilterProps> = ({
+const SittersFilter: React.FC<I_SittersFilterProps> = ({
   setSitters,
   originalSitters,
 }) => {

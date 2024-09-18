@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../utils/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 import { Form } from 'sg-form-lib';
 import { loginAsync, selectAuthError } from '../../features/authSlice';
 import { formFieldsAuth } from '../../utils/formFieldsConfig/formFieldsAuth';

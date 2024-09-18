@@ -1,4 +1,4 @@
-const SittersHero: React.FC = () => {
+const SittersHero = () => {
   return (
     <section>
       <h1>Bonjour</h1>

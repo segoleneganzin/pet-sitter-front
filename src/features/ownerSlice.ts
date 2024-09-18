@@ -55,7 +55,7 @@ export const ownerSlice = createSlice({
   name: 'owner',
   initialState,
   reducers: {
-    resetUpdateStatus: (state) => {
+    resetUpdateOwnerStatus: (state) => {
       state.updateStatus = 'idle';
       state.error = null;
     },
@@ -86,7 +86,7 @@ export const ownerSlice = createSlice({
   },
 });
 
-export const { resetUpdateStatus, clearOwners, clearOwner } =
+export const { resetUpdateOwnerStatus, clearOwners, clearOwner } =
   ownerSlice.actions;
 
 export const {

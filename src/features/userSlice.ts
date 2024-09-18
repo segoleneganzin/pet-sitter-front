@@ -71,7 +71,7 @@ export const userSlice = createSlice({
       state.newUserStatus = 'idle';
       state.error = null;
     },
-    resetUpdateStatus: (state) => {
+    resetUpdateUserStatus: (state) => {
       state.updateStatus = 'idle';
       state.error = null;
     },
@@ -107,7 +107,7 @@ export const userSlice = createSlice({
 
 export const {
   resetNewUserStatus,
-  resetUpdateStatus,
+  resetUpdateUserStatus,
   resetDeleteStatus,
   clearUser,
 } = userSlice.actions;

@@ -2,23 +2,32 @@ import { Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/Landing';
 import Sitters from './pages/Sitters';
 import Sitter from './pages/Sitter';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
 import Owner from './pages/Owner';
+import Settings from './pages/Settings';
+import ProtectedRoute from './layouts/ProtectedRoute';
+import AuthPage from './pages/AuthPage';
 
 const Router = () => {
   return (
     <Routes>
       <Route index element={<LandingPage />} />
       {/* auth routes */}
-      <Route path='/sign-in' element={<SignIn />} />
-      <Route path='/sign-up' element={<SignUp />} />
-
+      <Route path='/sign-in' element={<AuthPage formType='signIn' />} />
+      <Route path='/sign-up' element={<AuthPage formType='signUp' />} />
       {/* sitters routes */}
       <Route path='/sitters' element={<Sitters />} />
       <Route path='/sitter/:id' element={<Sitter />} />
       {/* owner route */}
       <Route path='/owner/:id' element={<Owner />} />
+      {/* administration route */}
+      <Route
+        path='/settings'
+        element={
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+        }
+      />
       {/* NotFound */}
       <Route path='*' element={<LandingPage />} />
     </Routes>

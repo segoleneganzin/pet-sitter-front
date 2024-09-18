@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { handleAsyncActions } from '../utils/slicerFunctions';
 import { getAllSitters, getSitter, updateSitter } from '../services/sitterApi';
-import { I_Sitter } from '../models/Sitter';
+import { I_Sitter, I_SitterDocument } from '../models/sitter';
 
 const GET_ALL_SITTERS = 'user/getAllSitters';
 const GET_SITTER = 'user/getSitter';
@@ -38,8 +38,8 @@ export const updateSitterAsync = createAsyncThunk(
 );
 
 interface I_SitterState {
-  sitters: I_Sitter[];
-  sitter: I_Sitter | null;
+  sitters: I_SitterDocument[];
+  sitter: I_SitterDocument | null;
   status: string;
   error: string | null;
   updateStatus: string;
@@ -61,7 +61,7 @@ export const sitterSlice = createSlice({
   name: 'sitter',
   initialState,
   reducers: {
-    resetUpdateStatus: (state) => {
+    resetUpdateSitterStatus: (state) => {
       state.updateStatus = 'idle';
       state.error = null;
     },
@@ -92,7 +92,7 @@ export const sitterSlice = createSlice({
   },
 });
 
-export const { resetUpdateStatus, clearSitters, clearSitter } =
+export const { resetUpdateSitterStatus, clearSitters, clearSitter } =
   sitterSlice.actions;
 
 export const {

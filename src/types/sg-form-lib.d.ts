@@ -3,11 +3,12 @@ declare module 'sg-form-lib' {
     formId?: string;
     fieldsConfig: object;
     title: string;
+    subtitle?: string | null;
     btnText: string;
     onSubmitFunction: (e) => void;
     errorMessage: string | null;
     fieldNames: string[];
-    fieldValue?: object;
+    fieldValue?: T;
   }
   export const Form: React.FC<FormProps>;
 }

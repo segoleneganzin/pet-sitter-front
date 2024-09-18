@@ -24,4 +24,5 @@ export interface I_UserCreate extends I_User {
 export interface I_UserUpdate {
   email?: string;
   password?: string;
+  passwordConfirmation?: string;
 }

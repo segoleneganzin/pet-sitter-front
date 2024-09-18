@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../utils/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import { getSitterAsync, selectSitter } from '../features/sitterSlice';
-import { I_Sitter } from '../models/Sitter';
+import { I_Sitter } from '../models/sitter';
 import Loader from '../components/Loader';
 import Contact from '../components/Contact';
-import { selectUser } from '../features/userSlice';
 import PageLayout from '../layouts/PageLayout';
 
 const Sitter = () => {
@@ -14,10 +13,7 @@ const Sitter = () => {
   const [sitter, setSitter] = useState<I_Sitter | null>();
   const [imgSrc, setImgSrc] = useState<string>('');
   const [contactModalOpen, setContactModalOpen] = useState<boolean>(false);
-  const [isEditable, setIsEditable] = useState<boolean>(false);
-  console.log(isEditable);
 
-  const user = useAppSelector((state) => selectUser(state));
   const sitterFromStore = useAppSelector((state) => selectSitter(state));
 
   // get the sitter and update sitter redux state
@@ -40,13 +36,6 @@ const Sitter = () => {
       );
     }
   }, [sitter]);
-
-  // if logged in user is on his profile page he can edit it
-  useEffect(() => {
-    if (user && user.profileId === id) {
-      setIsEditable(true);
-    }
-  }, [user, id]);
 
   const toggleContactModal = () => {
     setContactModalOpen((prevState) => !prevState);

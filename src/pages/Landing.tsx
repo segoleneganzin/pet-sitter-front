@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const LandingPage: React.FC = () => {
+const LandingPage = () => {
   return (
     <section>
       <>

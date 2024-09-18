@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { I_Sitter } from '../models/Sitter';
+import { I_SitterDocument } from '../models/sitter';
 
-interface SitterCardProps {
-  sitter: I_Sitter;
+interface I_SitterCardProps {
+  sitter: I_SitterDocument;
 }
-const SitterCard: React.FC<SitterCardProps> = ({ sitter }) => {
+const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
   return (
     <Link to={`/sitter/${sitter.id}`}>
       <article>

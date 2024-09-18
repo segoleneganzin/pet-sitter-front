@@ -1,11 +1,11 @@
 import SitterCard from '../components/SitterCard';
-import { I_Sitter } from '../models/Sitter';
+import { I_Sitter } from '../models/sitter';
 
-interface SittersListProps {
+interface I_SittersListProps {
   sitters: I_Sitter[] | null;
 }
 
-const SittersList: React.FC<SittersListProps> = ({ sitters }) => {
+const SittersList: React.FC<I_SittersListProps> = ({ sitters }) => {
   return (
     <div>
       {sitters &&

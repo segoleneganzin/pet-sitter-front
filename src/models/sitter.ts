@@ -1,5 +1,4 @@
 export interface I_Sitter {
-  id: string;
   profilePicture: string;
   firstName: string;
   lastName: string;

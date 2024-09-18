@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../utils/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import Loader from '../components/Loader';
 import { I_Owner } from '../models/owner';
 import { getOwnerAsync, selectOwner } from '../features/ownerSlice';
-import { selectUser } from '../features/userSlice';
 import PageLayout from '../layouts/PageLayout';
 
 const Owner = () => {
@@ -12,10 +11,6 @@ const Owner = () => {
   const { id } = useParams<{ id: string }>();
   const [owner, setOwner] = useState<I_Owner | null>();
   const [imgSrc, setImgSrc] = useState<string>('');
-  const [isEditable, setIsEditable] = useState<boolean>(false);
-  console.log(isEditable);
-
-  const user = useAppSelector((state) => selectUser(state));
   const ownerFromStore = useAppSelector((state) => selectOwner(state));
 
   // get the owner and update owner redux state
@@ -38,13 +33,6 @@ const Owner = () => {
       );
     }
   }, [owner]);
-
-  // if logged in user is on his profile page he can edit it
-  useEffect(() => {
-    if (user && user.profileId === id) {
-      setIsEditable(true);
-    }
-  }, [user, id]);
 
   if (!owner) {
     return <Loader />;

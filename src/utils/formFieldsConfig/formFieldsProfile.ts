@@ -1,4 +1,4 @@
-export const formFieldsSignUp = {
+export const formFieldsProfile = {
   email: {
     label: 'Email',
     type: 'email',

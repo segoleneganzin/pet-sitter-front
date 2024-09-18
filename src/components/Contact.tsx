@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAppSelector } from '../utils/reduxHooks';
+import { useAppSelector } from '../utils/hooks/reduxHooks';
 import emailjs from '@emailjs/browser';
 import { Form } from 'sg-form-lib';
 import { Modal } from 'sg-modal-lib';
@@ -7,12 +7,12 @@ import { getUserEmail } from '../services/userApi';
 import { formFieldsContact } from '../utils/formFieldsConfig/formFieldsContact';
 import { selectSitter } from '../features/sitterSlice';
 
-interface ContactProps {
+interface I_ContactProps {
   toggleModal: () => void;
   contactModalOpen: boolean;
 }
 
-interface FormValues {
+interface I_FormValues {
   userEmail: string;
   senderFirstname: string;
   senderLastname: string;
@@ -21,12 +21,15 @@ interface FormValues {
   sitterEmail?: string;
 }
 
-const Contact: React.FC<ContactProps> = ({ toggleModal, contactModalOpen }) => {
+const Contact: React.FC<I_ContactProps> = ({
+  toggleModal,
+  contactModalOpen,
+}) => {
   const sitter = useAppSelector((state) => selectSitter(state));
   const [isSend, setIsSend] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [btnText, setBtnText] = useState('Annuler');
-  const [formValues, setFormValues] = useState<FormValues>({
+  const [formValues, setFormValues] = useState<I_FormValues>({
     userEmail: '',
     senderFirstname: '',
     senderLastname: '',
@@ -36,34 +39,21 @@ const Contact: React.FC<ContactProps> = ({ toggleModal, contactModalOpen }) => {
 
   useEffect(() => {
     if (sitter) {
-      getUserEmail(sitter.id)
-        .then((response) => {
-          if (
-            response.body &&
-            typeof response.body === 'object' &&
-            'email' in response.body
-          ) {
-            setFormValues((prevValues) => ({
-              ...prevValues,
-              sitterEmail: (response.body as { email?: string }).email ?? '',
-            }));
-          }
-        })
-        .catch((error) => setErrorMessage(error.message));
+      const fetchSitterEmail = async () => {
+        const response = await getUserEmail(sitter.id);
+        if (response.body && 'email' in response.body) {
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            sitterEmail: response.body.email,
+          }));
+        }
+      };
+      fetchSitterEmail();
     }
   }, [sitter]);
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // not empty the form if errors occured in backend
-    // Object.keys(datas).forEach((key) => {
-    //   if (key !== 'userEmail') {
-    //     setFormValues((prevValues) => ({
-    //       ...prevValues,
-    //       [key]: datas[key],
-    //     }));
-    //   }
-    // });
     emailjs
       .sendForm(
         import.meta.env.VITE_MAIL_JS_SERVICE_ID,
