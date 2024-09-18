@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { handleAsyncActions } from '../utils/slicerFunctions';
 import { getAllOwners, getOwner, updateOwner } from '../services/ownerApi';
-import { I_Owner } from '../models/owner';
+import { I_Owner, I_OwnerDocument } from '../models/owner';
 
 const GET_ALL_OWNERS = 'user/getAllOwners';
 const GET_OWNER = 'user/getOwner';
@@ -32,11 +32,10 @@ export const updateOwnerAsync = createAsyncThunk(
 );
 
 interface I_OwnerState {
-  owners: I_Owner[];
-  owner: I_Owner | null;
+  owners: I_OwnerDocument[];
+  owner: I_OwnerDocument | null;
   status: string;
   error: string | null;
-  updateStatus: string;
 }
 
 const storedOwners = sessionStorage.getItem('owners');
@@ -47,7 +46,6 @@ const initialState: I_OwnerState = {
   owner: storedOwner ? JSON.parse(storedOwner) : null,
   status: 'idle',
   error: null,
-  updateStatus: 'idle',
 };
 
 // Redux slice for user state management
@@ -55,8 +53,8 @@ export const ownerSlice = createSlice({
   name: 'owner',
   initialState,
   reducers: {
-    resetUpdateOwnerStatus: (state) => {
-      state.updateStatus = 'idle';
+    resetOwnerStatus: (state) => {
+      state.status = 'idle';
       state.error = null;
     },
     clearOwners: (state) => {
@@ -73,8 +71,8 @@ export const ownerSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    handleAsyncActions(builder, getAllOwnersAsync, 'owners', 'status');
-    handleAsyncActions(builder, getOwnerAsync, 'owner', 'status');
+    handleAsyncActions(builder, getAllOwnersAsync, 'owners');
+    handleAsyncActions(builder, getOwnerAsync, 'owner');
     handleAsyncActions(builder, updateOwnerAsync, 'owner');
   },
   selectors: {
@@ -82,19 +80,16 @@ export const ownerSlice = createSlice({
     selectOwner: (state) => state.owner,
     selectOwnerStatus: (state) => state.status,
     selectOwnerError: (state) => state.error,
-    selectOwnerUpdateStatus: (state) => state.updateStatus,
   },
 });
 
-export const { resetUpdateOwnerStatus, clearOwners, clearOwner } =
-  ownerSlice.actions;
+export const { resetOwnerStatus, clearOwners, clearOwner } = ownerSlice.actions;
 
 export const {
   selectOwners,
   selectOwner,
   selectOwnerStatus,
   selectOwnerError,
-  selectOwnerUpdateStatus,
 } = ownerSlice.selectors;
 
 export default ownerSlice.reducer;

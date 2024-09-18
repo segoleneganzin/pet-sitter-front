@@ -46,9 +46,8 @@ interface I_UserState {
   user: I_UserDocument | null;
   status: string;
   error: string | null;
-  newUserStatus: string;
-  updateStatus: string;
-  deleteStatus: string;
+  // newUserStatus: string;
+  // deleteStatus: string;
 }
 
 const storedUser = sessionStorage.getItem('user');
@@ -57,9 +56,8 @@ const initialState: I_UserState = {
   user: storedUser ? JSON.parse(storedUser) : null,
   status: 'idle',
   error: null,
-  newUserStatus: 'idle',
-  updateStatus: 'idle',
-  deleteStatus: 'idle',
+  // newUserStatus: 'idle',
+  // deleteStatus: 'idle',
 };
 
 // Redux slice for user state management
@@ -67,48 +65,46 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    resetNewUserStatus: (state) => {
-      state.newUserStatus = 'idle';
+    resetUserStatus: (state) => {
+      state.status = 'idle';
       state.error = null;
     },
-    resetUpdateUserStatus: (state) => {
-      state.updateStatus = 'idle';
-      state.error = null;
-    },
-    resetDeleteStatus: (state) => {
-      state.deleteStatus = 'idle';
-      state.error = null;
-    },
+    // resetNewUserStatus: (state) => {
+    //   state.newUserStatus = 'idle';
+    //   state.error = null;
+    // },
+    // resetDeleteStatus: (state) => {
+    //   state.deleteStatus = 'idle';
+    //   state.error = null;
+    // },
     clearUser: (state) => {
       state.user = null;
       state.status = 'idle';
       state.error = null;
-      state.updateStatus = 'idle';
-      state.newUserStatus = 'idle';
-      state.deleteStatus = 'idle';
+      // state.newUserStatus = 'idle';
+      // state.deleteStatus = 'idle';
       sessionStorage.removeItem('user');
     },
   },
   extraReducers: (builder) => {
-    handleAsyncActions(builder, createUserAsync, 'user', 'newUserStatus');
-    handleAsyncActions(builder, getUserAsync, 'user', 'status');
+    handleAsyncActions(builder, createUserAsync, 'user');
+    handleAsyncActions(builder, getUserAsync, 'user');
     handleAsyncActions(builder, updateUserAsync, 'user');
-    handleAsyncActions(builder, deleteUserAsync, 'user', 'deleteStatus');
+    handleAsyncActions(builder, deleteUserAsync, 'user');
   },
   selectors: {
     selectUser: (state) => state.user,
     selectUserStatus: (state) => state.status,
     selectUserError: (state) => state.error,
-    selectUserUpdateStatus: (state) => state.updateStatus,
-    selectNewUserStatus: (state) => state.newUserStatus,
-    selectDeleteStatus: (state) => state.deleteStatus,
+    // selectNewUserStatus: (state) => state.newUserStatus,
+    // selectDeleteStatus: (state) => state.deleteStatus,
   },
 });
 
 export const {
-  resetNewUserStatus,
-  resetUpdateUserStatus,
-  resetDeleteStatus,
+  resetUserStatus,
+  // resetNewUserStatus,
+  // resetDeleteStatus,
   clearUser,
 } = userSlice.actions;
 
@@ -116,9 +112,8 @@ export const {
   selectUser,
   selectUserStatus,
   selectUserError,
-  selectUserUpdateStatus,
-  selectNewUserStatus,
-  selectDeleteStatus,
+  // selectNewUserStatus,
+  // selectDeleteStatus,
 } = userSlice.selectors;
 
 export default userSlice.reducer;

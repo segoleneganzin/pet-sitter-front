@@ -7,17 +7,25 @@ import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import {
   clearSitter,
   getAllSittersAsync,
+  resetSitterStatus,
   selectSitter,
+  selectSitterError,
   selectSitters,
+  selectSitterStatus,
 } from '../features/sitterSlice';
 import PageLayout from '../layouts/PageLayout';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
 
 const Sitters = () => {
   const dispatch = useAppDispatch();
   const [sitters, setSitters] = useState<I_Sitter[] | null>([]);
 
-  const sitterFromStore = useAppSelector((state) => selectSitter(state));
-  const sittersFromStore = useAppSelector((state) => selectSitters(state));
+  const sitterFromStore = useAppSelector(selectSitter);
+  const sittersFromStore = useAppSelector(selectSitters);
+  const sitterStatus = useAppSelector(selectSitterStatus);
+  const sitterError = useAppSelector(selectSitterError);
+
   // Memoize originalSitters to prevent unnecessary recalculation
   const originalSitters = useMemo(() => sittersFromStore, [sittersFromStore]);
 
@@ -33,10 +41,24 @@ const Sitters = () => {
     }
   }, [dispatch, sittersFromStore]);
 
+  useEffect(() => {
+    if (sitterStatus === 'succeeded') {
+      dispatch(resetSitterStatus());
+    }
+  }, [dispatch, sitterStatus]);
+
   // Update the sitters state whenever originalSitters changes
   useEffect(() => {
     setSitters(originalSitters);
   }, [originalSitters]);
+
+  if (sitterStatus === 'loading') {
+    return <Loader />;
+  }
+
+  if (sitterStatus === 'failed') {
+    return <Error textError={sitterError} />;
+  }
 
   return (
     <PageLayout>

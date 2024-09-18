@@ -2,7 +2,7 @@ import { useAppSelector, useAppDispatch } from '../../utils/hooks/reduxHooks';
 import {
   selectUser,
   selectUserError,
-  selectUserUpdateStatus,
+  selectUserStatus,
   updateUserAsync,
 } from '../../features/userSlice';
 import { Form } from 'sg-form-lib';
@@ -18,9 +18,7 @@ const UpdateLogForm = () => {
   const login = useAppSelector((state) => selectLogin(state));
   const user = useAppSelector((state) => selectUser(state));
   const userError = useAppSelector((state) => selectUserError(state));
-  const userUpdateStatus = useAppSelector((state) =>
-    selectUserUpdateStatus(state)
-  );
+  const userStatus = useAppSelector((state) => selectUserStatus(state));
 
   const [choice, setChoice] = useState<'email' | 'password' | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -48,11 +46,11 @@ const UpdateLogForm = () => {
     }
   };
 
-  if (userUpdateStatus === 'loading') {
+  if (userStatus === 'loading') {
     return <Loader />;
   }
 
-  if (userUpdateStatus === 'succeeded') {
+  if (userStatus === 'succeeded') {
     return (
       <>
         <p>Informations mises à jour</p>

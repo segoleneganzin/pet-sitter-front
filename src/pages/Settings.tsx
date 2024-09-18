@@ -4,16 +4,21 @@ import PageLayout from '../layouts/PageLayout';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import {
-  resetUpdateOwnerStatus,
-  selectOwnerUpdateStatus,
+  getOwnerAsync,
+  resetOwnerStatus,
+  selectOwner,
+  selectOwnerStatus,
 } from '../features/ownerSlice';
 import {
-  resetUpdateSitterStatus,
-  selectSitterUpdateStatus,
+  getSitterAsync,
+  resetSitterStatus,
+  selectSitter,
+  selectSitterStatus,
 } from '../features/sitterSlice';
 import {
-  resetUpdateUserStatus,
-  selectUserUpdateStatus,
+  resetUserStatus,
+  selectUser,
+  selectUserStatus,
 } from '../features/userSlice';
 
 const Settings = () => {
@@ -21,36 +26,49 @@ const Settings = () => {
 
   const [settings, setSettings] = useState<'auth' | 'profile' | null>(null);
 
-  const ownerUpdateStatus = useAppSelector((state) =>
-    selectOwnerUpdateStatus(state)
-  );
-  const sitterUpdateStatus = useAppSelector((state) =>
-    selectSitterUpdateStatus(state)
-  );
-  const userUpdateStatus = useAppSelector((state) =>
-    selectUserUpdateStatus(state)
-  );
+  const user = useAppSelector(selectUser);
+  const userStatus = useAppSelector(selectUserStatus);
+  const owner = useAppSelector(selectOwner);
+  const ownerStatus = useAppSelector(selectOwnerStatus);
+  const sitter = useAppSelector(selectSitter);
+  const sitterStatus = useAppSelector(selectSitterStatus);
 
   const handleSettingsChange = (settings: 'auth' | 'profile') => {
     setSettings(settings);
   };
 
   useEffect(() => {
+    if (user && user.role === 'owner') {
+      if (owner?.id !== user?.profileId) {
+        dispatch(getOwnerAsync(user.profileId));
+      }
+    }
+  }, [dispatch, user, owner]);
+
+  useEffect(() => {
+    if (user && user.role === 'sitter') {
+      if (sitter?.id !== user?.profileId) {
+        dispatch(getSitterAsync(user.profileId));
+      }
+    }
+  }, [dispatch, user, sitter]);
+
+  useEffect(() => {
     if (
-      ownerUpdateStatus === 'succeeded' ||
-      sitterUpdateStatus === 'succeeded' ||
-      userUpdateStatus === 'succeeded'
+      ownerStatus === 'succeeded' ||
+      sitterStatus === 'succeeded' ||
+      userStatus === 'succeeded'
     ) {
       const timeoutId = setTimeout(() => {
-        dispatch(resetUpdateUserStatus());
-        dispatch(resetUpdateSitterStatus());
-        dispatch(resetUpdateOwnerStatus());
+        dispatch(resetUserStatus());
+        dispatch(resetSitterStatus());
+        dispatch(resetOwnerStatus());
         setSettings(null);
       }, 2000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [dispatch, ownerUpdateStatus, sitterUpdateStatus, userUpdateStatus]);
+  }, [dispatch, ownerStatus, sitterStatus, userStatus]);
 
   const renderForm = () => {
     if (settings === 'profile') {

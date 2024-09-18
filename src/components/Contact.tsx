@@ -25,7 +25,7 @@ const Contact: React.FC<I_ContactProps> = ({
   toggleModal,
   contactModalOpen,
 }) => {
-  const sitter = useAppSelector((state) => selectSitter(state));
+  const sitter = useAppSelector(selectSitter);
   const [isSend, setIsSend] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [btnText, setBtnText] = useState('Annuler');

@@ -8,7 +8,7 @@ interface I_ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<I_ProtectedRouteProps> = ({ children }) => {
   // Get the login state from the Redux store
-  const login = useAppSelector((state) => selectLogin(state));
+  const login = useAppSelector(selectLogin);
 
   if (!login) {
     return <Navigate to='/' replace />; // prevents page from being added to history

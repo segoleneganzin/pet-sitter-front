@@ -1,28 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
-import Loader from '../components/Loader';
 import { I_Owner } from '../models/owner';
-import { getOwnerAsync, selectOwner } from '../features/ownerSlice';
+import Loader from '../components/Loader';
 import PageLayout from '../layouts/PageLayout';
+import { getOwner } from '../services/ownerApi';
 
 const Owner = () => {
-  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
   const [owner, setOwner] = useState<I_Owner | null>();
   const [imgSrc, setImgSrc] = useState<string>('');
-  const ownerFromStore = useAppSelector((state) => selectOwner(state));
 
   // get the owner and update owner redux state
   useEffect(() => {
-    if (id) {
-      dispatch(getOwnerAsync(id));
+    if (id && !owner) {
+      getOwner(id).then((response) => {
+        setOwner(response.body);
+      });
     }
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    setOwner(ownerFromStore);
-  }, [ownerFromStore]);
+  }, [id, owner]);
 
   useEffect(() => {
     if (owner) {

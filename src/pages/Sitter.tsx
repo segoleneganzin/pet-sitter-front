@@ -1,31 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
-import { getSitterAsync, selectSitter } from '../features/sitterSlice';
 import { I_Sitter } from '../models/sitter';
 import Loader from '../components/Loader';
 import Contact from '../components/Contact';
 import PageLayout from '../layouts/PageLayout';
+import { getSitter } from '../services/sitterApi';
 
 const Sitter = () => {
-  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
   const [sitter, setSitter] = useState<I_Sitter | null>();
   const [imgSrc, setImgSrc] = useState<string>('');
   const [contactModalOpen, setContactModalOpen] = useState<boolean>(false);
 
-  const sitterFromStore = useAppSelector((state) => selectSitter(state));
-
   // get the sitter and update sitter redux state
   useEffect(() => {
-    if (id && !sitterFromStore) {
-      dispatch(getSitterAsync(id));
+    if (id && !sitter) {
+      getSitter(id).then((response) => {
+        setSitter(response.body);
+      });
     }
-  }, [dispatch, id, sitterFromStore]);
-
-  useEffect(() => {
-    setSitter(sitterFromStore);
-  }, [sitterFromStore]);
+  }, [id, sitter]);
 
   useEffect(() => {
     if (sitter) {
@@ -47,7 +41,7 @@ const Sitter = () => {
 
   return (
     <PageLayout>
-      <div>
+      <>
         <img
           src={imgSrc}
           alt={`Photo de profil de ${sitter.firstName} ${sitter.lastName}`}
@@ -66,7 +60,7 @@ const Sitter = () => {
         <h2>Disponibilités</h2>
         <p>google calendar ?</p>
         <button onClick={toggleContactModal}>Contactez-moi</button>
-      </div>
+      </>
       {contactModalOpen && (
         <Contact
           toggleModal={toggleContactModal}

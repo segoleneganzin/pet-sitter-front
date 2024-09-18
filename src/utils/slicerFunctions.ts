@@ -7,7 +7,7 @@ export const handleAsyncActions = (
   builder: any,
   thunk: any,
   slicer: string,
-  statusKey = 'updateStatus'
+  statusKey = 'status'
 ) => {
   builder
     .addCase(thunk.pending, (state: any) => {
@@ -20,11 +20,13 @@ export const handleAsyncActions = (
         state[statusKey] = 'succeeded';
         state[slicer] = action.payload.body || action.payload.file;
         state.error = null;
-        if (slicer === 'login') {
-          sessionStorage.setItem('login', JSON.stringify(action.payload.body));
-        }
-        if (slicer === 'user') {
-          sessionStorage.setItem('user', JSON.stringify(action.payload.body));
+        if (
+          slicer === 'login' ||
+          slicer === 'user' ||
+          slicer === 'sitter' ||
+          slicer === 'owner'
+        ) {
+          sessionStorage.setItem(slicer, JSON.stringify(action.payload.body));
         }
       }
     )

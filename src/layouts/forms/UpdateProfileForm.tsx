@@ -3,13 +3,13 @@ import { selectUser } from '../../features/userSlice';
 import {
   selectSitter,
   selectSitterError,
-  selectSitterUpdateStatus,
+  selectSitterStatus,
   updateSitterAsync,
 } from '../../features/sitterSlice';
 import {
   selectOwner,
   selectOwnerError,
-  selectOwnerUpdateStatus,
+  selectOwnerStatus,
   updateOwnerAsync,
 } from '../../features/ownerSlice';
 import { Form } from 'sg-form-lib';
@@ -22,48 +22,47 @@ import Loader from '../../components/Loader';
 
 const UpdateProfileForm = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => selectUser(state));
-  const login = useAppSelector((state) => selectLogin(state));
+  const user = useAppSelector(selectUser);
+  const login = useAppSelector(selectLogin);
 
-  const sitter = useAppSelector((state) => selectSitter(state));
-  const sitterError = useAppSelector((state) => selectSitterError(state));
-  const sitterUpdateStatus = useAppSelector((state) =>
-    selectSitterUpdateStatus(state)
-  );
+  const sitter = useAppSelector(selectSitter);
+  const sitterError = useAppSelector(selectSitterError);
+  const sitterStatus = useAppSelector(selectSitterStatus);
 
-  const owner = useAppSelector((state) => selectOwner(state));
-  const ownerError = useAppSelector((state) => selectOwnerError(state));
-  const ownerUpdateStatus = useAppSelector((state) =>
-    selectOwnerUpdateStatus(state)
-  );
+  const owner = useAppSelector(selectOwner);
+  const ownerError = useAppSelector(selectOwnerError);
+  const ownerStatus = useAppSelector(selectOwnerStatus);
 
   const [errorMessage, setErrorMessage] = useState('');
   const [formValues, setFormValues] = useState<I_Owner | I_Sitter | null>(null);
+
   useEffect(() => {
-    if (user) {
-      if (user.role === 'owner' && owner) {
-        setFormValues({
-          profilePicture: owner.profilePicture,
-          firstName: owner.firstName,
-          lastName: owner.lastName,
-          city: owner.city,
-          country: owner.country,
-          pets: owner.pets,
-        });
-      } else if (user.role === 'sitter' && sitter) {
-        setFormValues({
-          profilePicture: sitter.profilePicture,
-          firstName: sitter.firstName,
-          lastName: sitter.lastName,
-          city: sitter.city,
-          country: sitter.country,
-          tel: sitter.tel,
-          presentation: sitter.presentation,
-          acceptedPets: sitter.acceptedPets,
-        });
-      }
+    if (user && owner && owner.id === user.profileId) {
+      setFormValues({
+        profilePicture: owner.profilePicture,
+        firstName: owner.firstName,
+        lastName: owner.lastName,
+        city: owner.city,
+        country: owner.country,
+        pets: owner.pets,
+      });
     }
-  }, [user, owner, sitter]);
+  }, [owner, user]);
+
+  useEffect(() => {
+    if (user && sitter && sitter.id === user.profileId) {
+      setFormValues({
+        profilePicture: sitter.profilePicture,
+        firstName: sitter.firstName,
+        lastName: sitter.lastName,
+        city: sitter.city,
+        country: sitter.country,
+        tel: sitter.tel,
+        presentation: sitter.presentation,
+        acceptedPets: sitter.acceptedPets,
+      });
+    }
+  }, [sitter, user]);
 
   const handleForm = async (datas: Partial<I_Sitter | I_Owner>) => {
     try {
@@ -97,11 +96,11 @@ const UpdateProfileForm = () => {
     }
   };
 
-  if (ownerUpdateStatus === 'loading' || sitterUpdateStatus === 'loading') {
+  if (ownerStatus === 'loading' || sitterStatus === 'loading') {
     return <Loader />;
   }
 
-  if (ownerUpdateStatus === 'succeeded' || sitterUpdateStatus === 'succeeded') {
+  if (ownerStatus === 'succeeded' || sitterStatus === 'succeeded') {
     return (
       <>
         <p>Informations mises à jour</p>

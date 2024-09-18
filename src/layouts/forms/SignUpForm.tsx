@@ -7,8 +7,8 @@ import {
   createUserAsync,
   selectUser,
   selectUserError,
-  selectNewUserStatus,
-  resetNewUserStatus,
+  resetUserStatus,
+  selectUserStatus,
 } from '../../features/userSlice';
 import { loginAsync } from '../../features/authSlice';
 import Loader from '../../components/Loader';
@@ -28,7 +28,7 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
 
   // Get states from the Redux store
   const user = useAppSelector((state) => selectUser(state));
-  const newUserStatus = useAppSelector((state) => selectNewUserStatus(state));
+  const userStatus = useAppSelector((state) => selectUserStatus(state));
   const errorUser = useAppSelector((state) => selectUserError(state));
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -67,18 +67,17 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
   };
 
   useEffect(() => {
-    if (newUserStatus === 'succeeded' && user) {
+    if (userStatus === 'succeeded' && user) {
       const loginDatas = {
         email: user.email,
         password: logPassword,
       };
-      dispatch(resetNewUserStatus());
+      dispatch(resetUserStatus());
       dispatch(loginAsync(loginDatas));
-      // navigate(`/admin/${user.profileId}`);
     }
-  }, [newUserStatus, user, logPassword, dispatch, navigate]);
+  }, [userStatus, user, logPassword, dispatch, navigate]);
 
-  if (newUserStatus === 'succeeded') {
+  if (userStatus === 'succeeded') {
     return <Loader />;
   }
 

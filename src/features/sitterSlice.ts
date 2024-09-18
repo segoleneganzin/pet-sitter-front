@@ -42,7 +42,6 @@ interface I_SitterState {
   sitter: I_SitterDocument | null;
   status: string;
   error: string | null;
-  updateStatus: string;
 }
 
 const storedSitters = sessionStorage.getItem('sitters');
@@ -53,7 +52,6 @@ const initialState: I_SitterState = {
   sitter: storedSitter ? JSON.parse(storedSitter) : null,
   status: 'idle',
   error: null,
-  updateStatus: 'idle',
 };
 
 // Redux slice for user state management
@@ -61,8 +59,8 @@ export const sitterSlice = createSlice({
   name: 'sitter',
   initialState,
   reducers: {
-    resetUpdateSitterStatus: (state) => {
-      state.updateStatus = 'idle';
+    resetSitterStatus: (state) => {
+      state.status = 'idle';
       state.error = null;
     },
     clearSitters: (state) => {
@@ -79,8 +77,8 @@ export const sitterSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    handleAsyncActions(builder, getAllSittersAsync, 'sitters', 'status');
-    handleAsyncActions(builder, getSitterAsync, 'sitter', 'status');
+    handleAsyncActions(builder, getAllSittersAsync, 'sitters');
+    handleAsyncActions(builder, getSitterAsync, 'sitter');
     handleAsyncActions(builder, updateSitterAsync, 'sitter');
   },
   selectors: {
@@ -88,11 +86,10 @@ export const sitterSlice = createSlice({
     selectSitter: (state) => state.sitter,
     selectSitterStatus: (state) => state.status,
     selectSitterError: (state) => state.error,
-    selectSitterUpdateStatus: (state) => state.updateStatus,
   },
 });
 
-export const { resetUpdateSitterStatus, clearSitters, clearSitter } =
+export const { resetSitterStatus, clearSitters, clearSitter } =
   sitterSlice.actions;
 
 export const {
@@ -100,7 +97,6 @@ export const {
   selectSitter,
   selectSitterStatus,
   selectSitterError,
-  selectSitterUpdateStatus,
 } = sitterSlice.selectors;
 
 export default sitterSlice.reducer;

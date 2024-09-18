@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import { logout, selectLogin } from '../features/authSlice';
 import { clearUser, selectUser } from '../features/userSlice';
+import { clearSitter } from '../features/sitterSlice';
+import { clearOwner } from '../features/ownerSlice';
 
 const AppNavigation = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => selectUser(state));
-  const login = useAppSelector((state) => selectLogin(state));
+  const user = useAppSelector(selectUser);
+  const login = useAppSelector(selectLogin);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
@@ -18,6 +20,8 @@ const AppNavigation = () => {
   const logoutUser = () => {
     dispatch(logout());
     dispatch(clearUser());
+    dispatch(clearSitter());
+    dispatch(clearOwner());
     navigate('/');
   };
 

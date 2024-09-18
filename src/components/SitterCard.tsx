@@ -4,6 +4,7 @@ import { I_SitterDocument } from '../models/sitter';
 interface I_SitterCardProps {
   sitter: I_SitterDocument;
 }
+
 const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
   return (
     <Link to={`/sitter/${sitter.id}`}>

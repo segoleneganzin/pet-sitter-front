@@ -54,12 +54,6 @@ const SignInForm = () => {
     }
   }, [login, dispatch]);
 
-  // useEffect(() => {
-  //   if (login && user && userStatus === 'succeeded') {
-  //     navigate(`/admin/${user.profileId}`);
-  //   }
-  // }, [userStatus, navigate, user, login]);
-
   if (userStatus === 'succeeded') {
     return <Loader />;
   }
