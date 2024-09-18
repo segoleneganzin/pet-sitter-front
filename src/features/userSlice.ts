@@ -46,8 +46,6 @@ interface I_UserState {
   user: I_UserDocument | null;
   status: string;
   error: string | null;
-  // newUserStatus: string;
-  // deleteStatus: string;
 }
 
 const storedUser = sessionStorage.getItem('user');
@@ -56,8 +54,6 @@ const initialState: I_UserState = {
   user: storedUser ? JSON.parse(storedUser) : null,
   status: 'idle',
   error: null,
-  // newUserStatus: 'idle',
-  // deleteStatus: 'idle',
 };
 
 // Redux slice for user state management
@@ -69,20 +65,10 @@ export const userSlice = createSlice({
       state.status = 'idle';
       state.error = null;
     },
-    // resetNewUserStatus: (state) => {
-    //   state.newUserStatus = 'idle';
-    //   state.error = null;
-    // },
-    // resetDeleteStatus: (state) => {
-    //   state.deleteStatus = 'idle';
-    //   state.error = null;
-    // },
     clearUser: (state) => {
       state.user = null;
       state.status = 'idle';
       state.error = null;
-      // state.newUserStatus = 'idle';
-      // state.deleteStatus = 'idle';
       sessionStorage.removeItem('user');
     },
   },
@@ -96,8 +82,6 @@ export const userSlice = createSlice({
     selectUser: (state) => state.user,
     selectUserStatus: (state) => state.status,
     selectUserError: (state) => state.error,
-    // selectNewUserStatus: (state) => state.newUserStatus,
-    // selectDeleteStatus: (state) => state.deleteStatus,
   },
 });
 

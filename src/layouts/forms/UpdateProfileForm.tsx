@@ -20,7 +20,13 @@ import { useEffect, useState } from 'react';
 import { selectLogin } from '../../features/authSlice';
 import Loader from '../../components/Loader';
 
-const UpdateProfileForm = () => {
+interface I_UpdateProfileFormProps {
+  setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
+}
+
+const UpdateProfileForm: React.FC<I_UpdateProfileFormProps> = ({
+  setSettings,
+}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const login = useAppSelector(selectLogin);
@@ -140,6 +146,9 @@ const UpdateProfileForm = () => {
         }
         fieldValue={formValues}
       />
+      <button className='btn btn-cancel' onClick={() => setSettings(null)}>
+        Annuler
+      </button>
     </div>
   );
 };

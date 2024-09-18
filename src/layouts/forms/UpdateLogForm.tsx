@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../utils/hooks/reduxHooks';
 import {
   selectUser,
@@ -7,12 +8,15 @@ import {
 } from '../../features/userSlice';
 import { Form } from 'sg-form-lib';
 import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
-import { useState } from 'react';
 import { selectLogin } from '../../features/authSlice';
 import Loader from '../../components/Loader';
 import { I_UserUpdate } from '../../models/user';
 
-const UpdateLogForm = () => {
+interface I_UpdateLogFormProps {
+  setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
+}
+
+const UpdateLogForm: React.FC<I_UpdateLogFormProps> = ({ setSettings }) => {
   const dispatch = useAppDispatch();
 
   const login = useAppSelector(selectLogin);
@@ -22,6 +26,7 @@ const UpdateLogForm = () => {
 
   const [choice, setChoice] = useState<'email' | 'password' | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
+
   const handleUpdate = async (formDatas: Partial<I_UserUpdate>) => {
     try {
       if (login && user) {
@@ -94,6 +99,9 @@ const UpdateLogForm = () => {
           />
         </div>
       )}
+      <button className='btn btn-cancel' onClick={() => setSettings(null)}>
+        Annuler
+      </button>
     </>
   );
 };

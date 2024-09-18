@@ -20,11 +20,14 @@ import {
   selectUser,
   selectUserStatus,
 } from '../features/userSlice';
+import DeleteAccountForm from '../layouts/forms/DeleteAccountForm';
 
 const Settings = () => {
   const dispatch = useAppDispatch();
 
-  const [settings, setSettings] = useState<'auth' | 'profile' | null>(null);
+  const [settings, setSettings] = useState<
+    'auth' | 'profile' | 'deleteAccount' | null
+  >(null);
 
   const user = useAppSelector(selectUser);
   const userStatus = useAppSelector(selectUserStatus);
@@ -33,7 +36,9 @@ const Settings = () => {
   const sitter = useAppSelector(selectSitter);
   const sitterStatus = useAppSelector(selectSitterStatus);
 
-  const handleSettingsChange = (settings: 'auth' | 'profile') => {
+  const handleSettingsChange = (
+    settings: 'auth' | 'profile' | 'deleteAccount'
+  ) => {
     setSettings(settings);
   };
 
@@ -55,9 +60,10 @@ const Settings = () => {
 
   useEffect(() => {
     if (
-      ownerStatus === 'succeeded' ||
-      sitterStatus === 'succeeded' ||
-      userStatus === 'succeeded'
+      (ownerStatus === 'succeeded' ||
+        sitterStatus === 'succeeded' ||
+        userStatus === 'succeeded') &&
+      settings !== 'deleteAccount'
     ) {
       const timeoutId = setTimeout(() => {
         dispatch(resetUserStatus());
@@ -68,16 +74,18 @@ const Settings = () => {
 
       return () => clearTimeout(timeoutId);
     }
-  }, [dispatch, ownerStatus, sitterStatus, userStatus]);
+  }, [dispatch, ownerStatus, sitterStatus, userStatus, settings]);
 
   const renderForm = () => {
     if (settings === 'profile') {
-      return <UpdateProfileForm />;
+      return <UpdateProfileForm setSettings={setSettings} />;
     } else if (settings === 'auth') {
-      return <UpdateLogForm />;
+      return <UpdateLogForm setSettings={setSettings} />;
+    } else if (settings === 'deleteAccount') {
+      return <DeleteAccountForm setSettings={setSettings} />;
     }
   };
-
+  // TODO css to active button or hide active button ?
   return (
     <PageLayout>
       {settings !== 'auth' && (
@@ -88,6 +96,11 @@ const Settings = () => {
       {settings !== 'profile' && (
         <button onClick={() => handleSettingsChange('profile')}>
           Modifier mon profil
+        </button>
+      )}
+      {settings !== 'deleteAccount' && (
+        <button onClick={() => handleSettingsChange('deleteAccount')}>
+          Supprimer mon compte
         </button>
       )}
       {renderForm()}
