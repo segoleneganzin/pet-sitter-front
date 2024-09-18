@@ -44,7 +44,7 @@ const storedOwner = sessionStorage.getItem('owner');
 
 const initialState: I_OwnerState = {
   owners: storedOwners ? JSON.parse(storedOwners) : [],
-  owner: storedOwner ? JSON.parse(storedOwner) : {},
+  owner: storedOwner ? JSON.parse(storedOwner) : null,
   status: 'idle',
   error: null,
   updateStatus: 'idle',
@@ -61,18 +61,14 @@ export const ownerSlice = createSlice({
     },
     clearOwners: (state) => {
       state.owners = [];
-      state.owner = null;
       state.status = 'idle';
       state.error = null;
-      state.updateStatus = 'idle';
       sessionStorage.removeItem('owners');
-      sessionStorage.removeItem('owner');
     },
     clearOwner: (state) => {
       state.owner = null;
       state.status = 'idle';
       state.error = null;
-      state.updateStatus = 'idle';
       sessionStorage.removeItem('owner');
     },
   },

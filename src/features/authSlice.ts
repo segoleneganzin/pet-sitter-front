@@ -14,15 +14,15 @@ export const loginAsync = createAsyncThunk(
 );
 
 interface I_AuthState {
-  token: string | null;
+  login: { token: string } | null;
   status: string;
   error: string | null;
 }
 
-const storedToken = sessionStorage.getItem('token');
+const storedLogin = sessionStorage.getItem('login');
 
 const initialState: I_AuthState = {
-  token: storedToken ? JSON.parse(storedToken) : null,
+  login: storedLogin ? JSON.parse(storedLogin) : null,
   status: 'idle',
   error: null,
 };
@@ -32,25 +32,24 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.token = null;
+      state.login = null;
       state.status = 'idle';
       state.error = null;
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('user');
+      sessionStorage.removeItem('login');
     },
   },
   extraReducers: (builder) => {
-    handleAsyncActions(builder, loginAsync, 'token', 'status');
+    handleAsyncActions(builder, loginAsync, 'login', 'status');
   },
   selectors: {
-    selectToken: (state) => state.token,
+    selectLogin: (state) => state.login,
     selectAuthStatus: (state) => state.status,
     selectAuthError: (state) => state.error,
   },
 });
 
 export const { logout } = authSlice.actions;
-export const { selectToken, selectAuthStatus, selectAuthError } =
+export const { selectLogin, selectAuthStatus, selectAuthError } =
   authSlice.selectors;
 
 export default authSlice.reducer;

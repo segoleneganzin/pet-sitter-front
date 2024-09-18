@@ -4,20 +4,34 @@ import SittersHero from '../layouts/SittersHero';
 import SittersList from '../layouts/SittersList';
 import { I_Sitter } from '../models/Sitter';
 import { useAppDispatch, useAppSelector } from '../utils/reduxHooks';
-import { getAllSittersAsync, selectSitters } from '../features/sitterSlice';
+import {
+  clearSitter,
+  getAllSittersAsync,
+  selectSitter,
+  selectSitters,
+} from '../features/sitterSlice';
+import PageLayout from '../layouts/PageLayout';
 
 const Sitters = () => {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getAllSittersAsync());
-  }, [dispatch]);
+  const [sitters, setSitters] = useState<I_Sitter[] | null>([]);
 
+  const sitterFromStore = useAppSelector((state) => selectSitter(state));
   const sittersFromStore = useAppSelector((state) => selectSitters(state));
-
   // Memoize originalSitters to prevent unnecessary recalculation
   const originalSitters = useMemo(() => sittersFromStore, [sittersFromStore]);
 
-  const [sitters, setSitters] = useState<I_Sitter[] | null>([]);
+  useEffect(() => {
+    if (sitterFromStore) {
+      dispatch(clearSitter());
+    }
+  }, [dispatch, sitterFromStore]);
+
+  useEffect(() => {
+    if (sittersFromStore.length === 0) {
+      dispatch(getAllSittersAsync());
+    }
+  }, [dispatch, sittersFromStore]);
 
   // Update the sitters state whenever originalSitters changes
   useEffect(() => {
@@ -25,14 +39,14 @@ const Sitters = () => {
   }, [originalSitters]);
 
   return (
-    <>
+    <PageLayout>
       <SittersHero />
       <SittersFilter
         setSitters={setSitters}
         originalSitters={sittersFromStore}
       />
       <SittersList sitters={sitters} />
-    </>
+    </PageLayout>
   );
 };
 

@@ -4,7 +4,7 @@ import Sitters from './pages/Sitters';
 import Sitter from './pages/Sitter';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import Admin from './pages/Admin';
+import Owner from './pages/Owner';
 
 const Router = () => {
   return (
@@ -13,11 +13,12 @@ const Router = () => {
       {/* auth routes */}
       <Route path='/sign-in' element={<SignIn />} />
       <Route path='/sign-up' element={<SignUp />} />
-      {/* user routes */}
-      <Route path='/admin/:id' element={<Admin />} />
+
       {/* sitters routes */}
       <Route path='/sitters' element={<Sitters />} />
       <Route path='/sitter/:id' element={<Sitter />} />
+      {/* owner route */}
+      <Route path='/owner/:id' element={<Owner />} />
       {/* NotFound */}
       <Route path='*' element={<LandingPage />} />
     </Routes>

@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../utils/reduxHooks';
 import { Form } from 'sg-form-lib';
 import { loginAsync, selectAuthError } from '../../features/authSlice';
 import { formFieldsAuth } from '../../utils/formFieldsConfig/formFieldsAuth';
-import { selectToken } from '../../features/authSlice';
-import {
-  selectUser,
-  selectUserStatus,
-  getUserAsync,
-} from '../../features/userSlice';
+import { selectLogin } from '../../features/authSlice';
+import { selectUserStatus, getUserAsync } from '../../features/userSlice';
+import Loader from '../../components/Loader';
 
 interface I_FormData {
   email: string;
@@ -18,33 +14,20 @@ interface I_FormData {
 }
 
 const SignInForm = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   // Get states from the Redux store
   const userStatus = useAppSelector((state) => selectUserStatus(state));
   const error = useAppSelector((state) => selectAuthError(state));
-  const token = useAppSelector((state) => selectToken(state));
-  const user = useAppSelector((state) => selectUser(state));
+  const login = useAppSelector((state) => selectLogin(state));
+  // const user = useAppSelector((state) => selectUser(state));
 
   const [formValues, setFormValues] = useState({
     email: localStorage.getItem('userEmail') || '',
     password: '',
     rememberMe: '',
   });
-
-  useEffect(() => {
-    if (token) {
-      dispatch(getUserAsync(token));
-    }
-  }, [token, dispatch]);
-
-  useEffect(() => {
-    if (token && userStatus === 'succeeded') {
-      // navigate(`/admin/${user.profileId}`);
-      console.log('successfull logged in');
-    }
-  }, [userStatus, navigate, user, token]);
 
   const handleForm = async (formDatas: I_FormData) => {
     try {
@@ -64,6 +47,22 @@ const SignInForm = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (login) {
+      dispatch(getUserAsync(login.token));
+    }
+  }, [login, dispatch]);
+
+  // useEffect(() => {
+  //   if (login && user && userStatus === 'succeeded') {
+  //     navigate(`/admin/${user.profileId}`);
+  //   }
+  // }, [userStatus, navigate, user, login]);
+
+  if (userStatus === 'succeeded') {
+    return <Loader />;
+  }
 
   return (
     <div className='form__container'>

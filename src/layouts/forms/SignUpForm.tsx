@@ -74,7 +74,7 @@ const SignUpForm = ({ role }: SignUpFormProps) => {
       };
       dispatch(resetNewUserStatus());
       dispatch(loginAsync(loginDatas));
-      navigate(`/admin/${user.profileId}`);
+      // navigate(`/admin/${user.profileId}`);
     }
   }, [newUserStatus, user, logPassword, dispatch, navigate]);
 

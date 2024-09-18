@@ -1,19 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { CallApiParams, I_ApiResponse } from '../models/api';
 
 // Create an Axios instance with a base URL for the API
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
-
-interface CallApiParams {
-  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  url: string;
-  data?: object; // Optional data to send with the request
-  token?: string; // Optional authentication token
-  headers?: Record<string, string>; // Optional additional headers
-}
-
-type ApiResponse<T> = Promise<T>;
 
 /**
  * Function to make an API call using Axios.
@@ -26,7 +17,7 @@ export const callApi = async <T>({
   data = {},
   token,
   headers = {},
-}: CallApiParams): ApiResponse<T> => {
+}: CallApiParams): Promise<I_ApiResponse<T>> => {
   try {
     // Add Authorization header if token is provided
     if (token) {
@@ -42,7 +33,7 @@ export const callApi = async <T>({
     };
 
     // Make the API call
-    const response: AxiosResponse<T> = await apiClient(config);
+    const response: AxiosResponse<I_ApiResponse<T>> = await apiClient(config);
     console.log('API response:', response);
     return response.data;
   } catch (error) {

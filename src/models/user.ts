@@ -10,7 +10,7 @@ export interface I_UserDocument extends I_User {
 }
 
 export interface I_UserCreate extends I_User {
-  profilePicture: string;
+  profilePicture: FileList;
   firstName: string;
   lastName: string;
   city: string;

@@ -1,4 +1,5 @@
-import { I_Auth } from '../models/auth';
+import { I_ApiResponse } from '../models/api';
+import { I_Auth, I_Login } from '../models/auth';
 import { callApi } from './apiClient';
 
 /**
@@ -7,9 +8,10 @@ import { callApi } from './apiClient';
  * @returns {Promise<object>} - Promise resolving to the API response data, return a jwt token.
  * @throws {Error} - Throws an error if email or password is missing or if login fails.
  */
-export const login = async (loginDatas: I_Auth): Promise<object> => {
+export const login = async (
+  loginDatas: I_Auth
+): Promise<I_ApiResponse<I_Login>> => {
   try {
-    console.log(loginDatas);
     if (!loginDatas.email || !loginDatas.password) {
       throw new Error('Email and password are required');
     }

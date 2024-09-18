@@ -67,18 +67,14 @@ export const sitterSlice = createSlice({
     },
     clearSitters: (state) => {
       state.sitters = [];
-      state.sitter = null;
       state.status = 'idle';
       state.error = null;
-      state.updateStatus = 'idle';
       sessionStorage.removeItem('sitters');
-      sessionStorage.removeItem('sitter');
     },
     clearSitter: (state) => {
       state.sitter = null;
       state.status = 'idle';
       state.error = null;
-      state.updateStatus = 'idle';
       sessionStorage.removeItem('sitter');
     },
   },

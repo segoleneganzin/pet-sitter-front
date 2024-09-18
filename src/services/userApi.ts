@@ -1,11 +1,6 @@
+import { I_ApiResponse } from '../models/api';
 import { I_UserUpdate, I_UserCreate, I_UserDocument } from '../models/user';
 import { callApi } from './apiClient';
-
-interface I_ApiResponse {
-  status: number;
-  error?: string;
-  body?: I_UserDocument | { email: string };
-}
 
 /**
  * Asynchronous function to create a new user.
@@ -15,12 +10,25 @@ interface I_ApiResponse {
  */
 export const createUser = async (
   datas: I_UserCreate
-): Promise<I_ApiResponse> => {
+): Promise<I_ApiResponse<I_UserDocument>> => {
   try {
+    const formData = new FormData();
+    for (const key in datas) {
+      const value = datas[key as keyof typeof datas];
+      if (key !== 'profilePicture') {
+        formData.append(key, value as string);
+      }
+    }
+    if (datas.profilePicture && datas.profilePicture.length > 0) {
+      formData.append('profilePicture', datas.profilePicture[0]);
+    }
     return await callApi({
       method: 'POST',
       url: '/users',
-      data: datas,
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
   } catch (error) {
     throw new Error(
@@ -35,7 +43,9 @@ export const createUser = async (
  * @returns {Promise<I_ApiResponse>} - Promise representing the API call.
  * @throws {Error} - Throws an error if token is missing.
  */
-export const getUser = async (token: string): Promise<I_ApiResponse> => {
+export const getUser = async (
+  token: string
+): Promise<I_ApiResponse<I_UserDocument>> => {
   try {
     if (!token) {
       throw new Error('Token is required');
@@ -64,7 +74,7 @@ export const updateUser = async ({
 }: {
   datas: I_UserUpdate;
   token: string;
-}): Promise<I_ApiResponse> => {
+}): Promise<I_ApiResponse<I_UserDocument>> => {
   try {
     if (!token) {
       throw new Error('Token is required');
@@ -88,7 +98,9 @@ export const updateUser = async ({
  * @returns {Promise<void>}
  * @throws {Error} - Throws an error if token or data is missing.
  */
-export const deleteUser = async (token: string): Promise<void> => {
+export const deleteUser = async (
+  token: string
+): Promise<I_ApiResponse<void>> => {
   try {
     if (!token) {
       throw new Error('Token is required');
@@ -107,7 +119,7 @@ export const deleteUser = async (token: string): Promise<void> => {
 
 export const getUserEmail = async (
   profileId: string
-): Promise<I_ApiResponse> => {
+): Promise<I_ApiResponse<{ email: string }>> => {
   try {
     return await callApi({
       method: 'GET',

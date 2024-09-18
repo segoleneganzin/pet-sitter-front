@@ -93,7 +93,7 @@ export const userSlice = createSlice({
     handleAsyncActions(builder, createUserAsync, 'user', 'newUserStatus');
     handleAsyncActions(builder, getUserAsync, 'user', 'status');
     handleAsyncActions(builder, updateUserAsync, 'user');
-    handleAsyncActions(builder, deleteUserAsync, 'deleteUser', 'deleteStatus');
+    handleAsyncActions(builder, deleteUserAsync, 'user', 'deleteStatus');
   },
   selectors: {
     selectUser: (state) => state.user,
