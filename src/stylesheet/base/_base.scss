@@ -10,7 +10,7 @@ html {
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 0 0 $app-nav-height;
   overflow-x: hidden;
   min-height: 100vh;
   background-color: $background-color;
