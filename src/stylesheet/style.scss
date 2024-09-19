@@ -12,9 +12,9 @@
 // 4. Layout-related sections
 @import 'layouts/appNavigation', 'layouts/contact', 'layouts/deleteAccount',
   'layouts/footer', 'layouts/header', 'layouts/menu', 'layouts/pageLayout',
-  'layouts/settingsForm', 'layouts/signInForm', 'layouts/signUpForm',
-  'layouts/sittersFilter', 'layouts/sittersHero', 'layouts/sittersList',
-  'layouts/updateLog', 'layouts/settingsForm';
+  'layouts/profile', 'layouts/settingsForm', 'layouts/signInForm',
+  'layouts/signUpForm', 'layouts/sittersFilter', 'layouts/sittersHero',
+  'layouts/sittersList', 'layouts/updateLog', 'layouts/settingsForm';
 
 // 5. Components
 @import 'components/button', 'components/error', 'components/loader',

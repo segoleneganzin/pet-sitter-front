@@ -1,5 +1,5 @@
-import UpdateLog from '../layouts/UpdateLog';
-import UpdateProfile from '../layouts/UpdateProfile';
+import UpdateLog from '../layouts/admin/UpdateLog';
+import UpdateProfile from '../layouts/admin/UpdateProfile';
 import PageLayout from '../layouts/PageLayout';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
@@ -20,7 +20,7 @@ import {
   selectUser,
   selectUserStatus,
 } from '../features/userSlice';
-import DeleteAccount from '../layouts/DeleteAccount';
+import DeleteAccount from '../layouts/admin/DeleteAccount';
 import Button from '../components/Button';
 
 const Settings = () => {

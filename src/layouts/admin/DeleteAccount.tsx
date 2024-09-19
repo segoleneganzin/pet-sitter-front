@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../utils/hooks/reduxHooks';
+import { useAppSelector, useAppDispatch } from '../../utils/hooks/reduxHooks';
 import {
   clearUser,
   deleteUserAsync,
   selectUser,
   selectUserError,
   selectUserStatus,
-} from '../features/userSlice';
-import { logout, selectLogin } from '../features/authSlice';
+} from '../../features/userSlice';
+import { logout, selectLogin } from '../../features/authSlice';
 import { useNavigate } from 'react-router-dom';
-import { clearOwner } from '../features/ownerSlice';
-import { clearSitter } from '../features/sitterSlice';
-import { I_Auth } from '../models/auth';
-import SettingsForm from './forms/SettingsForm';
+import { clearOwner } from '../../features/ownerSlice';
+import { clearSitter } from '../../features/sitterSlice';
+import { I_Auth } from '../../models/auth';
+import SettingsForm from '../forms/SettingsForm';
 
 interface I_DeleteAccountProps {
   setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;

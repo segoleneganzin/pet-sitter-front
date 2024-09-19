@@ -6,11 +6,11 @@ import Contact from '../layouts/Contact';
 import PageLayout from '../layouts/PageLayout';
 import { getSitter } from '../services/sitterApi';
 import Button from '../components/Button';
+import Profile from '../layouts/Profile';
 
 const Sitter = () => {
   const { id } = useParams<{ id: string }>();
   const [sitter, setSitter] = useState<I_SitterDocument | null>();
-  const [imgSrc, setImgSrc] = useState<string>('');
   const [contactModalOpen, setContactModalOpen] = useState<boolean>(false);
 
   // get the sitter and update sitter redux state
@@ -21,16 +21,6 @@ const Sitter = () => {
       });
     }
   }, [id, sitter]);
-
-  useEffect(() => {
-    if (sitter) {
-      setImgSrc(
-        `${import.meta.env.VITE_API_URL}/uploads/profilePicture${
-          sitter.profilePicture
-        }`
-      );
-    }
-  }, [sitter]);
 
   const toggleContactModal = () => {
     setContactModalOpen((prevState) => !prevState);
@@ -43,21 +33,8 @@ const Sitter = () => {
   return (
     <PageLayout>
       <>
-        <img
-          src={imgSrc}
-          alt={`Photo de profil de ${sitter.firstName} ${sitter.lastName}`}
-          className='sitter__profile-picture'
-        />
-        <h1>
-          {sitter.firstName} {sitter.lastName}
-        </h1>
-        <p>
-          {sitter.city} <br />
-          {sitter.country} <br />
-          {sitter.tel} <br />
-          {sitter.presentation} <br />
-          {sitter.acceptedPets.join(' ')} <br />
-        </p>
+        <Profile profile={sitter} />
+
         <h2>Disponibilités</h2>
         <p>google calendar ?</p>
         <Button handleClick={toggleContactModal} content='Contactez-moi' />

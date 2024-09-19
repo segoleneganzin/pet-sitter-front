@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../utils/hooks/reduxHooks';
+import { useAppSelector, useAppDispatch } from '../../utils/hooks/reduxHooks';
 import {
   selectUser,
   selectUserError,
   updateUserAsync,
-} from '../features/userSlice';
-import { selectLogin } from '../features/authSlice';
-import { I_UserUpdate } from '../models/user';
-import Button from '../components/Button';
-import SettingsForm from './forms/SettingsForm';
+} from '../../features/userSlice';
+import { selectLogin } from '../../features/authSlice';
+import { I_UserUpdate } from '../../models/user';
+import Button from '../../components/Button';
+import SettingsForm from '../forms/SettingsForm';
 
 interface I_UpdateLogProps {
   setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
