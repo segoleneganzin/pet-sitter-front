@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { I_SitterDocument } from '../models/sitter';
+import Button from '../components/Button';
 
 interface I_SittersFilterProps {
   setSitters: (element: I_SitterDocument[]) => void;
@@ -20,16 +21,18 @@ const SittersFilter: React.FC<I_SittersFilterProps> = ({
   };
 
   return (
-    <div>
-      <p>Filtrer la localisation</p>
+    <section className='sitters-filter'>
+      <label htmlFor='filter'>Filtrer la localisation</label>
       <input
+        id='filter'
+        name='filter'
         type='text'
         placeholder='Entrez une ville'
         value={location}
         onChange={(e) => setLocation(e.target.value)}
       />
-      <button onClick={handleFilter}>Filtrer</button>
-    </div>
+      <Button handleClick={handleFilter} content='Filtrer' />
+    </section>
   );
 };
 

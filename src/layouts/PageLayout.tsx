@@ -12,13 +12,13 @@ const PageLayout: React.FC<I_PageLayoutProps> = ({
   mainClassName,
 }) => {
   return (
-    <div>
+    <>
       <Header />
       <AppNavigation />
       <main className={mainClassName}>{children}</main>
       {/* only display on desktop */}
       <Footer />
-    </div>
+    </>
   );
 };
 

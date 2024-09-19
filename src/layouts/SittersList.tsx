@@ -7,12 +7,12 @@ interface I_SittersListProps {
 
 const SittersList: React.FC<I_SittersListProps> = ({ sitters }) => {
   return (
-    <div>
+    <section className='sitters-list'>
       {sitters &&
         sitters.map((sitters, index) => (
           <SitterCard sitter={sitters} key={index} />
         ))}
-    </div>
+    </section>
   );
 };
 

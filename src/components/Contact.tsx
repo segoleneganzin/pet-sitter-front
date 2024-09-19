@@ -79,7 +79,7 @@ const Contact: React.FC<I_ContactProps> = ({
       infos={{ btnText: btnText }}
     >
       {isSend ? (
-        <div className='modal__validation'>
+        <div className='contact__validation'>
           <p>Votre demande de contact a bien été envoyée</p>
         </div>
       ) : (

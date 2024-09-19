@@ -1,5 +1,5 @@
-import UpdateLogForm from '../layouts/forms/UpdateLogForm';
-import UpdateProfileForm from '../layouts/forms/UpdateProfileForm';
+import UpdateLog from '../layouts/UpdateLog';
+import UpdateProfile from '../layouts/UpdateProfile';
 import PageLayout from '../layouts/PageLayout';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
@@ -20,7 +20,8 @@ import {
   selectUser,
   selectUserStatus,
 } from '../features/userSlice';
-import DeleteAccountForm from '../layouts/forms/DeleteAccountForm';
+import DeleteAccount from '../layouts/DeleteAccount';
+import Button from '../components/Button';
 
 const Settings = () => {
   const dispatch = useAppDispatch();
@@ -35,12 +36,6 @@ const Settings = () => {
   const ownerStatus = useAppSelector(selectOwnerStatus);
   const sitter = useAppSelector(selectSitter);
   const sitterStatus = useAppSelector(selectSitterStatus);
-
-  const handleSettingsChange = (
-    settings: 'auth' | 'profile' | 'deleteAccount'
-  ) => {
-    setSettings(settings);
-  };
 
   // to secure access
   useEffect(() => {
@@ -78,30 +73,33 @@ const Settings = () => {
 
   const renderForm = () => {
     if (settings === 'profile') {
-      return <UpdateProfileForm setSettings={setSettings} />;
+      return <UpdateProfile setSettings={setSettings} />;
     } else if (settings === 'auth') {
-      return <UpdateLogForm setSettings={setSettings} />;
+      return <UpdateLog setSettings={setSettings} />;
     } else if (settings === 'deleteAccount') {
-      return <DeleteAccountForm setSettings={setSettings} />;
+      return <DeleteAccount setSettings={setSettings} />;
     }
   };
   // TODO css to active button or hide active button ?
   return (
     <PageLayout>
       {settings !== 'auth' && (
-        <button onClick={() => handleSettingsChange('auth')}>
-          Modifier mes informations de connexion
-        </button>
+        <Button
+          handleClick={() => setSettings('auth')}
+          content='Modifier mes informations de connexion'
+        />
       )}
       {settings !== 'profile' && (
-        <button onClick={() => handleSettingsChange('profile')}>
-          Modifier mon profil
-        </button>
+        <Button
+          handleClick={() => setSettings('profile')}
+          content='Modifier mon profil'
+        />
       )}
       {settings !== 'deleteAccount' && (
-        <button onClick={() => handleSettingsChange('deleteAccount')}>
-          Supprimer mon compte
-        </button>
+        <Button
+          handleClick={() => setSettings('deleteAccount')}
+          content='Supprimer mon compte'
+        />
       )}
       {renderForm()}
     </PageLayout>

@@ -3,6 +3,7 @@ import SignUpForm from '../layouts/forms/SignUpForm';
 import SignInForm from '../layouts/forms/SignInForm';
 import useRedirectIfLoggedIn from '../utils/hooks/useRedirectIfLoggedIn';
 import { useState } from 'react';
+import Button from '../components/Button';
 
 interface I_AuthPageProps {
   formType: 'signUp' | 'signIn';
@@ -20,21 +21,29 @@ const AuthPage: React.FC<I_AuthPageProps> = ({ formType }) => {
   };
 
   return (
-    <div>
+    <>
       <main className={`${formType}-page`}>
         {formType === 'signUp' && (
           <>
-            <div className='role-selection'>
-              <button onClick={() => handleRoleChange('sitter')}>Sitter</button>
-              <button onClick={() => handleRoleChange('owner')}>Owner</button>
+            <div className='signUp__role-selection'>
+              <Button
+                handleClick={() => handleRoleChange('sitter')}
+                classname='signUp__role-btn'
+                content='Sitter'
+              />
+              <Button
+                handleClick={() => handleRoleChange('owner')}
+                classname='signUp__role-btn'
+                content='Owner'
+              />
             </div>
             {role && <SignUpForm role={role} />}
           </>
         )}
         {formType === 'signIn' && <SignInForm />}
-        <button onClick={() => navigate(-1)}>Retour</button>
+        <Button handleClick={() => navigate(-1)} content='Retour' />
       </main>
-    </div>
+    </>
   );
 };
 

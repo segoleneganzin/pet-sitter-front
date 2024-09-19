@@ -82,42 +82,40 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
   }
 
   return (
-    <div className='form__container'>
-      <Form
-        fieldsConfig={formFieldsProfile}
-        onSubmitFunction={handleForm}
-        btnText={"M'inscrire"}
-        errorMessage={errorMessage || errorUser}
-        title={'Inscription'}
-        fieldNames={
-          role === 'sitter'
-            ? [
-                'email',
-                'password',
-                'passwordConfirmation',
-                'profilePicture',
-                'firstName',
-                'lastName',
-                'city',
-                'country',
-                'tel',
-                'presentation',
-                'acceptedPets',
-              ]
-            : [
-                'email',
-                'password',
-                'passwordConfirmation',
-                'profilePicture',
-                'firstName',
-                'lastName',
-                'city',
-                'country',
-                'pets',
-              ]
-        }
-      />
-    </div>
+    <Form
+      fieldsConfig={formFieldsProfile}
+      onSubmitFunction={handleForm}
+      btnText={"M'inscrire"}
+      errorMessage={errorMessage || errorUser}
+      title={'Inscription'}
+      fieldNames={
+        role === 'sitter'
+          ? [
+              'email',
+              'password',
+              'passwordConfirmation',
+              'profilePicture',
+              'firstName',
+              'lastName',
+              'city',
+              'country',
+              'tel',
+              'presentation',
+              'acceptedPets',
+            ]
+          : [
+              'email',
+              'password',
+              'passwordConfirmation',
+              'profilePicture',
+              'firstName',
+              'lastName',
+              'city',
+              'country',
+              'pets',
+            ]
+      }
+    />
   );
 };
 

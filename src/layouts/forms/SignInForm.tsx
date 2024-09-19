@@ -58,17 +58,15 @@ const SignInForm = () => {
   }
 
   return (
-    <div className='form__container'>
-      <Form
-        fieldsConfig={formFieldsAuth}
-        onSubmitFunction={handleForm}
-        btnText={'Connexion'}
-        errorMessage={error}
-        title={'Connexion'}
-        fieldNames={['email', 'password', 'rememberMe']}
-        fieldValue={formValues}
-      />
-    </div>
+    <Form
+      fieldsConfig={formFieldsAuth}
+      onSubmitFunction={handleForm}
+      btnText={'Connexion'}
+      errorMessage={error}
+      title={'Connexion'}
+      fieldNames={['email', 'password', 'rememberMe']}
+      fieldValue={formValues}
+    />
   );
 };
 

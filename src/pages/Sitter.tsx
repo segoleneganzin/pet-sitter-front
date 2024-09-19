@@ -5,6 +5,7 @@ import Loader from '../components/Loader';
 import Contact from '../components/Contact';
 import PageLayout from '../layouts/PageLayout';
 import { getSitter } from '../services/sitterApi';
+import Button from '../components/Button';
 
 const Sitter = () => {
   const { id } = useParams<{ id: string }>();
@@ -59,7 +60,7 @@ const Sitter = () => {
         </p>
         <h2>Disponibilités</h2>
         <p>google calendar ?</p>
-        <button onClick={toggleContactModal}>Contactez-moi</button>
+        <Button handleClick={toggleContactModal} content='Contactez-moi' />
       </>
       {contactModalOpen && (
         <Contact
