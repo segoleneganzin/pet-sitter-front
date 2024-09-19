@@ -1,0 +1,40 @@
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin full-height-width {
+  height: 100%;
+  width: 100%;
+}
+
+@mixin pseudo-elem {
+  @include fullHeightWidth;
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@mixin max-media-breakpoint($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin min-media-breakpoint($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin on-event() {
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-within {
+    @content;
+  }
+}

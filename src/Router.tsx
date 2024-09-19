@@ -5,15 +5,15 @@ import Sitter from './pages/Sitter';
 import Owner from './pages/Owner';
 import Settings from './pages/Settings';
 import ProtectedRoute from './layouts/ProtectedRoute';
-import AuthPage from './pages/AuthPage';
+import Auth from './pages/Auth';
 
 const Router = () => {
   return (
     <Routes>
       <Route index element={<LandingPage />} />
       {/* auth routes */}
-      <Route path='/sign-in' element={<AuthPage formType='signIn' />} />
-      <Route path='/sign-up' element={<AuthPage formType='signUp' />} />
+      <Route path='/sign-in' element={<Auth formType='signIn' />} />
+      <Route path='/sign-up' element={<Auth formType='signUp' />} />
       {/* sitters routes */}
       <Route path='/sitters' element={<Sitters />} />
       <Route path='/sitter/:id' element={<Sitter />} />

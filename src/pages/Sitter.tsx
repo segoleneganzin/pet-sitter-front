@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { I_SitterDocument } from '../models/sitter';
 import Loader from '../components/Loader';
-import Contact from '../components/Contact';
+import Contact from '../layouts/Contact';
 import PageLayout from '../layouts/PageLayout';
 import { getSitter } from '../services/sitterApi';
 import Button from '../components/Button';

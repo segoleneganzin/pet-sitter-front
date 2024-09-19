@@ -5,11 +5,11 @@ import useRedirectIfLoggedIn from '../utils/hooks/useRedirectIfLoggedIn';
 import { useState } from 'react';
 import Button from '../components/Button';
 
-interface I_AuthPageProps {
+interface I_AuthProps {
   formType: 'signUp' | 'signIn';
 }
 
-const AuthPage: React.FC<I_AuthPageProps> = ({ formType }) => {
+const Auth: React.FC<I_AuthProps> = ({ formType }) => {
   const navigate = useNavigate();
 
   const [role, setRole] = useState<'sitter' | 'owner' | null>(null);
@@ -22,7 +22,7 @@ const AuthPage: React.FC<I_AuthPageProps> = ({ formType }) => {
 
   return (
     <>
-      <main className={`${formType}-page`}>
+      <main className={`auth ${formType}-page`}>
         {formType === 'signUp' && (
           <>
             <div className='signUp__role-selection'>
@@ -47,4 +47,4 @@ const AuthPage: React.FC<I_AuthPageProps> = ({ formType }) => {
   );
 };
 
-export default AuthPage;
+export default Auth;

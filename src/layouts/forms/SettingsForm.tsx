@@ -42,14 +42,14 @@ const SettingsForm = <T extends object>({
   ) {
     return (
       <>
-        <p className='validation__message'>{succeededMessage}</p>
+        <p className='settings__validation-message'>{succeededMessage}</p>
         <Loader />
       </>
     );
   }
 
   return (
-    <div className='form__container'>
+    <div className='settings__form-container'>
       <Form
         fieldsConfig={formFieldsProfile}
         onSubmitFunction={handleSubmit}

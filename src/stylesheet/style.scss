@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+// 1. Configuration and helpers
+@import 'utils/variables', 'utils/functions', 'utils/mixins';
+
+// 2. Vendors
+@import 'vendors/normalize';
+
+// 3. Base stuff
+@import 'base/base', 'base/typography', 'base/helpers';
+
+// 4. Layout-related sections
+@import 'layouts/appNavigation', 'layouts/contact', 'layouts/deleteAccount',
+  'layouts/footer', 'layouts/header', 'layouts/menu', 'layouts/pageLayout',
+  'layouts/settingsForm', 'layouts/signInForm', 'layouts/signUpForm',
+  'layouts/sittersFilter', 'layouts/sittersHero', 'layouts/sittersList',
+  'layouts/updateLog', 'layouts/settingsForm';
+
+// 5. Components
+@import 'components/button', 'components/error', 'components/loader',
+  'components/sitterCard';
+
+// 6. Page-specific styles
+@import 'pages/auth', 'pages/landing', 'pages/owner', 'pages/settings',
+  'pages/sitter', 'pages/sitters';

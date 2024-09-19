@@ -5,6 +5,7 @@ import { store } from './utils/store';
 import Router from './Router';
 import 'sg-form-lib/style.css';
 import 'sg-modal-lib/style.css';
+import './stylesheet/style.scss';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
