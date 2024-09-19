@@ -18,7 +18,7 @@ export const handleAsyncActions = (
       thunk.fulfilled,
       (state: any, action: { payload: { body: any; file: any } }) => {
         state[statusKey] = 'succeeded';
-        state[slicer] = action.payload.body || action.payload.file;
+        state[slicer] = action.payload.body || action.payload.file || null;
         state.error = null;
         if (
           slicer === 'login' ||

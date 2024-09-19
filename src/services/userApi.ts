@@ -1,4 +1,5 @@
 import { I_ApiResponse } from '../models/api';
+import { I_Auth } from '../models/auth';
 import { I_UserUpdate, I_UserCreate, I_UserDocument } from '../models/user';
 import { callApi } from './apiClient';
 
@@ -98,9 +99,13 @@ export const updateUser = async ({
  * @returns {Promise<void>}
  * @throws {Error} - Throws an error if token or data is missing.
  */
-export const deleteUser = async (
-  token: string
-): Promise<I_ApiResponse<void>> => {
+export const deleteUser = async ({
+  datas,
+  token,
+}: {
+  datas: I_Auth;
+  token: string;
+}): Promise<I_ApiResponse<void>> => {
   try {
     if (!token) {
       throw new Error('Token is required');
@@ -108,6 +113,7 @@ export const deleteUser = async (
     return await callApi({
       method: 'DELETE',
       url: '/users',
+      data: datas,
       token: token,
     });
   } catch (error) {

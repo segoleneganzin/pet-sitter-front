@@ -7,6 +7,7 @@ import {
   deleteUser,
 } from '../services/userApi';
 import { I_UserUpdate, I_UserCreate, I_UserDocument } from '../models/user';
+import { I_Auth } from '../models/auth';
 
 const CREATE_USER = 'user/createUser';
 const GET_USER = 'user/getUser';
@@ -36,8 +37,8 @@ export const updateUserAsync = createAsyncThunk(
 );
 export const deleteUserAsync = createAsyncThunk(
   DELETE_USER,
-  async (token: string) => {
-    const response = await deleteUser(token);
+  async ({ datas, token }: { datas: I_Auth; token: string }) => {
+    const response = await deleteUser({ datas, token });
     return response;
   }
 );
