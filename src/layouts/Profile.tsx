@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
 import { I_OwnerDocument } from '../models/owner';
 import { I_SitterDocument } from '../models/sitter';
+import { translateMessage } from '../utils/apiResponseTranslate';
 
 interface I_ProfileProps {
   profile: I_OwnerDocument | I_SitterDocument;
 }
 const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
   const [imgSrc, setImgSrc] = useState<string>('');
+  const [petsList, setPetsList] = useState<string[]>([]);
+
+  // Type guard to check if profile is I_OwnerDocument
+  const isOwner = (
+    profile: I_OwnerDocument | I_SitterDocument
+  ): profile is I_OwnerDocument => {
+    return (profile as I_OwnerDocument).pets !== undefined;
+  };
 
   useEffect(() => {
     if (profile) {
@@ -15,15 +24,22 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
           profile.profilePicture
         }`
       );
+      if (!isOwner(profile)) {
+        const translatedPets = profile.acceptedPets.map((element: string) =>
+          translateMessage(element)
+        );
+        setPetsList(translatedPets);
+      }
+
+      // Si le profil est un propriétaire, on utilise 'pets'
+      if (isOwner(profile)) {
+        const translatedPets = profile.pets.map((element: string) =>
+          translateMessage(element)
+        );
+        setPetsList(translatedPets);
+      }
     }
   }, [profile]);
-
-  // Type guard to check if profile is I_OwnerDocument
-  const isOwner = (
-    profile: I_OwnerDocument | I_SitterDocument
-  ): profile is I_OwnerDocument => {
-    return (profile as I_OwnerDocument).pets !== undefined;
-  };
 
   return (
     <section className='profile'>
@@ -50,13 +66,8 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
             <br />
           </>
         )}
-        {!isOwner(profile) && (
-          <>
-            {profile.acceptedPets.join(' ')}
-            <br />
-          </>
-        )}
-        {isOwner(profile) && profile.pets.join(' ')}
+        {petsList.join(' ')}
+        <br />
       </p>
     </section>
   );

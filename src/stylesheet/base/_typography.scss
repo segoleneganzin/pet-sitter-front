@@ -4,17 +4,28 @@
 
 /***************************** TYPOGRAPHY *****************************/
 /****************************************************** COLORS */
-body {
+body,
+.sitter-card__link {
   color: $text-color;
 }
+a {
+  color: $link-color;
+  @include on-event {
+    color: $tertiary-color;
+  }
+}
+.sitter-card__link {
+  @include on-event {
+    color: $text-color;
+  }
+}
 /****************************************************** FONTS */
-
 body {
   font-family: 'Manrope', sans-serif;
 }
 
 /***************************************** font weight */
-/***************************************** font size */
-/***************************************** line height */
-/***************************************** text transform */
-/***************************************** text shadow */
+a,
+.bold {
+  font-weight: 700;
+}

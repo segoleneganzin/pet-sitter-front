@@ -24,7 +24,7 @@ const Owner = () => {
   }
 
   return (
-    <PageLayout>
+    <PageLayout mainClassName='owner'>
       <Profile profile={owner} />
     </PageLayout>
   );

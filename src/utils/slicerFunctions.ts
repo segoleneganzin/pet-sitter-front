@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { translateErrorMessage } from './apiResponseTranslate';
+import { translateMessage } from './apiResponseTranslate';
 
 // Handle async actions and update the state accordingly
 export const handleAsyncActions = (
@@ -35,7 +35,7 @@ export const handleAsyncActions = (
       (state: any, action: { error: { message: string } }) => {
         state[statusKey] = 'failed';
         state.error =
-          translateErrorMessage(action.error.message) ||
+          translateMessage(action.error.message) ||
           "Une erreur s'est produite, veuillez réessayer plus tard";
       }
     );

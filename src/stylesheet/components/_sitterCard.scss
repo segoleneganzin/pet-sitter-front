@@ -1,0 +1,17 @@
+.sitter-card {
+  align-items: center;
+  display: flex;
+  gap: 15px;
+  padding: 0 10px;
+
+  &__picture {
+    max-height: 100px;
+    object-fit: cover;
+    width: 100px;
+  }
+  &__content {
+    @include flex-col;
+    font-size: 0.8rem;
+    font-weight: normal;
+  }
+}

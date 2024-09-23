@@ -6,6 +6,7 @@ import { clearSitter } from '../features/sitterSlice';
 import { clearOwner } from '../features/ownerSlice';
 import Button from '../components/Button';
 import { useState } from 'react';
+import SettingsIcon from '../components/SettingsIcon';
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Menu = () => {
       <Button
         handleClick={toggleMenu}
         classname='app-navigation__btn'
-        content='☰'
+        content={<SettingsIcon />}
       />
       {isMenuOpen && (
         <div className='menu'>

@@ -12,6 +12,8 @@ enum ErrorKeys {
   FailedToRetrieveOwners = 'Failed to retrieve Owners. Please try again later.',
   OwnerNotFound = 'Owner not found',
   InvalidUsernamePasswordSupplied = 'Invalid username/password supplied',
+  PetDog = 'dog',
+  PetCat = 'cat',
 }
 
 const errorMessages: Record<ErrorKeys, string> = {
@@ -32,9 +34,11 @@ const errorMessages: Record<ErrorKeys, string> = {
   [ErrorKeys.OwnerNotFound]: 'Propriétaire non trouvé',
   [ErrorKeys.InvalidUsernamePasswordSupplied]:
     "Nom d'utilisateur/mot de passe invalide",
+  [ErrorKeys.PetDog]: 'Chien',
+  [ErrorKeys.PetCat]: 'Chat',
 };
 
-export const translateErrorMessage = (message: string): string => {
+export const translateMessage = (message: string): string => {
   // return translation or original message if no translation founded
   return errorMessages[message as ErrorKeys] || message;
 };

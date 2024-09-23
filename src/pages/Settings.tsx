@@ -82,7 +82,7 @@ const Settings = () => {
   };
   // TODO css to active button or hide active button ?
   return (
-    <PageLayout>
+    <PageLayout mainClassName='settings'>
       {settings !== 'auth' && (
         <Button
           handleClick={() => setSettings('auth')}

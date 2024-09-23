@@ -1,7 +1,7 @@
 interface I_ButtonProps {
   handleClick: () => void;
   classname?: string;
-  content: string;
+  content: string | React.ReactNode;
 }
 
 const Button: React.FC<I_ButtonProps> = ({

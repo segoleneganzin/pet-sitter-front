@@ -52,7 +52,7 @@ const Sitters = () => {
   }
 
   return (
-    <PageLayout>
+    <PageLayout mainClassName='sitters'>
       <SittersHero />
       <SittersFilter
         setSitters={setSitters}

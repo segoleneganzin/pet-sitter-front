@@ -1,0 +1,4 @@
+.sitters-list {
+  @include flex-col;
+  gap: 20px;
+}

@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Menu from './Menu';
+import ArrowBackIcon from '../components/ArrowBackIcon';
+import HomeIcon from '../components/HomeIcon';
 
 const AppNavigation = () => {
   const navigate = useNavigate();
@@ -11,13 +13,13 @@ const AppNavigation = () => {
       <Button
         handleClick={() => navigate(-1)}
         classname='app-navigation__btn'
-        content='Retour'
+        content={<ArrowBackIcon />}
       />
       {/* Home Button */}
       <Button
         handleClick={() => navigate('/sitters')}
         classname='app-navigation__btn'
-        content='Accueil'
+        content={<HomeIcon />}
       />
       {/* Hamburger Menu */}
       <Menu />

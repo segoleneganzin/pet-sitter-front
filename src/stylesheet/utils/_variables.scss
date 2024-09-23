@@ -1,10 +1,9 @@
-$primary-color: #0a4da6;
-$secondary-color: #038c5a;
-$tertiary-color: #ff9800;
+$primary-color: #354735;
+$secondary-color: #d4cbc2;
+$tertiary-color: #7c7407;
 $text-color: #000000;
-$link-color: #000000;
-$light-color: #fbfbfb;
-$background-color: #fbfbfb;
+$link-color: $primary-color;
+$background-color: #d4cbc2;
 
 /// *********************** BREAKPOINTS
 $breakpoint-mobileXS: 360px;
@@ -15,8 +14,8 @@ $breakpoint-laptopXL: 1400px;
 $breakpoint-desktopXL: 1850px;
 
 /// *********************** RADIUS
-$smallRadius: 5px;
-$mediumRadius: 10px;
-$largeRadius: 25px;
+$small-radius: 5px;
+$medium-radius: 10px;
+$large-radius: 25px;
 
-$app-nav-height: 50px;
+$app-nav-height: 60px;

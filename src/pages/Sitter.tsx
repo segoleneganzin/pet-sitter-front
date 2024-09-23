@@ -31,7 +31,7 @@ const Sitter = () => {
   }
 
   return (
-    <PageLayout>
+    <PageLayout mainClassName='sitter'>
       <>
         <Profile profile={sitter} />
 
