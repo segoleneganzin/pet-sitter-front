@@ -1,0 +1,9 @@
+.scroll-up {
+  margin-left: 94vw;
+  position: sticky;
+  top: 95vh;
+  z-index: 99;
+  @include max-media-breakpoint(490px) {
+    margin-left: 90vw;
+  }
+}
