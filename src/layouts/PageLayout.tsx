@@ -14,17 +14,18 @@ const PageLayout: React.FC<I_PageLayoutProps> = ({
   mainClassName,
 }) => {
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const showScrollButtonThreshold = 200;
 
   const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    const showScrollButtonThreshold = 500;
-    setShowScrollButton(scrollPosition > showScrollButtonThreshold);
+    setShowScrollButton(window.scrollY > showScrollButtonThreshold);
   };
 
   useEffect(() => {
-    handleScroll();
     window.addEventListener('scroll', handleScroll);
-  }, [showScrollButton]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div className='page-layout'>

@@ -1,2 +1,6 @@
 .footer {
+  display: none;
+  @include min-media-breakpoint($breakpoint-laptop) {
+    display: block;
+  }
 }

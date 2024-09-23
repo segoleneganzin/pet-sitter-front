@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
 import { I_SitterDocument } from '../models/sitter';
 import { filterByLocation, filteredByAcceptedPets } from '../utils/filter';
-import AcceptedPetsFilter from './AcceptedPetsFilter';
-import LocationFilter from './LocationFilter';
-import FormData from './FormData';
-import Select from '../components/Select';
+import CloseButton from '../components/CloseButton';
+import FormField from '../components/FormField';
 
+const FILTER_OPTIONS = [
+  { label: 'Localisation', value: 'location' },
+  { label: 'Animaux acceptés', value: 'acceptedPets' },
+];
+
+export type InputChangeEvent = React.ChangeEvent<
+  HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+>;
 interface I_SittersFilterProps {
   setSitters: (element: I_SitterDocument[]) => void;
   originalSitters: I_SitterDocument[];
@@ -14,13 +20,9 @@ interface I_Filter {
   value: string;
   choice: string;
 }
-
 export interface I_FilterProps {
-  handleChangeFilterValue: (
-    evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void;
+  handleChangeFilterValue: (evt: InputChangeEvent) => void;
   filter: I_Filter;
-  filterEmpty: () => void;
 }
 
 const SittersFilter: React.FC<I_SittersFilterProps> = ({
@@ -29,94 +31,89 @@ const SittersFilter: React.FC<I_SittersFilterProps> = ({
 }) => {
   const [filter, setFilter] = useState({ choice: '', value: '' });
 
-  const getFilteredSitters = (choice: string, value: string) => {
+  const getFilteredSitters = () => {
+    const { choice, value } = filter;
     if (!choice || !value) return originalSitters;
-    value = value.toLowerCase();
+    const lowerCasedValue = value.toLowerCase();
     switch (choice) {
       case 'location':
-        return filterByLocation(originalSitters, value);
+        return filterByLocation(originalSitters, lowerCasedValue);
       case 'acceptedPets':
-        return filteredByAcceptedPets(originalSitters, value);
+        return filteredByAcceptedPets(originalSitters, lowerCasedValue);
       default:
-        console.log('Unknown filter');
         return originalSitters;
     }
   };
 
   useEffect(() => {
-    if (originalSitters) {
-      const filteredSitters = getFilteredSitters(filter.choice, filter.value);
-      setSitters(filteredSitters);
-    }
-  }, [filter.choice, filter.value, setFilter]);
+    setSitters(getFilteredSitters());
+  }, [filter, originalSitters, setSitters]);
 
-  const filterEmpty = async () => {
-    setFilter({
-      choice: '',
-      value: '',
-    });
+  const resetFilter = () => {
+    setFilter({ choice: '', value: '' });
     setSitters(originalSitters);
   };
 
-  const handleChangeFilterChoice = (
-    evt: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setFilter({
-      choice: evt.target.value,
-      value: '',
-    });
-  };
-
-  const handleChangeFilterValue = (
-    evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setFilter({
-      ...filter,
-      value: evt.target.value,
-    });
+  const handleChangeFilter = (field: keyof I_Filter, value: string) => {
+    setFilter((prev) => ({
+      ...prev,
+      [field]: value,
+      ...(field === 'choice' && { value: '' }), // Reset value if choice changes
+    }));
   };
 
   const renderFilterInput = () => {
-    if (filter.choice === 'location') {
-      return (
-        <LocationFilter
-          handleChangeFilterValue={handleChangeFilterValue}
-          filter={filter}
-          filterEmpty={filterEmpty}
-        />
-      );
+    switch (filter.choice) {
+      case 'location':
+        return (
+          <FormField
+            label='Rechercher'
+            name='location'
+            type='text'
+            value={filter.value}
+            handleChange={(evt) =>
+              handleChangeFilter('value', evt.target.value)
+            }
+          />
+        );
+      case 'acceptedPets':
+        return (
+          <FormField
+            label={"Sélectionner le type d'animal"}
+            name='acceptedPets'
+            type='select'
+            value={filter.value}
+            handleChange={(evt) =>
+              handleChangeFilter('value', evt.target.value)
+            }
+            options={[
+              { label: 'Chien', value: 'dog' },
+              { label: 'Chat', value: 'cat' },
+              { label: 'NAC', value: 'nac' },
+            ]}
+          />
+        );
+      default:
+        return null;
     }
-    if (filter.choice === 'acceptedPets') {
-      return (
-        <AcceptedPetsFilter
-          handleChangeFilterValue={handleChangeFilterValue}
-          filter={filter}
-          filterEmpty={filterEmpty}
-        />
-      );
-    }
-    return null;
   };
+
   return (
     <section className='sitters-filter'>
       <div className='filter__field-container'>
-        <FormData label={'Filtrer par'} name={'choice'}>
-          <>
-            <Select
-              handleChange={handleChangeFilterChoice}
-              field={{
-                name: 'choice',
-                options: [
-                  { label: 'Localisation', value: 'location' },
-                  { label: 'Animaux acceptés', value: 'acceptedPets' },
-                ],
-              }}
-              value={filter.choice}
-            />
-          </>
-        </FormData>
+        <FormField
+          label={'Filtrer par '}
+          name='choice'
+          type='select'
+          value={filter.choice}
+          handleChange={(evt) => handleChangeFilter('choice', evt.target.value)}
+          options={FILTER_OPTIONS}
+        />
       </div>
-      <div className='filter__field-container'>{renderFilterInput()}</div>
+      <div className='filter__field-container'>
+        {renderFilterInput()}
+        {filter.choice && <CloseButton btnFunction={resetFilter} />}
+      </div>
     </section>
   );
 };

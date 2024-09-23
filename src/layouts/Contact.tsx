@@ -41,7 +41,7 @@ const Contact: React.FC<I_ContactProps> = ({
     if (sitter) {
       const fetchSitterEmail = async () => {
         const response = await getUserEmail(sitter.id);
-        if (response.body && 'email' in response.body) {
+        if (response.body) {
           setFormValues((prevValues) => ({
             ...prevValues,
             sitterEmail: response.body.email,

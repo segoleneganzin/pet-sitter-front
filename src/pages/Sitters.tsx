@@ -14,10 +14,12 @@ import {
 import PageLayout from '../layouts/PageLayout';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
+import Button from '../components/Button';
 
 const Sitters = () => {
   const dispatch = useAppDispatch();
   const [sitters, setSitters] = useState<I_SitterDocument[] | null>([]);
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const sittersFromStore = useAppSelector(selectSitters);
   const sitterStatus = useAppSelector(selectSitterStatus);
@@ -54,10 +56,14 @@ const Sitters = () => {
   return (
     <PageLayout mainClassName='sitters'>
       <SittersHero />
-      <SittersFilter
-        setSitters={setSitters}
-        originalSitters={sittersFromStore}
-      />
+      {isFilterOpen ? (
+        <SittersFilter
+          setSitters={setSitters}
+          originalSitters={sittersFromStore}
+        />
+      ) : (
+        <Button handleClick={() => setIsFilterOpen(true)} content='Filter' />
+      )}
       <SittersList sitters={sitters} />
     </PageLayout>
   );

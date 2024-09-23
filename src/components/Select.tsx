@@ -1,3 +1,5 @@
+import { InputChangeEvent } from '../layouts/SittersFilter';
+
 interface I_Option {
   label: string;
   value: string;
@@ -10,7 +12,7 @@ interface I_Field {
 }
 
 interface I_SelectProps {
-  handleChange: (evt: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChange: (evt: InputChangeEvent) => void;
   field: I_Field;
   value: string;
   className?: string;
@@ -27,6 +29,7 @@ const Select: React.FC<I_SelectProps> = ({
     defaultValue = 'choisissez une option', // Default value
     options,
   } = field;
+
   return (
     <select
       id={name}
