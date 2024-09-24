@@ -1,16 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
 import { Form } from 'sg-form-lib';
-import { loginAsync, selectAuthError } from '../../features/authSlice';
+import {
+  loginAsync,
+  selectAuthError,
+  selectLogin,
+} from '../../features/authSlice';
 import { formFieldsAuth } from '../../utils/formFieldsConfig/formFieldsAuth';
-import { selectLogin } from '../../features/authSlice';
-import { selectUserStatus, getUserAsync } from '../../features/userSlice';
+import { selectUserStatus, getUserByIdAsync } from '../../features/userSlice';
 import Loader from '../../components/Loader';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 interface I_FormData {
   email: string;
   password: string;
   rememberMe: string;
+}
+
+interface CustomJwtPayload extends JwtPayload {
+  id: string;
 }
 
 const SignInForm = () => {
@@ -48,12 +56,14 @@ const SignInForm = () => {
   };
 
   useEffect(() => {
-    if (login) {
-      dispatch(getUserAsync(login.token));
+    if (login && login.token) {
+      const decodedToken = jwtDecode<CustomJwtPayload>(login.token);
+      const userId = decodedToken.id;
+      dispatch(getUserByIdAsync(userId));
     }
   }, [login, dispatch]);
 
-  if (userStatus === 'succeeded') {
+  if (userStatus === 'loading' || userStatus === 'succeeded') {
     return <Loader />;
   }
 

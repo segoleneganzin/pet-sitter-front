@@ -1,6 +1,6 @@
 import { I_ApiResponse } from '../models/api';
 import { I_Auth, I_Login } from '../models/auth';
-import { callApi } from './apiClient';
+import { callApi } from '../utils/apiClient';
 
 /**
  * Asynchronous function to perform user login via API.

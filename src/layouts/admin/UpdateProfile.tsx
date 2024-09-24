@@ -1,20 +1,16 @@
 import { useAppSelector, useAppDispatch } from '../../utils/hooks/reduxHooks';
 import { selectUser } from '../../features/userSlice';
-import {
-  selectSitter,
-  selectSitterError,
-  updateSitterAsync,
-} from '../../features/sitterSlice';
-import {
-  selectOwner,
-  selectOwnerError,
-  updateOwnerAsync,
-} from '../../features/ownerSlice';
 import { I_Sitter } from '../../models/sitter';
 import { I_Owner } from '../../models/owner';
 import { useEffect, useState } from 'react';
 import { selectLogin } from '../../features/authSlice';
 import SettingsForm from '../forms/SettingsForm';
+import {
+  selectProfile,
+  selectProfileError,
+  updateProfileAsync,
+} from '../../features/profileSlice';
+import { I_ProfileUpdate } from '../../models/profile';
 
 interface I_UpdateProfileProps {
   setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
@@ -24,64 +20,63 @@ const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const login = useAppSelector(selectLogin);
+  const profile = useAppSelector(selectProfile);
+  const profileError = useAppSelector(selectProfileError);
 
-  const sitter = useAppSelector(selectSitter);
-  const sitterError = useAppSelector(selectSitterError);
-
-  const owner = useAppSelector(selectOwner);
-  const ownerError = useAppSelector(selectOwnerError);
-
-  const [formValues, setFormValues] = useState<I_Owner | I_Sitter | null>(null);
+  const isSitter = user?.roles.includes('sitter');
+  const [formValues, setFormValues] = useState<I_ProfileUpdate | null>(null);
 
   useEffect(() => {
-    if (user && owner && owner.id === user.profileId) {
+    if (user && profile && profile.userId === user.id) {
       setFormValues({
-        profilePicture: owner.profilePicture,
-        firstName: owner.firstName,
-        lastName: owner.lastName,
-        city: owner.city,
-        country: owner.country,
-        pets: owner.pets,
+        profilePicture: profile.profilePicture,
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        city: profile.city,
+        country: profile.country,
+        pets: !isSitter ? profile.pets : undefined,
+        tel: isSitter ? profile.tel : undefined,
+        presentation: isSitter ? profile.presentation : undefined,
+        acceptedPets: isSitter ? profile.acceptedPets : undefined,
       });
     }
-  }, [owner, user]);
-
-  useEffect(() => {
-    if (user && sitter && sitter.id === user.profileId) {
-      setFormValues({
-        profilePicture: sitter.profilePicture,
-        firstName: sitter.firstName,
-        lastName: sitter.lastName,
-        city: sitter.city,
-        country: sitter.country,
-        tel: sitter.tel,
-        presentation: sitter.presentation,
-        acceptedPets: sitter.acceptedPets,
-      });
-    }
-  }, [sitter, user]);
+    // if (user && profile && profile.userId === user.id) {
+    //   setFormValues((prevValues) => ({
+    //     ...prevValues,
+    //     profilePicture: profile.profilePicture,
+    //     firstName: profile.firstName,
+    //     lastName: profile.lastName,
+    //     city: profile.city,
+    //     country: profile.country,
+    //   }));
+    //   if (user.roles.includes('owner')) {
+    //     setFormValues((prevValues) => ({
+    //       ...prevValues,
+    //       pets: profile.pets,
+    //     }));
+    //   }
+    //   if (user.roles.includes('sitter')) {
+    //     setFormValues((prevValues) => ({
+    //       ...prevValues,
+    //       tel: profile.tel,
+    //       presentation: profile.presentation,
+    //       acceptedPets: profile.acceptedPets,
+    //     }));
+    //   }
+    // }
+  }, [profile, user]);
 
   const handleUpdate = async (datas: Partial<I_Sitter | I_Owner>) => {
     try {
-      if (user && login) {
-        if (user.role === 'sitter') {
-          await dispatch(
-            updateSitterAsync({
-              sitterId: user.profileId,
-              datas: datas as I_Sitter,
-              token: login.token,
-            })
-          );
-        }
-        if (user.role === 'owner') {
-          await dispatch(
-            updateOwnerAsync({
-              ownerId: user.profileId,
-              datas: datas as I_Owner,
-              token: login.token,
-            })
-          );
-        }
+      if (user && login && profile) {
+        await dispatch(
+          updateProfileAsync({
+            id: profile.id,
+            datas: isSitter ? (datas as I_Sitter) : (datas as I_Owner),
+            token: login.token,
+            role: isSitter ? 'sitter' : 'owner',
+          })
+        );
       }
     } catch (error) {
       console.log(error);
@@ -91,10 +86,10 @@ const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
   return (
     <SettingsForm
       handleSubmit={handleUpdate}
-      errorMessage={ownerError || sitterError}
+      errorMessage={profileError}
       title={'Modifier mon profil'}
       fieldNames={
-        user && user.role === 'sitter'
+        user && isSitter
           ? [
               'profilePicture',
               'firstName',

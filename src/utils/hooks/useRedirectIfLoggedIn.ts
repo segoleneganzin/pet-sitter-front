@@ -4,15 +4,11 @@ import { useAppDispatch, useAppSelector } from './reduxHooks';
 import { resetUserStatus, selectUser } from '../../features/userSlice';
 import { selectLogin } from '../../features/authSlice';
 import {
-  getSitterAsync,
-  resetSitterStatus,
-  selectSitter,
-} from '../../features/sitterSlice';
-import {
-  getOwnerAsync,
-  resetOwnerStatus,
-  selectOwner,
-} from '../../features/ownerSlice';
+  getProfileByUserIdAsync,
+  resetProfileStatus,
+  selectProfile,
+  selectProfileStatus,
+} from '../../features/profileSlice';
 
 const useRedirectIfLoggedIn = () => {
   const navigate = useNavigate();
@@ -20,32 +16,42 @@ const useRedirectIfLoggedIn = () => {
 
   const login = useAppSelector(selectLogin);
   const user = useAppSelector(selectUser);
-  const sitter = useAppSelector(selectSitter);
-  const owner = useAppSelector(selectOwner);
+
+  const profile = useAppSelector(selectProfile);
+  const profileStatus = useAppSelector(selectProfileStatus);
 
   useEffect(() => {
-    if (user && login) {
+    if (!user || !login) return;
+
+    const roleActionMap = {
+      sitter: () => {
+        dispatch(getProfileByUserIdAsync({ userId: user.id, role: 'sitter' }));
+      },
+      owner: () => {
+        dispatch(getProfileByUserIdAsync({ userId: user.id, role: 'owner' }));
+      },
+    };
+
+    const roleAction = user.roles.find((role) => roleActionMap[role]);
+
+    if (roleAction) {
+      roleActionMap[roleAction]();
       dispatch(resetUserStatus());
-      if (user.role === 'sitter') {
-        dispatch(getSitterAsync(user.profileId));
-      } else if (user.role === 'owner') {
-        dispatch(getOwnerAsync(user.profileId));
-      } else {
-        console.log('bad role');
-      }
+    } else {
+      console.log('bad role');
     }
   }, [dispatch, user, login]);
 
-  // redirection after fetching datas
   useEffect(() => {
-    if (user?.role === 'sitter' && sitter) {
-      dispatch(resetSitterStatus());
-      navigate(`/sitter/${user.profileId}`);
-    } else if (user?.role === 'owner' && owner) {
-      dispatch(resetOwnerStatus());
-      navigate(`/sitters`);
+    if (profileStatus === 'succeeded') {
+      dispatch(resetProfileStatus());
+      if (user?.roles.includes('sitter')) {
+        navigate(`/sitter/${profile?.id}`);
+      } else if (user?.roles.includes('owner')) {
+        navigate(`/sitters`);
+      }
     }
-  }, [dispatch, sitter, owner, user, navigate]);
+  }, [dispatch, profileStatus, profile, user, navigate]);
 };
 
 export default useRedirectIfLoggedIn;

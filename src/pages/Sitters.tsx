@@ -6,11 +6,11 @@ import { I_SitterDocument } from '../models/sitter';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import {
   getAllSittersAsync,
-  resetSitterStatus,
-  selectSitterError,
+  resetSittersStatus,
+  selectSittersError,
   selectSitters,
-  selectSitterStatus,
-} from '../features/sitterSlice';
+  selectSittersStatus,
+} from '../features/sittersSlice';
 import PageLayout from '../layouts/PageLayout';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
@@ -22,35 +22,33 @@ const Sitters = () => {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const sittersFromStore = useAppSelector(selectSitters);
-  const sitterStatus = useAppSelector(selectSitterStatus);
-  const sitterError = useAppSelector(selectSitterError);
+  const sittersStatus = useAppSelector(selectSittersStatus);
+  const sittersError = useAppSelector(selectSittersError);
 
   // Memoize originalSitters to prevent unnecessary recalculation
   const originalSitters = useMemo(() => sittersFromStore, [sittersFromStore]);
 
   useEffect(() => {
-    if (sittersFromStore.length === 0) {
+    if (sittersFromStore.length === 0 && sittersStatus === 'idle') {
       dispatch(getAllSittersAsync());
     }
-  }, [dispatch, sittersFromStore]);
-
-  useEffect(() => {
-    if (sitterStatus === 'succeeded') {
-      dispatch(resetSitterStatus());
+    if (sittersStatus === 'succeeded') {
+      setSitters(sittersFromStore);
+      dispatch(resetSittersStatus());
     }
-  }, [dispatch, sitterStatus]);
+  }, [dispatch, sittersFromStore, sittersStatus]);
 
   // Update the sitters state whenever originalSitters changes
   useEffect(() => {
     setSitters(originalSitters);
   }, [originalSitters]);
 
-  if (sitterStatus === 'loading') {
+  if (sittersStatus === 'loading') {
     return <Loader />;
   }
 
-  if (sitterStatus === 'failed') {
-    return <Error textError={sitterError} />;
+  if (sittersStatus === 'failed') {
+    return <Error textError={sittersError} />;
   }
 
   return (

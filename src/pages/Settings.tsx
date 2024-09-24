@@ -4,24 +4,18 @@ import PageLayout from '../layouts/PageLayout';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import {
-  getOwnerAsync,
-  resetOwnerStatus,
-  selectOwner,
-  selectOwnerStatus,
-} from '../features/ownerSlice';
-import {
-  getSitterAsync,
-  resetSitterStatus,
-  selectSitter,
-  selectSitterStatus,
-} from '../features/sitterSlice';
-import {
   resetUserStatus,
   selectUser,
   selectUserStatus,
 } from '../features/userSlice';
 import DeleteAccount from '../layouts/admin/DeleteAccount';
 import Button from '../components/Button';
+import {
+  getProfileByUserIdAsync,
+  resetProfileStatus,
+  selectProfile,
+  selectProfileStatus,
+} from '../features/profileSlice';
 
 const Settings = () => {
   const dispatch = useAppDispatch();
@@ -32,44 +26,38 @@ const Settings = () => {
 
   const user = useAppSelector(selectUser);
   const userStatus = useAppSelector(selectUserStatus);
-  const owner = useAppSelector(selectOwner);
-  const ownerStatus = useAppSelector(selectOwnerStatus);
-  const sitter = useAppSelector(selectSitter);
-  const sitterStatus = useAppSelector(selectSitterStatus);
+
+  const profile = useAppSelector(selectProfile);
+  const profileStatus = useAppSelector(selectProfileStatus);
+
+  const isSitter = user?.roles.includes('sitter');
 
   // to secure access
   useEffect(() => {
-    if (user && user.role === 'owner') {
-      if (owner?.id !== user.profileId) {
-        dispatch(getOwnerAsync(user.profileId));
-      }
+    if (user && profile?.userId !== user.id) {
+      dispatch(
+        getProfileByUserIdAsync({
+          userId: user.id,
+          role: isSitter ? 'sitter' : 'owner',
+        })
+      );
     }
-  }, [dispatch, user, owner]);
-  useEffect(() => {
-    if (user && user.role === 'sitter') {
-      if (sitter?.id !== user.profileId) {
-        dispatch(getSitterAsync(user.profileId));
-      }
-    }
-  }, [dispatch, user, sitter]);
+  }, [dispatch, user, profile]);
 
   useEffect(() => {
     if (
-      (ownerStatus === 'succeeded' ||
-        sitterStatus === 'succeeded' ||
-        userStatus === 'succeeded') &&
+      (profileStatus === 'succeeded' || userStatus === 'succeeded') &&
       settings !== 'deleteAccount'
     ) {
       const timeoutId = setTimeout(() => {
         dispatch(resetUserStatus());
-        dispatch(resetSitterStatus());
-        dispatch(resetOwnerStatus());
+        dispatch(resetProfileStatus());
         setSettings(null);
       }, 2000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [dispatch, ownerStatus, sitterStatus, userStatus, settings]);
+  }, [dispatch, profileStatus, userStatus, settings]);
 
   const renderForm = () => {
     if (settings === 'profile') {

@@ -7,10 +7,9 @@ import {
   selectUserError,
   selectUserStatus,
 } from '../../features/userSlice';
+import { clearProfile } from '../../features/profileSlice';
 import { logout, selectLogin } from '../../features/authSlice';
 import { useNavigate } from 'react-router-dom';
-import { clearOwner } from '../../features/ownerSlice';
-import { clearSitter } from '../../features/sitterSlice';
 import { I_Auth } from '../../models/auth';
 import SettingsForm from '../forms/SettingsForm';
 
@@ -51,8 +50,7 @@ const DeleteAccount: React.FC<I_DeleteAccountProps> = ({ setSettings }) => {
       // const timer = setTimeout(() => {
       localStorage.removeItem('userEmail');
       dispatch(clearUser());
-      dispatch(clearSitter());
-      dispatch(clearOwner());
+      dispatch(clearProfile());
       dispatch(logout());
       navigate('/');
       // }, 2000);

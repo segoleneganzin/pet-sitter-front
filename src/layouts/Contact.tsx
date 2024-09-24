@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { Form } from 'sg-form-lib';
 import { Modal } from 'sg-modal-lib';
-import { getUserEmail } from '../services/userApi';
+import { getUserById } from '../services/userApi';
 import { formFieldsContact } from '../utils/formFieldsConfig/formFieldsContact';
 import { I_SitterDocument } from '../models/sitter';
 
@@ -40,7 +40,8 @@ const Contact: React.FC<I_ContactProps> = ({
   useEffect(() => {
     if (sitter) {
       const fetchSitterEmail = async () => {
-        const response = await getUserEmail(sitter.id);
+        const response = await getUserById(sitter.userId);
+        console.log(response);
         if (response.body) {
           setFormValues((prevValues) => ({
             ...prevValues,

@@ -2,11 +2,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
 import { logout, selectLogin } from '../features/authSlice';
 import { clearUser, selectUser } from '../features/userSlice';
-import { clearSitter } from '../features/sitterSlice';
-import { clearOwner } from '../features/ownerSlice';
 import Button from '../components/Button';
 import { useState } from 'react';
 import SettingsIcon from '../components/SettingsIcon';
+import { clearProfile, selectProfile } from '../features/profileSlice';
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -14,6 +13,8 @@ const Menu = () => {
 
   const user = useAppSelector(selectUser);
   const login = useAppSelector(selectLogin);
+
+  const profile = useAppSelector(selectProfile);
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -24,8 +25,7 @@ const Menu = () => {
   const logoutUser = () => {
     dispatch(logout());
     dispatch(clearUser());
-    dispatch(clearSitter());
-    dispatch(clearOwner());
+    dispatch(clearProfile());
     navigate('/');
   };
 
@@ -56,9 +56,9 @@ const Menu = () => {
           {user && login && (
             <Link
               to={
-                user.role === 'sitter'
-                  ? `/sitter/${user.profileId}`
-                  : `/owner/${user.profileId}`
+                user.roles.includes('sitter')
+                  ? `/sitter/${profile?.id}`
+                  : `/owner/${profile?.id}`
               }
               className='menu__link'
             >

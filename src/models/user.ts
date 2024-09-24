@@ -1,12 +1,11 @@
 export interface I_User {
   email: string;
   password: string;
-  role: 'sitter' | 'owner';
+  roles: ('sitter' | 'owner')[];
 }
 
 export interface I_UserDocument extends I_User {
   id: string;
-  profileId: string;
 }
 
 export interface I_UserCreate extends I_User {

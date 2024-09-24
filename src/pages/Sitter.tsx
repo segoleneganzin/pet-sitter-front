@@ -4,7 +4,7 @@ import { I_SitterDocument } from '../models/sitter';
 import Loader from '../components/Loader';
 import Contact from '../layouts/Contact';
 import PageLayout from '../layouts/PageLayout';
-import { getSitter } from '../services/sitterApi';
+import { getSitterById } from '../services/sitterApi';
 import Button from '../components/Button';
 import Profile from '../layouts/Profile';
 
@@ -16,7 +16,7 @@ const Sitter = () => {
   // get the sitter and update sitter redux state
   useEffect(() => {
     if (id && !sitter) {
-      getSitter(id).then((response) => {
+      getSitterById(id).then((response) => {
         setSitter(response.body);
       });
     }

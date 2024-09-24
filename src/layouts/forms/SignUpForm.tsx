@@ -15,14 +15,14 @@ import Loader from '../../components/Loader';
 import { I_UserCreate } from '../../models/user';
 
 interface I_SignUpFormProps {
-  role: 'sitter' | 'owner'; // Define role prop type
+  roles: ('sitter' | 'owner')[]; // Define role prop type
 }
 
 interface I_FormData extends I_UserCreate {
   passwordConfirmation: string;
 }
 
-const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
+const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -40,6 +40,7 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
       if (!(datas.password === datas.passwordConfirmation)) {
         throw new Error('Les mots de passe ne correspondent pas');
       }
+      // TODO validate city of country
       //   let newUser: I_UserCreate;
       const newUser: I_UserCreate = {
         email: datas.email!,
@@ -53,7 +54,7 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
         acceptedPets: datas.acceptedPets,
         presentation: datas.presentation,
         pets: datas.pets,
-        role: role!,
+        roles: roles!,
       };
       setLogPassword(datas.password ?? '');
       dispatch(createUserAsync(newUser));
@@ -89,7 +90,7 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
       errorMessage={errorMessage || errorUser}
       title={'Inscription'}
       fieldNames={
-        role === 'sitter'
+        roles.includes('sitter')
           ? [
               'email',
               'password',

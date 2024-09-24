@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { I_OwnerDocument } from '../models/owner';
 import Loader from '../components/Loader';
 import PageLayout from '../layouts/PageLayout';
-import { getOwner } from '../services/ownerApi';
+import { getOwnerById } from '../services/ownerApi';
 import Profile from '../layouts/Profile';
 
 const Owner = () => {
@@ -13,7 +13,7 @@ const Owner = () => {
   // get the owner and update owner redux state
   useEffect(() => {
     if (id && !owner) {
-      getOwner(id).then((response) => {
+      getOwnerById(id).then((response) => {
         setOwner(response.body);
       });
     }

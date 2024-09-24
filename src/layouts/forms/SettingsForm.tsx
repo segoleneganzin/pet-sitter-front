@@ -2,13 +2,11 @@ import { Form } from 'sg-form-lib';
 import Button from '../../components/Button';
 import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
 import { I_UserUpdate } from '../../models/user';
-import { I_Sitter } from '../../models/sitter';
-import { I_Owner } from '../../models/owner';
 import { useAppSelector } from '../../utils/hooks/reduxHooks';
 import { selectUserStatus } from '../../features/userSlice';
 import Loader from '../../components/Loader';
-import { selectSitterStatus } from '../../features/sitterSlice';
-import { selectOwnerStatus } from '../../features/ownerSlice';
+import { I_ProfileUpdate } from '../../models/profile';
+import { selectProfileStatus } from '../../features/profileSlice';
 
 interface I_SettingsProps<T> {
   handleSubmit: (data: T) => void;
@@ -16,7 +14,7 @@ interface I_SettingsProps<T> {
   title: string;
   subtitle?: string | null;
   fieldNames: string[];
-  formValues?: I_Sitter | I_Owner | I_UserUpdate | null;
+  formValues?: I_ProfileUpdate | I_UserUpdate | null;
   succeededMessage: string;
   setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
 }
@@ -32,14 +30,9 @@ const SettingsForm = <T extends object>({
   setSettings,
 }: I_SettingsProps<T>) => {
   const userStatus = useAppSelector(selectUserStatus);
-  const sitterStatus = useAppSelector(selectSitterStatus);
-  const ownerStatus = useAppSelector(selectOwnerStatus);
+  const profileStatus = useAppSelector(selectProfileStatus);
 
-  if (
-    userStatus === 'succeeded' ||
-    ownerStatus === 'succeeded' ||
-    sitterStatus === 'succeeded'
-  ) {
+  if (userStatus === 'succeeded' || profileStatus === 'succeeded') {
     return (
       <>
         <p className='settings__validation-message'>{succeededMessage}</p>

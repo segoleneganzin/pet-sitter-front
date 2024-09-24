@@ -1,14 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../features/userSlice';
-import sitterReducer from '../features/sitterSlice';
-import ownerReducer from '../features/ownerSlice';
+import sittersReducer from '../features/sittersSlice';
+import ownersReducer from '../features/ownersSlice';
 import authReducer from '../features/authSlice';
+import profileReducer from '../features/profileSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    sitter: sitterReducer,
-    owner: ownerReducer,
+    sitters: sittersReducer,
+    owners: ownersReducer,
+    profile: profileReducer,
     auth: authReducer,
   },
 });

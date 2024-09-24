@@ -9,4 +9,5 @@ export interface I_Owner {
 
 export interface I_OwnerDocument extends I_Owner {
   id: string;
+  userId: string;
 }

@@ -11,4 +11,5 @@ export interface I_Sitter {
 
 export interface I_SitterDocument extends I_Sitter {
   id: string;
+  userId: string;
 }

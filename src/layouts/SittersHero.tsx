@@ -1,9 +1,9 @@
-import { selectOwner } from '../features/ownerSlice';
+import { selectProfile } from '../features/profileSlice';
 import { useAppSelector } from '../utils/hooks/reduxHooks';
 
 const SittersHero = () => {
-  const owner = useAppSelector(selectOwner);
-  const name = owner ? ` ${owner.firstName + ' ' + owner.lastName}` : '';
+  const profile = useAppSelector(selectProfile);
+  const name = profile ? ` ${profile.firstName + ' ' + profile.lastName}` : '';
 
   return (
     <section className='sitters-hero'>
