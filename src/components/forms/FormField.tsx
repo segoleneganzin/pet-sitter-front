@@ -1,7 +1,7 @@
 import React from 'react';
-import { InputChangeEvent } from '../layouts/SittersFilter';
 import Select from './Select';
 import Input from './Input';
+import { InputChangeEvent } from '../../types/app.types';
 
 interface I_FormFieldProps {
   label: string;

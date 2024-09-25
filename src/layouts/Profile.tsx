@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { I_OwnerDocument } from '../models/owner';
-import { I_SitterDocument } from '../models/sitter';
-import { translateMessage } from '../utils/apiResponseTranslate';
+import { I_OwnerDocument } from '../interfaces/owner.interface';
+import { I_SitterDocument } from '../interfaces/sitter.interface';
+import { translateMessage } from '../utils/responseTranslate';
 
 interface I_ProfileProps {
   profile: I_OwnerDocument | I_SitterDocument;

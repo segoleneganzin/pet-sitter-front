@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import ScrollUp from '../components/ScrollUp';
-import AppNavigation from './AppNavigation';
-import Footer from './Footer';
-import Header from './Header';
+import ScrollUp from '../../components/ScrollUp';
+import AppNavigation from '../navigation/AppNavigation';
+import Footer from '../Footer';
+import Header from '../Header';
 
 interface I_PageLayoutProps {
   children: React.ReactNode;

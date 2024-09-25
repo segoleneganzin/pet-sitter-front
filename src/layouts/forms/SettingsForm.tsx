@@ -1,11 +1,11 @@
 import { Form } from 'sg-form-lib';
 import Button from '../../components/Button';
 import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
-import { I_UserUpdate } from '../../models/user';
-import { useAppSelector } from '../../utils/hooks/reduxHooks';
+import { I_UserUpdate } from '../../interfaces/user.interface';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import { selectUserStatus } from '../../features/userSlice';
 import Loader from '../../components/Loader';
-import { I_ProfileUpdate } from '../../models/profile';
+import { I_ProfileUpdate } from '../../interfaces/profile.interface';
 import { selectProfileStatus } from '../../features/profileSlice';
 
 interface I_SettingsProps<T> {

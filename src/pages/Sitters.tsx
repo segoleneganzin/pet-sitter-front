@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
-import SittersFilter from '../layouts/SittersFilter';
-import SittersHero from '../layouts/SittersHero';
-import SittersList from '../layouts/SittersList';
-import { I_SitterDocument } from '../models/sitter';
-import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
+import SittersFilter from '../layouts/sitters/SittersFilter';
+import SittersHero from '../layouts/sitters/SittersHero';
+import SittersList from '../layouts/sitters/SittersList';
+import { I_SitterDocument } from '../interfaces/sitter.interface';
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import {
   getAllSittersAsync,
   resetSittersStatus,

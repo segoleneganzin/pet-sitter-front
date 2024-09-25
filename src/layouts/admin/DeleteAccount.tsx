@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../../utils/hooks/reduxHooks';
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import {
   clearUser,
   deleteUserAsync,
@@ -10,7 +10,7 @@ import {
 import { clearProfile } from '../../features/profileSlice';
 import { logout, selectLogin } from '../../features/authSlice';
 import { useNavigate } from 'react-router-dom';
-import { I_Auth } from '../../models/auth';
+import { I_Auth } from '../../interfaces/auth.interface';
 import SettingsForm from '../forms/SettingsForm';
 
 interface I_DeleteAccountProps {

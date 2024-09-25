@@ -1,5 +1,5 @@
-import SitterCard from '../components/SitterCard';
-import { I_SitterDocument } from '../models/sitter';
+import SitterCard from '../../components/SitterCard';
+import { I_SitterDocument } from '../../interfaces/sitter.interface';
 
 interface I_SittersListProps {
   sitters: I_SitterDocument[] | null;

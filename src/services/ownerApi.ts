@@ -1,6 +1,6 @@
-import { I_ApiResponse } from '../models/api';
-import { I_Owner, I_OwnerDocument } from '../models/owner';
-import { callApiWrapper } from '../utils/apiCalls';
+import { I_ApiResponse } from '../interfaces/api.interface.';
+import { I_Owner, I_OwnerDocument } from '../interfaces/owner.interface';
+import { callApiWrapper } from './api';
 
 export const getAllOwners = async (): Promise<
   I_ApiResponse<I_OwnerDocument[]>
@@ -38,7 +38,7 @@ export const updateOwner = async ({
   datas: I_Owner;
   token: string;
 }): Promise<I_ApiResponse<I_OwnerDocument>> => {
-  return await callApiWrapper<I_OwnerDocument>({
+  return await callApiWrapper<I_OwnerDocument, I_Owner>({
     method: 'PATCH',
     url: `/owners/${id}`,
     token,

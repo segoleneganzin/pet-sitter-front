@@ -1,6 +1,6 @@
-import { I_ApiResponse } from '../models/api';
-import { I_Sitter, I_SitterDocument } from '../models/sitter';
-import { callApiWrapper } from '../utils/apiCalls';
+import { I_ApiResponse } from '../interfaces/api.interface.';
+import { I_Sitter, I_SitterDocument } from '../interfaces/sitter.interface';
+import { callApiWrapper } from './api';
 
 export const getAllSitters = async (): Promise<
   I_ApiResponse<I_SitterDocument[]>
@@ -38,7 +38,7 @@ export const updateSitter = async ({
   datas: I_Sitter;
   token: string;
 }): Promise<I_ApiResponse<I_SitterDocument>> => {
-  return await callApiWrapper<I_SitterDocument>({
+  return await callApiWrapper<I_SitterDocument, I_Sitter>({
     method: 'PATCH',
     url: `/sitters/${id}`,
     token,

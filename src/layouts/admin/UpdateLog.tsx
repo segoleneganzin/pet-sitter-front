@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../../utils/hooks/reduxHooks';
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import {
   selectUser,
   selectUserError,
   updateUserAsync,
 } from '../../features/userSlice';
 import { selectLogin } from '../../features/authSlice';
-import { I_UserUpdate } from '../../models/user';
+import { I_UserUpdate } from '../../interfaces/user.interface';
 import Button from '../../components/Button';
 import SettingsForm from '../forms/SettingsForm';
 

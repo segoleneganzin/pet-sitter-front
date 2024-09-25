@@ -1,5 +1,5 @@
-import { selectProfile } from '../features/profileSlice';
-import { useAppSelector } from '../utils/hooks/reduxHooks';
+import { selectProfile } from '../../features/profileSlice';
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 const SittersHero = () => {
   const profile = useAppSelector(selectProfile);

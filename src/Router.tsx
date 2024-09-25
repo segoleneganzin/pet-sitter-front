@@ -4,7 +4,7 @@ import Sitters from './pages/Sitters';
 import Sitter from './pages/Sitter';
 import Owner from './pages/Owner';
 import Settings from './pages/Settings';
-import ProtectedRoute from './layouts/ProtectedRoute';
+import ProtectedRoute from './middlewares/ProtectedRoute';
 import Auth from './pages/Auth';
 
 const Router = () => {

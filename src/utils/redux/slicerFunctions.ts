@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { translateMessage } from './apiResponseTranslate';
+import { translateMessage } from '../responseTranslate';
 
 // Handle async actions and update the state accordingly
 export const handleAsyncActions = (

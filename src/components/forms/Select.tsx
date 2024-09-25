@@ -1,4 +1,4 @@
-import { InputChangeEvent } from '../layouts/SittersFilter';
+import { InputChangeEvent } from '../../types/app.types';
 
 interface I_Option {
   label: string;

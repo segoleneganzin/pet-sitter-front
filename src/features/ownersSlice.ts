@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { handleAsyncActions } from '../utils/slicerFunctions';
+import { handleAsyncActions } from '../utils/redux/slicerFunctions';
 import { getAllOwners } from '../services/ownerApi';
-import { I_OwnerDocument } from '../models/owner';
+import { I_OwnerDocument } from '../interfaces/owner.interface';
 
 const GET_ALL_OWNERS = 'user/getAllOwners';
 

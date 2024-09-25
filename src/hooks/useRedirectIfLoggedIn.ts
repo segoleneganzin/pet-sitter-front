@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './reduxHooks';
-import { resetUserStatus, selectUser } from '../../features/userSlice';
-import { selectLogin } from '../../features/authSlice';
+import { resetUserStatus, selectUser } from '../features/userSlice';
+import { selectLogin } from '../features/authSlice';
 import {
   getProfileByUserIdAsync,
   resetProfileStatus,
   selectProfile,
   selectProfileStatus,
-} from '../../features/profileSlice';
+} from '../features/profileSlice';
 
 const useRedirectIfLoggedIn = () => {
   const navigate = useNavigate();

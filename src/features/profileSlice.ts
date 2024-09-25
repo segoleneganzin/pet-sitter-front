@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { handleAsyncActions } from '../utils/slicerFunctions';
+import { handleAsyncActions } from '../utils/redux/slicerFunctions';
 import { getOwnerByUserId, updateOwner } from '../services/ownerApi';
-import { I_Owner } from '../models/owner';
+import { I_Owner } from '../interfaces/owner.interface';
 import { getSitterByUserId, updateSitter } from '../services/sitterApi';
-import { I_Sitter } from '../models/sitter';
-import { I_ProfileDocument } from '../models/profile';
+import { I_Sitter } from '../interfaces/sitter.interface';
+import { I_ProfileDocument } from '../interfaces/profile.interface';
 
 const GET_PROFILE_BY_USER_ID = 'user/getProfileByUserId';
 const UPDATE_PROFILE = 'user/updateProfile';

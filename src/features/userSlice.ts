@@ -1,13 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { handleAsyncActions } from '../utils/slicerFunctions';
+import { handleAsyncActions } from '../utils/redux/slicerFunctions';
 import {
   createUser,
   getUserById,
   updateUser,
   deleteUser,
 } from '../services/userApi';
-import { I_UserUpdate, I_UserCreate, I_UserDocument } from '../models/user';
-import { I_Auth } from '../models/auth';
+import {
+  I_UserUpdate,
+  I_UserCreate,
+  I_UserDocument,
+} from '../interfaces/user.interface';
+import { I_Auth } from '../interfaces/auth.interface';
 
 const CREATE_USER = 'user/createUser';
 const GET_USER = 'user/getUserById';

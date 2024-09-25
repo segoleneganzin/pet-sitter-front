@@ -1,7 +1,7 @@
-import { useAppSelector, useAppDispatch } from '../../utils/hooks/reduxHooks';
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import { selectUser } from '../../features/userSlice';
-import { I_Sitter } from '../../models/sitter';
-import { I_Owner } from '../../models/owner';
+import { I_Sitter } from '../../interfaces/sitter.interface';
+import { I_Owner } from '../../interfaces/owner.interface';
 import { useEffect, useState } from 'react';
 import { selectLogin } from '../../features/authSlice';
 import SettingsForm from '../forms/SettingsForm';
@@ -10,7 +10,7 @@ import {
   selectProfileError,
   updateProfileAsync,
 } from '../../features/profileSlice';
-import { I_ProfileUpdate } from '../../models/profile';
+import { I_ProfileUpdate } from '../../interfaces/profile.interface';
 
 interface I_UpdateProfileProps {
   setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;

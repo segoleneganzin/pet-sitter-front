@@ -4,7 +4,7 @@ import { Form } from 'sg-form-lib';
 import { Modal } from 'sg-modal-lib';
 import { getUserById } from '../services/userApi';
 import { formFieldsContact } from '../utils/formFieldsConfig/formFieldsContact';
-import { I_SitterDocument } from '../models/sitter';
+import { I_SitterDocument } from '../interfaces/sitter.interface';
 
 interface I_ContactProps {
   toggleModal: () => void;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { Form } from 'sg-form-lib';
 import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
 import {
@@ -12,7 +12,7 @@ import {
 } from '../../features/userSlice';
 import { loginAsync } from '../../features/authSlice';
 import Loader from '../../components/Loader';
-import { I_UserCreate } from '../../models/user';
+import { I_UserCreate } from '../../interfaces/user.interface';
 
 interface I_SignUpFormProps {
   roles: ('sitter' | 'owner')[]; // Define role prop type
@@ -41,7 +41,6 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
         throw new Error('Les mots de passe ne correspondent pas');
       }
       // TODO validate city of country
-      //   let newUser: I_UserCreate;
       const newUser: I_UserCreate = {
         email: datas.email!,
         password: datas.password!,

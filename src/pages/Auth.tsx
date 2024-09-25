@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import SignUpForm from '../layouts/forms/SignUpForm';
 import SignInForm from '../layouts/forms/SignInForm';
-import useRedirectIfLoggedIn from '../utils/hooks/useRedirectIfLoggedIn';
+import useRedirectIfLoggedIn from '../hooks/useRedirectIfLoggedIn';
 import Button from '../components/Button';
 import { useState } from 'react';
 

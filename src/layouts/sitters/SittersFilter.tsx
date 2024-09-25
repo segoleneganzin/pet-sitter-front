@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
-import { I_SitterDocument } from '../models/sitter';
-import { filterByLocation, filteredByAcceptedPets } from '../utils/filter';
-import CloseButton from '../components/CloseButton';
-import FormField from '../components/FormField';
+import { I_SitterDocument } from '../../interfaces/sitter.interface';
+import { filterByLocation, filteredByAcceptedPets } from '../../utils/filter';
+import FormField from '../../components/forms/FormField';
+import Button from '../../components/Button';
+import CloseIcon from '../../components/icons/CloseIcon';
+import { InputChangeEvent } from '../../types/app.types';
 
 const FILTER_OPTIONS = [
   { label: 'Localisation', value: 'location' },
   { label: 'Animaux acceptés', value: 'acceptedPets' },
 ];
 
-export type InputChangeEvent = React.ChangeEvent<
-  HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
->;
 interface I_SittersFilterProps {
   setSitters: (element: I_SitterDocument[]) => void;
   originalSitters: I_SitterDocument[];
@@ -112,7 +111,13 @@ const SittersFilter: React.FC<I_SittersFilterProps> = ({
       </div>
       <div className='filter__field-container'>
         {renderFilterInput()}
-        {filter.choice && <CloseButton btnFunction={resetFilter} />}
+        {filter.choice && (
+          <Button
+            handleClick={resetFilter}
+            content={<CloseIcon />}
+            ariaLabel='Vider le filtre'
+          />
+        )}
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { I_SitterDocument } from '../models/sitter';
+import { I_SitterDocument } from '../interfaces/sitter.interface';
 import { useEffect, useState } from 'react';
-import { translateMessage } from '../utils/apiResponseTranslate';
+import { translateMessage } from '../utils/responseTranslate';
 
 interface I_SitterCardProps {
   sitter: I_SitterDocument;

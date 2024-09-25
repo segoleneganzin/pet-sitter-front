@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
-import { logout, selectLogin } from '../features/authSlice';
-import { clearUser, selectUser } from '../features/userSlice';
-import Button from '../components/Button';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { logout, selectLogin } from '../../features/authSlice';
+import { clearUser, selectUser } from '../../features/userSlice';
+import Button from '../../components/Button';
 import { useState } from 'react';
-import SettingsIcon from '../components/SettingsIcon';
-import { clearProfile, selectProfile } from '../features/profileSlice';
+import SettingsIcon from '../../components/icons/SettingsIcon';
+import { clearProfile, selectProfile } from '../../features/profileSlice';
 
 const Menu = () => {
   const navigate = useNavigate();

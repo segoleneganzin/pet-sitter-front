@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { I_OwnerDocument } from '../models/owner';
+import { I_OwnerDocument } from '../interfaces/owner.interface';
 import Loader from '../components/Loader';
 import PageLayout from '../layouts/PageLayout';
 import { getOwnerById } from '../services/ownerApi';

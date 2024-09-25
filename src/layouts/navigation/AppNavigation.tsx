@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
+import Button from '../../components/Button';
 import Menu from './Menu';
-import ArrowBackIcon from '../components/ArrowBackIcon';
-import HomeIcon from '../components/HomeIcon';
+import ArrowBackIcon from '../../components/icons/ArrowBackIcon';
+import HomeIcon from '../../components/icons/HomeIcon';
 
 const AppNavigation = () => {
   const navigate = useNavigate();

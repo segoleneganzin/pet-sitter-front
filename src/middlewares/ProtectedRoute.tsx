@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useAppSelector } from '../utils/hooks/reduxHooks';
+import { useAppSelector } from '../hooks/reduxHooks';
 import { selectLogin } from '../features/authSlice';
 
 interface I_ProtectedRouteProps {

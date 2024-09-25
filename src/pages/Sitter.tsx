@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { I_SitterDocument } from '../models/sitter';
+import { I_SitterDocument } from '../interfaces/sitter.interface';
 import Loader from '../components/Loader';
 import Contact from '../layouts/Contact';
 import PageLayout from '../layouts/PageLayout';

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { login } from '../services/authApi';
-import { handleAsyncActions } from '../utils/slicerFunctions';
-import { I_Auth } from '../models/auth';
+import { handleAsyncActions } from '../utils/redux/slicerFunctions';
+import { I_Auth } from '../interfaces/auth.interface';
 
 const POST_LOGIN = 'auth/login';
 

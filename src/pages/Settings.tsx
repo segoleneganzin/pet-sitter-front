@@ -1,8 +1,8 @@
 import UpdateLog from '../layouts/admin/UpdateLog';
 import UpdateProfile from '../layouts/admin/UpdateProfile';
-import PageLayout from '../layouts/PageLayout';
+import PageLayout from '../layouts/templates/PageLayout';
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import {
   resetUserStatus,
   selectUser,

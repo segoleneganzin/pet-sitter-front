@@ -1,4 +1,4 @@
-import { I_SitterDocument } from '../models/sitter';
+import { I_SitterDocument } from '../interfaces/sitter.interface';
 
 const filterByLocation = (sitters: I_SitterDocument[], filterValue: string) => {
   return sitters.filter((sitter) =>

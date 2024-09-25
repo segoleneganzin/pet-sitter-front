@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from '../features/userSlice';
-import sittersReducer from '../features/sittersSlice';
-import ownersReducer from '../features/ownersSlice';
-import authReducer from '../features/authSlice';
-import profileReducer from '../features/profileSlice';
+import userReducer from '../../features/userSlice';
+import sittersReducer from '../../features/sittersSlice';
+import ownersReducer from '../../features/ownersSlice';
+import authReducer from '../../features/authSlice';
+import profileReducer from '../../features/profileSlice';
 
 export const store = configureStore({
   reducer: {
