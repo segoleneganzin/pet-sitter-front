@@ -6,8 +6,6 @@ export interface CallApiParams {
   headers?: Record<string, string>; // Optional additional headers
 }
 
-// type ApiResponse<T> = Promise<T>;
-
 export interface I_ApiResponse<T> {
   status: number;
   message: string;

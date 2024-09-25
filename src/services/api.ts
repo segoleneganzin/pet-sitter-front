@@ -10,7 +10,6 @@ interface I_CallApiWrapper<T> {
   url: string;
   token?: string;
   datas?: T;
-  datasType?: 'formData' | 'object';
 }
 
 const buildFormData = <T extends { profilePicture?: FileList }>(
@@ -19,8 +18,14 @@ const buildFormData = <T extends { profilePicture?: FileList }>(
   const formData = new FormData();
   for (const key in datas) {
     const value = datas[key as keyof T];
-    if (key !== 'profilePicture' && typeof value === 'string') {
-      formData.append(key, value as string);
+
+    if (key !== 'profilePicture') {
+      if (Array.isArray(value)) {
+        const joinedValue = value.join(', ');
+        formData.append(key, joinedValue);
+      } else if (typeof value === 'string') {
+        formData.append(key, value);
+      }
     }
   }
   if ('profilePicture' in datas && datas.profilePicture?.length) {
@@ -29,15 +34,12 @@ const buildFormData = <T extends { profilePicture?: FileList }>(
   return formData;
 };
 
-const buildHeaders = (
-  token?: string,
-  datasType?: 'formData' | 'object'
-): AxiosHeaders => {
+const buildHeaders = (token?: string, haveDatas?: boolean): AxiosHeaders => {
   const headers = new AxiosHeaders();
   if (token) {
     headers.set('Authorization', `Bearer ${token}`);
   }
-  if (datasType === 'formData') {
+  if (haveDatas) {
     headers.set('Content-Type', 'multipart/form-data');
   }
   return headers;
@@ -55,14 +57,14 @@ export const callApiWrapper = async <T, D = 'object'>({
   url,
   token,
   datas,
-  datasType,
 }: I_CallApiWrapper<D>): Promise<I_ApiResponse<T>> => {
   try {
-    const headers = buildHeaders(token, datasType);
+    const haveDatas = datas ? true : false;
+    const headers = buildHeaders(token, haveDatas);
     const config: AxiosRequestConfig = {
       method,
       url,
-      data: datasType === 'formData' && datas ? buildFormData(datas) : datas,
+      data: datas ? buildFormData(datas) : datas,
       headers,
     };
 

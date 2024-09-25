@@ -4,13 +4,9 @@ export interface I_Profile {
   lastName: string;
   city: string;
   country: string;
-  tel?: string;
-  presentation?: string;
-  acceptedPets?: ('cat' | 'dog' | 'nac')[];
-  pets?: string[];
 }
 
-export interface I_ProfileDocument extends I_Profile {
+export interface I_ProfileDocument {
   id: string;
   userId: string;
 }

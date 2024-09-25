@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { I_SitterDocument } from '../../interfaces/sitter.interface';
+import { I_UserDocument } from '../../interfaces/user.interface';
 import { filterByLocation, filteredByAcceptedPets } from '../../utils/filter';
 import FormField from '../../components/forms/FormField';
 import Button from '../../components/Button';
@@ -12,8 +12,8 @@ const FILTER_OPTIONS = [
 ];
 
 interface I_SittersFilterProps {
-  setSitters: (element: I_SitterDocument[]) => void;
-  originalSitters: I_SitterDocument[];
+  setSitters: (element: I_UserDocument[]) => void;
+  originalSitters: I_UserDocument[];
 }
 interface I_Filter {
   value: string;

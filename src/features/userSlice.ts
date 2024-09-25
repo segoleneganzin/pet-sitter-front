@@ -8,10 +8,9 @@ import {
 } from '../services/userApi';
 import {
   I_UserUpdate,
-  I_UserCreate,
+  I_User,
   I_UserDocument,
 } from '../interfaces/user.interface';
-import { I_Auth } from '../interfaces/auth.interface';
 
 const CREATE_USER = 'user/createUser';
 const GET_USER = 'user/getUserById';
@@ -20,7 +19,7 @@ const DELETE_USER = 'user/deleteUser';
 
 export const createUserAsync = createAsyncThunk(
   CREATE_USER,
-  async (datas: I_UserCreate) => {
+  async (datas: I_User) => {
     const response = await createUser(datas);
     return response;
   }
@@ -41,8 +40,8 @@ export const updateUserAsync = createAsyncThunk(
 );
 export const deleteUserAsync = createAsyncThunk(
   DELETE_USER,
-  async ({ datas, token }: { datas: I_Auth; token: string }) => {
-    const response = await deleteUser({ datas, token });
+  async (token: string) => {
+    const response = await deleteUser(token);
     return response;
   }
 );

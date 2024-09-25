@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { handleAsyncActions } from '../utils/redux/slicerFunctions';
 import { getAllSitters } from '../services/sitterApi';
-import { I_SitterDocument } from '../interfaces/sitter.interface';
+import { I_UserDocument } from '../interfaces/user.interface';
 
 const GET_ALL_SITTERS = 'user/getAllSitters';
 
@@ -14,7 +14,7 @@ export const getAllSittersAsync = createAsyncThunk(
 );
 
 interface I_SittersState {
-  sitters: I_SitterDocument[];
+  sitters: I_UserDocument[];
   status: string;
   error: string | null;
 }

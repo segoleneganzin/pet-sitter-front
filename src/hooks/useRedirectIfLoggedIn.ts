@@ -45,11 +45,7 @@ const useRedirectIfLoggedIn = () => {
   useEffect(() => {
     if (profileStatus === 'succeeded') {
       dispatch(resetProfileStatus());
-      if (user?.roles.includes('sitter')) {
-        navigate(`/sitter/${profile?.id}`);
-      } else if (user?.roles.includes('owner')) {
-        navigate(`/sitters`);
-      }
+      navigate(-1);
     }
   }, [dispatch, profileStatus, profile, user, navigate]);
 };

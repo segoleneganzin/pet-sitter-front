@@ -1,48 +1,21 @@
 import { I_ApiResponse } from '../interfaces/api.interface.';
-import { I_Owner, I_OwnerDocument } from '../interfaces/owner.interface';
+import { I_UserDocument } from '../interfaces/user.interface';
 import { callApiWrapper } from './api';
 
 export const getAllOwners = async (): Promise<
-  I_ApiResponse<I_OwnerDocument[]>
+  I_ApiResponse<I_UserDocument[]>
 > => {
-  return await callApiWrapper<I_OwnerDocument[]>({
+  return await callApiWrapper<I_UserDocument[]>({
     method: 'GET',
-    url: '/owners',
+    url: '/users/owners',
   });
 };
 
 export const getOwnerById = async (
   id: string
-): Promise<I_ApiResponse<I_OwnerDocument>> => {
-  return await callApiWrapper<I_OwnerDocument>({
+): Promise<I_ApiResponse<I_UserDocument>> => {
+  return await callApiWrapper<I_UserDocument>({
     method: 'GET',
-    url: `/owners/${id}`,
-  });
-};
-
-export const getOwnerByUserId = async (
-  userId: string
-): Promise<I_ApiResponse<I_OwnerDocument>> => {
-  return await callApiWrapper<I_OwnerDocument>({
-    method: 'GET',
-    url: `/owners/user/${userId}`,
-  });
-};
-
-export const updateOwner = async ({
-  id,
-  datas,
-  token,
-}: {
-  id: string;
-  datas: I_Owner;
-  token: string;
-}): Promise<I_ApiResponse<I_OwnerDocument>> => {
-  return await callApiWrapper<I_OwnerDocument, I_Owner>({
-    method: 'PATCH',
-    url: `/owners/${id}`,
-    token,
-    datas,
-    datasType: 'formData',
+    url: `/users/owners/${id}`,
   });
 };

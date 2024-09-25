@@ -1,6 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { selectLogin } from '../features/authSlice';
+import { useAppSelector } from '../hooks/reduxHooks';
 
 const Landing = () => {
+  const login = useAppSelector(selectLogin);
+  if (login) return <Navigate to='/sitters' replace />;
   return (
     <main className='landing container'>
       <div className='landing__content'>

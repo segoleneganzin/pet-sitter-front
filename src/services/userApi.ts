@@ -1,20 +1,18 @@
 import { I_ApiResponse } from '../interfaces/api.interface.';
-import { I_Auth } from '../interfaces/auth.interface';
 import {
   I_UserUpdate,
-  I_UserCreate,
+  I_User,
   I_UserDocument,
 } from '../interfaces/user.interface';
 import { callApiWrapper } from './api';
 
 export const createUser = async (
-  datas: I_UserCreate
+  datas: I_User
 ): Promise<I_ApiResponse<I_UserDocument>> => {
-  return await callApiWrapper<I_UserDocument, I_UserCreate>({
+  return await callApiWrapper<I_UserDocument, I_User>({
     method: 'POST',
     url: `/users`,
     datas,
-    datasType: 'formData',
   });
 };
 
@@ -39,22 +37,15 @@ export const updateUser = async ({
     url: `/users`,
     token,
     datas,
-    datasType: 'object',
   });
 };
 
-export const deleteUser = async ({
-  datas,
-  token,
-}: {
-  datas: I_Auth;
-  token: string;
-}): Promise<I_ApiResponse<void>> => {
-  return await callApiWrapper<void, I_Auth>({
+export const deleteUser = async (
+  token: string
+): Promise<I_ApiResponse<void>> => {
+  return await callApiWrapper<void>({
     method: 'DELETE',
     url: `/users`,
     token,
-    datas,
-    datasType: 'object',
   });
 };

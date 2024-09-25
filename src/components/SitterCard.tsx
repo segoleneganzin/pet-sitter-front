@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { I_SitterDocument } from '../interfaces/sitter.interface';
+import { I_UserDocument } from '../interfaces/user.interface';
 import { useEffect, useState } from 'react';
 import { translateMessage } from '../utils/responseTranslate';
 
 interface I_SitterCardProps {
-  sitter: I_SitterDocument;
+  sitter: I_UserDocument;
 }
 
 const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
@@ -18,9 +18,9 @@ const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
           sitter.profilePicture
         }`
       );
-      if (sitter.acceptedPets) {
-        const translatedPets = sitter.acceptedPets.map((element) =>
-          translateMessage(element)
+      if (sitter.roleDetails.sitter?.acceptedPets) {
+        const translatedPets = sitter.roleDetails.sitter.acceptedPets.map(
+          (element) => translateMessage(element)
         );
         setAcceptedPetsList(translatedPets);
       }

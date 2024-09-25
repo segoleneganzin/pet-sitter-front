@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react';
-import { I_OwnerDocument } from '../interfaces/owner.interface';
-import { I_SitterDocument } from '../interfaces/sitter.interface';
 import { translateMessage } from '../utils/responseTranslate';
+import { I_UserDocument } from '../interfaces/user.interface';
 
 interface I_ProfileProps {
-  profile: I_OwnerDocument | I_SitterDocument;
+  profile: I_UserDocument;
 }
 const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
   const [imgSrc, setImgSrc] = useState<string>('');
   const [petsList, setPetsList] = useState<string[]>([]);
 
-  // Type guard to check if profile is I_OwnerDocument
-  const isOwner = (
-    profile: I_OwnerDocument | I_SitterDocument
-  ): profile is I_OwnerDocument => {
-    return (profile as I_OwnerDocument).pets !== undefined;
+  // Type guard to check if profile is I_UserDocument
+  const isOwner = (profile: I_UserDocument): profile is I_UserDocument => {
+    return (profile as I_UserDocument).roleDetails.owner !== undefined;
   };
 
   useEffect(() => {
@@ -25,16 +22,16 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
         }`
       );
       if (!isOwner(profile)) {
-        const translatedPets = profile.acceptedPets.map((element: string) =>
-          translateMessage(element)
+        const translatedPets = profile.roleDetails.sitter.acceptedPets.map(
+          (element: string) => translateMessage(element)
         );
         setPetsList(translatedPets);
       }
 
       // Si le profil est un propriétaire, on utilise 'pets'
       if (isOwner(profile)) {
-        const translatedPets = profile.pets.map((element: string) =>
-          translateMessage(element)
+        const translatedPets = profile.roleDetails.owner.pets.map(
+          (element: string) => translateMessage(element)
         );
         setPetsList(translatedPets);
       }
@@ -56,13 +53,13 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
         {profile.country} <br />
         {!isOwner(profile) && (
           <>
-            {profile.tel}
+            {profile.roleDetails.sitter.tel}
             <br />
           </>
         )}
         {!isOwner(profile) && (
           <>
-            {profile.presentation}
+            {profile.roleDetails.sitter.presentation}
             <br />
           </>
         )}

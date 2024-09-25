@@ -20,12 +20,7 @@ export const handleAsyncActions = (
         state[statusKey] = 'succeeded';
         state[slicer] = action.payload.body || action.payload.file || null;
         state.error = null;
-        if (
-          slicer === 'login' ||
-          slicer === 'user' ||
-          slicer === 'sitter' ||
-          slicer === 'owner'
-        ) {
+        if (slicer !== 'auth') {
           sessionStorage.setItem(slicer, JSON.stringify(action.payload.body));
         }
       }

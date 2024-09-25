@@ -18,12 +18,19 @@ const Router = () => {
       <Route path='/sitters' element={<Sitters />} />
       <Route path='/sitter/:id' element={<Sitter />} />
       {/* owner route */}
-      <Route path='/owner/:id' element={<Owner />} />
+      <Route
+        path='/owner/:id'
+        element={
+          <ProtectedRoute authorizeRole='sitter'>
+            <Owner />
+          </ProtectedRoute>
+        }
+      />
       {/* administration route */}
       <Route
         path='/settings'
         element={
-          <ProtectedRoute>
+          <ProtectedRoute authorizeRole='all'>
             <Settings />
           </ProtectedRoute>
         }

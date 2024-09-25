@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { handleAsyncActions } from '../utils/redux/slicerFunctions';
 import { getOwnerByUserId, updateOwner } from '../services/ownerApi';
-import { I_Owner } from '../interfaces/owner.interface';
+import { I_Owner, I_UserDocument } from '../interfaces/owner.interface';
 import { getSitterByUserId, updateSitter } from '../services/sitterApi';
-import { I_Sitter } from '../interfaces/sitter.interface';
-import { I_ProfileDocument } from '../interfaces/profile.interface';
+import { I_Sitter, I_UserDocument } from '../interfaces/sitter.interface';
 
 const GET_PROFILE_BY_USER_ID = 'user/getProfileByUserId';
 const UPDATE_PROFILE = 'user/updateProfile';
@@ -12,11 +11,6 @@ const UPDATE_PROFILE = 'user/updateProfile';
 export const getProfileByUserIdAsync = createAsyncThunk(
   GET_PROFILE_BY_USER_ID,
   async ({ userId, role }: { userId: string; role: 'sitter' | 'owner' }) => {
-    //   const response =
-    //   role === 'sitter'
-    //     ? await getSitterByUserId(userId)
-    //     : await getOwnerByUserId(userId);
-    // return response;
     const getProfileByUserId =
       role === 'sitter' ? getSitterByUserId : getOwnerByUserId;
 
@@ -54,7 +48,7 @@ export const updateProfileAsync = createAsyncThunk(
 );
 
 interface I_ProfileState {
-  profile: I_ProfileDocument | null;
+  profile: I_UserDocument | I_UserDocument | null;
   status: string;
   error: string | null;
 }

@@ -16,7 +16,6 @@ export const login = async (
       method: 'POST',
       url: `/auth/login`,
       datas: loginDatas,
-      datasType: 'object',
     });
   } catch (error) {
     throw new Error(

@@ -34,52 +34,27 @@ const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
         lastName: profile.lastName,
         city: profile.city,
         country: profile.country,
-        pets: !isSitter ? profile.pets : undefined,
-        tel: isSitter ? profile.tel : undefined,
-        presentation: isSitter ? profile.presentation : undefined,
-        acceptedPets: isSitter ? profile.acceptedPets : undefined,
+        tel: isSitter ? (profile as I_Sitter).tel : undefined,
+        presentation: isSitter ? (profile as I_Sitter).presentation : undefined,
+        acceptedPets: isSitter ? (profile as I_Sitter).acceptedPets : undefined,
+        pets: !isSitter ? (profile as I_Owner).pets : undefined,
       });
     }
-    // if (user && profile && profile.userId === user.id) {
-    //   setFormValues((prevValues) => ({
-    //     ...prevValues,
-    //     profilePicture: profile.profilePicture,
-    //     firstName: profile.firstName,
-    //     lastName: profile.lastName,
-    //     city: profile.city,
-    //     country: profile.country,
-    //   }));
-    //   if (user.roles.includes('owner')) {
-    //     setFormValues((prevValues) => ({
-    //       ...prevValues,
-    //       pets: profile.pets,
-    //     }));
-    //   }
-    //   if (user.roles.includes('sitter')) {
-    //     setFormValues((prevValues) => ({
-    //       ...prevValues,
-    //       tel: profile.tel,
-    //       presentation: profile.presentation,
-    //       acceptedPets: profile.acceptedPets,
-    //     }));
-    //   }
-    // }
-  }, [profile, user]);
+  }, [profile, user, isSitter]);
 
   const handleUpdate = async (datas: Partial<I_Sitter | I_Owner>) => {
+    if (!user || !login || !profile) return;
     try {
-      if (user && login && profile) {
-        await dispatch(
-          updateProfileAsync({
-            id: profile.id,
-            datas: isSitter ? (datas as I_Sitter) : (datas as I_Owner),
-            token: login.token,
-            role: isSitter ? 'sitter' : 'owner',
-          })
-        );
-      }
+      await dispatch(
+        updateProfileAsync({
+          id: profile.id,
+          datas: isSitter ? (datas as I_Sitter) : (datas as I_Owner),
+          token: login.token,
+          role: isSitter ? 'sitter' : 'owner',
+        })
+      );
     } catch (error) {
-      console.log(error);
+      console.error('Update failed:', error);
     }
   };
 
@@ -109,7 +84,7 @@ const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
               'pets',
             ]
       }
-      formValues={formValues}
+      formValues={formValues || {}}
       succeededMessage={'Informations mises à jour'}
       setSettings={setSettings}
     />

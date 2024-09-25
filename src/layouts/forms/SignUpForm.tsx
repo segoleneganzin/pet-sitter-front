@@ -12,13 +12,13 @@ import {
 } from '../../features/userSlice';
 import { loginAsync } from '../../features/authSlice';
 import Loader from '../../components/Loader';
-import { I_UserCreate } from '../../interfaces/user.interface';
+import { I_User } from '../../interfaces/user.interface';
 
 interface I_SignUpFormProps {
   roles: ('sitter' | 'owner')[]; // Define role prop type
 }
 
-interface I_FormData extends I_UserCreate {
+interface I_FormData extends I_User {
   passwordConfirmation: string;
 }
 
@@ -41,7 +41,7 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
         throw new Error('Les mots de passe ne correspondent pas');
       }
       // TODO validate city of country
-      const newUser: I_UserCreate = {
+      const newUser: I_User = {
         email: datas.email!,
         password: datas.password!,
         profilePicture: datas.profilePicture!,
@@ -53,7 +53,7 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
         acceptedPets: datas.acceptedPets,
         presentation: datas.presentation,
         pets: datas.pets,
-        roles: roles!,
+        roles: roles!.join(', '),
       };
       setLogPassword(datas.password ?? '');
       dispatch(createUserAsync(newUser));
@@ -81,6 +81,24 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
     return <Loader />;
   }
 
+  const fieldNames = [];
+  fieldNames.push(
+    'email',
+    'password',
+    'passwordConfirmation',
+    'profilePicture',
+    'firstName',
+    'lastName',
+    'city',
+    'country'
+  );
+  if (roles.includes('sitter')) {
+    fieldNames.push('tel', 'presentation', 'acceptedPets');
+  }
+  if (roles.includes('owner')) {
+    fieldNames.push('pets');
+  }
+
   return (
     <Form
       fieldsConfig={formFieldsProfile}
@@ -88,33 +106,7 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
       btnText={"M'inscrire"}
       errorMessage={errorMessage || errorUser}
       title={'Inscription'}
-      fieldNames={
-        roles.includes('sitter')
-          ? [
-              'email',
-              'password',
-              'passwordConfirmation',
-              'profilePicture',
-              'firstName',
-              'lastName',
-              'city',
-              'country',
-              'tel',
-              'presentation',
-              'acceptedPets',
-            ]
-          : [
-              'email',
-              'password',
-              'passwordConfirmation',
-              'profilePicture',
-              'firstName',
-              'lastName',
-              'city',
-              'country',
-              'pets',
-            ]
-      }
+      fieldNames={fieldNames}
     />
   );
 };

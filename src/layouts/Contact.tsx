@@ -4,12 +4,12 @@ import { Form } from 'sg-form-lib';
 import { Modal } from 'sg-modal-lib';
 import { getUserById } from '../services/userApi';
 import { formFieldsContact } from '../utils/formFieldsConfig/formFieldsContact';
-import { I_SitterDocument } from '../interfaces/sitter.interface';
+import { I_UserDocument } from '../interfaces/user.interface';
 
 interface I_ContactProps {
   toggleModal: () => void;
   contactModalOpen: boolean;
-  sitter: I_SitterDocument;
+  sitter: I_UserDocument;
 }
 
 interface I_FormValues {
@@ -40,7 +40,7 @@ const Contact: React.FC<I_ContactProps> = ({
   useEffect(() => {
     if (sitter) {
       const fetchSitterEmail = async () => {
-        const response = await getUserById(sitter.userId);
+        const response = await getUserById(sitter.id);
         console.log(response);
         if (response.body) {
           setFormValues((prevValues) => ({
