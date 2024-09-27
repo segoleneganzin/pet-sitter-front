@@ -6,7 +6,6 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 import { selectUserStatus } from '../../features/userSlice';
 import Loader from '../../components/Loader';
 import { I_ProfileUpdate } from '../../interfaces/profile.interface';
-import { selectProfileStatus } from '../../features/profileSlice';
 
 interface I_SettingsProps<T> {
   handleSubmit: (data: T) => void;
@@ -30,9 +29,8 @@ const SettingsForm = <T extends object>({
   setSettings,
 }: I_SettingsProps<T>) => {
   const userStatus = useAppSelector(selectUserStatus);
-  const profileStatus = useAppSelector(selectProfileStatus);
 
-  if (userStatus === 'succeeded' || profileStatus === 'succeeded') {
+  if (userStatus === 'succeeded') {
     return (
       <>
         <p className='settings__validation-message'>{succeededMessage}</p>

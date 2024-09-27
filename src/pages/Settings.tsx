@@ -3,19 +3,9 @@ import UpdateProfile from '../layouts/admin/UpdateProfile';
 import PageLayout from '../layouts/templates/PageLayout';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
-import {
-  resetUserStatus,
-  selectUser,
-  selectUserStatus,
-} from '../features/userSlice';
+import { resetUserStatus, selectUserStatus } from '../features/userSlice';
 import DeleteAccount from '../layouts/admin/DeleteAccount';
 import Button from '../components/Button';
-import {
-  getProfileByUserIdAsync,
-  resetProfileStatus,
-  selectProfile,
-  selectProfileStatus,
-} from '../features/profileSlice';
 
 const Settings = () => {
   const dispatch = useAppDispatch();
@@ -24,40 +14,18 @@ const Settings = () => {
     'auth' | 'profile' | 'deleteAccount' | null
   >(null);
 
-  const user = useAppSelector(selectUser);
   const userStatus = useAppSelector(selectUserStatus);
 
-  const profile = useAppSelector(selectProfile);
-  const profileStatus = useAppSelector(selectProfileStatus);
-
-  const isSitter = user?.roles.includes('sitter');
-
-  // to secure access
   useEffect(() => {
-    if (user && profile?.userId !== user.id) {
-      dispatch(
-        getProfileByUserIdAsync({
-          userId: user.id,
-          role: isSitter ? 'sitter' : 'owner',
-        })
-      );
-    }
-  }, [dispatch, user, profile]);
-
-  useEffect(() => {
-    if (
-      (profileStatus === 'succeeded' || userStatus === 'succeeded') &&
-      settings !== 'deleteAccount'
-    ) {
+    if (userStatus === 'succeeded' && settings !== 'deleteAccount') {
       const timeoutId = setTimeout(() => {
         dispatch(resetUserStatus());
-        dispatch(resetProfileStatus());
         setSettings(null);
       }, 2000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [dispatch, profileStatus, userStatus, settings]);
+  }, [dispatch, userStatus, settings]);
 
   const renderForm = () => {
     if (settings === 'profile') {

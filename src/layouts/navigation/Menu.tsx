@@ -5,7 +5,6 @@ import { clearUser, selectUser } from '../../features/userSlice';
 import Button from '../../components/Button';
 import { useState } from 'react';
 import SettingsIcon from '../../components/icons/SettingsIcon';
-import { clearProfile, selectProfile } from '../../features/profileSlice';
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -13,8 +12,6 @@ const Menu = () => {
 
   const user = useAppSelector(selectUser);
   const login = useAppSelector(selectLogin);
-
-  const profile = useAppSelector(selectProfile);
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -25,7 +22,6 @@ const Menu = () => {
   const logoutUser = () => {
     dispatch(logout());
     dispatch(clearUser());
-    dispatch(clearProfile());
     navigate('/');
   };
 
@@ -57,8 +53,8 @@ const Menu = () => {
             <Link
               to={
                 user.roles.includes('sitter')
-                  ? `/sitter/${profile?.id}`
-                  : `/owner/${profile?.id}`
+                  ? `/sitter/${user?.id}`
+                  : `/owner/${user?.id}`
               }
               className='menu__link'
             >

@@ -1,9 +1,9 @@
-import { selectProfile } from '../../features/profileSlice';
+import { selectUser } from '../../features/userSlice';
 import { useAppSelector } from '../../hooks/reduxHooks';
 
 const SittersHero = () => {
-  const profile = useAppSelector(selectProfile);
-  const name = profile ? ` ${profile.firstName + ' ' + profile.lastName}` : '';
+  const user = useAppSelector(selectUser);
+  const name = user ? ` ${user.firstName + ' ' + user.lastName}` : '';
 
   return (
     <section className='sitters-hero'>

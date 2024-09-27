@@ -2,7 +2,6 @@ import { Navigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../hooks/reduxHooks';
 import { selectLogin } from '../features/authSlice';
 import { selectUser } from '../features/userSlice';
-import { selectProfile } from '../features/profileSlice';
 interface I_ProtectedRouteProps {
   authorizeRole: 'sitter' | 'owner' | 'all';
   children: React.ReactNode;
@@ -14,7 +13,6 @@ const ProtectedRoute: React.FC<I_ProtectedRouteProps> = ({
 }) => {
   const login = useAppSelector(selectLogin);
   const user = useAppSelector(selectUser);
-  const profile = useAppSelector(selectProfile);
 
   const { id } = useParams<{ id: string }>();
 
@@ -23,7 +21,7 @@ const ProtectedRoute: React.FC<I_ProtectedRouteProps> = ({
     if (
       authorizeRole === 'all' ||
       user?.roles.includes(authorizeRole) ||
-      profile?.id === id
+      user?.id === id
     )
       return true;
   };

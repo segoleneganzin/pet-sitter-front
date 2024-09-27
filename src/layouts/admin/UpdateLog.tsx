@@ -26,7 +26,9 @@ const UpdateLog: React.FC<I_UpdateLogProps> = ({ setSettings }) => {
   const handleUpdate = async (formDatas: Partial<I_UserUpdate>) => {
     try {
       if (login && user) {
-        const datas: I_UserUpdate = {};
+        const datas: I_UserUpdate = {
+          roles: user.roles.join(', '),
+        };
         if (choice === 'email') {
           datas.email = formDatas.email;
         } else if (choice === 'password') {

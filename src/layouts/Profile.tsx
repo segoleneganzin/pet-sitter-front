@@ -10,8 +10,8 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
   const [petsList, setPetsList] = useState<string[]>([]);
 
   // Type guard to check if profile is I_UserDocument
-  const isOwner = (profile: I_UserDocument): profile is I_UserDocument => {
-    return (profile as I_UserDocument).roleDetails.owner !== undefined;
+  const isOwner = (profile: I_UserDocument) => {
+    return profile.roles.includes('owner');
   };
 
   useEffect(() => {
@@ -21,20 +21,18 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
           profile.profilePicture
         }`
       );
+      let translatedPets;
       if (!isOwner(profile)) {
-        const translatedPets = profile.roleDetails.sitter.acceptedPets.map(
+        translatedPets = profile.roleDetails.sitter?.acceptedPets?.map(
           (element: string) => translateMessage(element)
         );
-        setPetsList(translatedPets);
       }
-
-      // Si le profil est un propriétaire, on utilise 'pets'
       if (isOwner(profile)) {
-        const translatedPets = profile.roleDetails.owner.pets.map(
+        translatedPets = profile.roleDetails.owner?.pets?.map(
           (element: string) => translateMessage(element)
         );
-        setPetsList(translatedPets);
       }
+      setPetsList(translatedPets ?? []);
     }
   }, [profile]);
 
@@ -53,13 +51,13 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
         {profile.country} <br />
         {!isOwner(profile) && (
           <>
-            {profile.roleDetails.sitter.tel}
+            {profile.roleDetails.sitter?.tel}
             <br />
           </>
         )}
         {!isOwner(profile) && (
           <>
-            {profile.roleDetails.sitter.presentation}
+            {profile.roleDetails.sitter?.presentation}
             <br />
           </>
         )}

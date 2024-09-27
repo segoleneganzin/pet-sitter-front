@@ -3,14 +3,12 @@ import userReducer from '../../features/userSlice';
 import sittersReducer from '../../features/sittersSlice';
 import ownersReducer from '../../features/ownersSlice';
 import authReducer from '../../features/authSlice';
-import profileReducer from '../../features/profileSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     sitters: sittersReducer,
     owners: ownersReducer,
-    profile: profileReducer,
     auth: authReducer,
   },
 });

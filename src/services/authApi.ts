@@ -16,6 +16,7 @@ export const login = async (
       method: 'POST',
       url: `/auth/login`,
       datas: loginDatas,
+      isFormData: false,
     });
   } catch (error) {
     throw new Error(
