@@ -11,10 +11,13 @@ import {
   I_User,
   I_UserDocument,
 } from '../interfaces/user.interface';
+import { updateLog } from '../services/authApi';
+import { I_Auth } from '../interfaces/auth.interface';
 
 const CREATE_USER = 'user/createUser';
 const GET_USER = 'user/getUserById';
 const UPDATE_USER = 'user/updateUser';
+const UPDATE_LOG = 'user/updateLog';
 const DELETE_USER = 'user/deleteUser';
 
 export const createUserAsync = createAsyncThunk(
@@ -32,9 +35,16 @@ export const getUserByIdAsync = createAsyncThunk(
   }
 );
 export const updateUserAsync = createAsyncThunk(
-  UPDATE_USER,
+  UPDATE_LOG,
   async ({ datas, token }: { datas: I_UserUpdate; token: string }) => {
     const response = await updateUser({ datas, token });
+    return response;
+  }
+);
+export const updateUserLogAsync = createAsyncThunk(
+  UPDATE_USER,
+  async ({ datas, token }: { datas: I_Auth; token: string }) => {
+    const response = await updateLog({ datas, token });
     return response;
   }
 );
@@ -80,6 +90,7 @@ export const userSlice = createSlice({
     handleAsyncActions(builder, createUserAsync, 'user');
     handleAsyncActions(builder, getUserByIdAsync, 'user');
     handleAsyncActions(builder, updateUserAsync, 'user');
+    handleAsyncActions(builder, updateUserLogAsync, 'user');
     handleAsyncActions(builder, deleteUserAsync, 'user');
   },
   selectors: {

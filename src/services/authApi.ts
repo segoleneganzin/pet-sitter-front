@@ -1,5 +1,6 @@
 import { I_ApiResponse } from '../interfaces/api.interface.';
 import { I_Auth, I_Login } from '../interfaces/auth.interface';
+import { I_UserDocument } from '../interfaces/user.interface';
 import { callApiWrapper } from './api';
 
 /**
@@ -14,8 +15,30 @@ export const login = async (
   try {
     return await callApiWrapper<I_Login, I_Auth>({
       method: 'POST',
-      url: `/auth/login`,
+      url: `/auth`,
       datas: loginDatas,
+      isFormData: false,
+    });
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : 'An unknown error occurred'
+    );
+  }
+};
+
+export const updateLog = async ({
+  datas,
+  token,
+}: {
+  datas: I_Auth;
+  token: string;
+}): Promise<I_ApiResponse<I_UserDocument>> => {
+  try {
+    return await callApiWrapper<I_UserDocument, I_Auth>({
+      method: 'PATCH',
+      url: `/auth`,
+      datas,
+      token,
       isFormData: false,
     });
   } catch (error) {

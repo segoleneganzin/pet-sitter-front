@@ -9,6 +9,7 @@ import { selectLogin } from '../../features/authSlice';
 import SettingsForm from '../forms/SettingsForm';
 import { I_ProfileUpdate } from '../../interfaces/profile.interface';
 import { I_UserUpdate } from '../../interfaces/user.interface';
+import { clearSitters } from '../../features/sittersSlice';
 
 interface I_UpdateProfileProps {
   setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
@@ -47,7 +48,9 @@ const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
     if (!user || !login) return;
     try {
       formDatas.roles = user.roles.join(', ');
-      console.log(formDatas.roles);
+      if (isSitter) {
+        dispatch(clearSitters());
+      }
       await dispatch(
         updateUserAsync({
           datas: formDatas,

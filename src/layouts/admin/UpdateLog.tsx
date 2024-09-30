@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import {
   selectUser,
   selectUserError,
-  updateUserAsync,
+  updateUserLogAsync,
 } from '../../features/userSlice';
 import { selectLogin } from '../../features/authSlice';
 import { I_UserUpdate } from '../../interfaces/user.interface';
@@ -38,7 +38,7 @@ const UpdateLog: React.FC<I_UpdateLogProps> = ({ setSettings }) => {
             throw new Error('Les mots de passe ne correspondent pas');
           }
         }
-        dispatch(updateUserAsync({ datas, token: login.token }));
+        dispatch(updateUserLogAsync({ datas, token: login.token }));
       }
     } catch (error) {
       console.log(error);

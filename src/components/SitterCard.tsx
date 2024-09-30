@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { I_UserDocument } from '../interfaces/user.interface';
 import { useEffect, useState } from 'react';
-import { translateMessage } from '../utils/responseTranslate';
+// import { translateMessage } from '../utils/responseTranslate';
+import DogIcon from './icons/DogIcon';
+import CatIcon from './icons/CatIcon';
+import NacIcon from './icons/NacIcon';
 
 interface I_SitterCardProps {
   sitter: I_UserDocument;
@@ -9,7 +12,6 @@ interface I_SitterCardProps {
 
 const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
   const [imgSrc, setImgSrc] = useState<string>('');
-  const [acceptedPetsList, setAcceptedPetsList] = useState<string[]>([]);
 
   useEffect(() => {
     if (sitter) {
@@ -18,12 +20,6 @@ const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
           sitter.profilePicture
         }`
       );
-      if (sitter.roleDetails.sitter?.acceptedPets) {
-        const translatedPets = sitter.roleDetails.sitter.acceptedPets.map(
-          (element) => translateMessage(element)
-        );
-        setAcceptedPetsList(translatedPets);
-      }
     }
   }, [sitter]);
 
@@ -47,7 +43,15 @@ const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
             </span>
 
             <span className='sitter-card__content-acceptedPets'>
-              {acceptedPetsList.join(', ')}
+              {sitter.roleDetails.sitter?.acceptedPets?.includes('dog') && (
+                <DogIcon />
+              )}
+              {sitter.roleDetails.sitter?.acceptedPets?.includes('cat') && (
+                <CatIcon />
+              )}
+              {sitter.roleDetails.sitter?.acceptedPets?.includes('nac') && (
+                <NacIcon />
+              )}
             </span>
           </p>
         </div>
