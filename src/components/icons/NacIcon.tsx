@@ -7,6 +7,7 @@ const NacIcon = () => {
       version='1.1'
       id='Layer_1'
       viewBox='0 0 512.001 512.001'
+      className='icon icon__nac'
     >
       <g>
         <g>

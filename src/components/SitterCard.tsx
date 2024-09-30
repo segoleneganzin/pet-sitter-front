@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 import { I_UserDocument } from '../interfaces/user.interface';
 import { useEffect, useState } from 'react';
-// import { translateMessage } from '../utils/responseTranslate';
-import DogIcon from './icons/DogIcon';
-import CatIcon from './icons/CatIcon';
-import NacIcon from './icons/NacIcon';
 
 interface I_SitterCardProps {
   sitter: I_UserDocument;
@@ -42,17 +38,26 @@ const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
               {sitter.city}, {sitter.country}
             </span>
 
-            <span className='sitter-card__content-acceptedPets'>
-              {sitter.roleDetails.sitter?.acceptedPets?.includes('dog') && (
-                <DogIcon />
-              )}
-              {sitter.roleDetails.sitter?.acceptedPets?.includes('cat') && (
-                <CatIcon />
-              )}
-              {sitter.roleDetails.sitter?.acceptedPets?.includes('nac') && (
-                <NacIcon />
-              )}
-            </span>
+            <div className='sitter-card__content-acceptedPets'>
+              <span>
+                {sitter.roleDetails.sitter?.acceptedPets?.includes('dog')
+                  ? '✔'
+                  : '❌'}{' '}
+                Chien
+              </span>
+              <span>
+                {sitter.roleDetails.sitter?.acceptedPets?.includes('cat')
+                  ? '✔'
+                  : '❌'}{' '}
+                Chat
+              </span>
+              <span>
+                {sitter.roleDetails.sitter?.acceptedPets?.includes('nac')
+                  ? '✔'
+                  : '❌'}{' '}
+                NAC
+              </span>
+            </div>
           </p>
         </div>
       </article>

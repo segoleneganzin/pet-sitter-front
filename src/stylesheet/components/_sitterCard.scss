@@ -1,40 +1,48 @@
 .sitter-card {
-  align-items: center;
-  border: 1px solid $primary-color;
-  border-radius: $medium-radius;
   display: flex;
-  gap: 15px;
-  height: 150px;
-  overflow: hidden;
-  padding: 0 10px 0 0;
-  width: 310px;
+  width: 100%;
+  &__link {
+    background-color: $primary-color;
+    border-radius: $medium-radius;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    height: 150px;
+    overflow: hidden;
+    width: 100%;
+  }
+  .icon,
+  .icon path {
+    fill: $background-color;
+  }
   &__section {
-    height: 100%;
+    padding: 5px;
+    width: 50%;
     &:nth-child(2) {
-      padding-top: 5px;
+      position: relative;
     }
   }
   &__picture {
-    height: 100%;
+    border-radius: $medium-radius;
+    height: 140px;
     object-fit: cover;
-    width: 125px;
+    width: 100%;
   }
   &__content {
     @include flex-col;
     font-size: 0.8rem;
     font-weight: normal;
-    gap: 60px;
-
+    gap: 50px;
     &-acceptedPets {
-      align-items: flex-end;
-      display: inline-flex;
+      @include flex-col;
+      bottom: 10px;
       gap: 5px;
+      position: absolute;
     }
   }
   &__title {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 175px;
+    max-width: 145px;
   }
 }

@@ -1,13 +1,15 @@
 $primary-color: #354735;
 $secondary-color: #d4cbc2;
-$tertiary-color: #7c7407;
+$tertiary-color: #3b7e40;
 $text-color: #000000;
 $link-color: $primary-color;
 $background-color: #d4cbc2;
+$light-color: #fff;
 
 /// *********************** BREAKPOINTS
 $breakpoint-mobileXS: 360px;
 $breakpoint-mobile: 425px;
+$breakpoint-mobileXL: 500px;
 $breakpoint-tablet: 768px;
 $breakpoint-laptop: 1024px;
 $breakpoint-laptopXL: 1400px;

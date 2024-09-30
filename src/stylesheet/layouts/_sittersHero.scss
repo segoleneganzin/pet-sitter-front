@@ -1,0 +1,36 @@
+.sitters-hero {
+  align-items: center;
+  display: flex;
+  height: 400px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  &__bg {
+    height: 480px;
+    object-fit: cover;
+    opacity: 0.6;
+    position: absolute;
+    top: -80px;
+    width: 100%;
+    z-index: -1;
+  }
+  &__content {
+    @include flex-col;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 10px 20px;
+    position: relative;
+    z-index: 1;
+  }
+  &__links {
+    @include flex-col;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  @include min-media-breakpoint($breakpoint-mobileXL) {
+    &__content {
+      border-radius: $small-radius;
+      padding: 20px;
+    }
+  }
+}

@@ -14,6 +14,7 @@ const FILTER_OPTIONS = [
 interface I_SittersFilterProps {
   setSitters: (element: I_UserDocument[]) => void;
   originalSitters: I_UserDocument[];
+  setIsFilterOpen: (element: boolean) => void;
 }
 interface I_Filter {
   value: string;
@@ -27,6 +28,7 @@ export interface I_FilterProps {
 const SittersFilter: React.FC<I_SittersFilterProps> = ({
   setSitters,
   originalSitters,
+  setIsFilterOpen,
 }) => {
   const [filter, setFilter] = useState({ choice: '', value: '' });
 
@@ -100,6 +102,12 @@ const SittersFilter: React.FC<I_SittersFilterProps> = ({
   return (
     <section className='sitters-filter'>
       <div className='filter__field-container'>
+        <Button
+          handleClick={() => setIsFilterOpen(false)}
+          content={<span>x</span>}
+          ariaLabel='Fermer le filtre'
+        />
+
         <FormField
           label={'Filtrer par '}
           name='choice'

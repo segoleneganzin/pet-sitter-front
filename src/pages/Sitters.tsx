@@ -54,15 +54,18 @@ const Sitters = () => {
   return (
     <PageLayout mainClassName='sitters'>
       <SittersHero />
-      {isFilterOpen ? (
-        <SittersFilter
-          setSitters={setSitters}
-          originalSitters={sittersFromStore}
-        />
-      ) : (
-        <Button handleClick={() => setIsFilterOpen(true)} content='Filter' />
-      )}
-      <SittersList sitters={sitters} />
+      <div className='sitters__main-content'>
+        {isFilterOpen ? (
+          <SittersFilter
+            setSitters={setSitters}
+            originalSitters={sittersFromStore}
+            setIsFilterOpen={setIsFilterOpen}
+          />
+        ) : (
+          <Button handleClick={() => setIsFilterOpen(true)} content='Filtrer' />
+        )}
+        <SittersList sitters={sitters} />
+      </div>
     </PageLayout>
   );
 };

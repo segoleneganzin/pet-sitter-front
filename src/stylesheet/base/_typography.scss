@@ -4,8 +4,7 @@
 
 /***************************** TYPOGRAPHY *****************************/
 /****************************************************** COLORS */
-body,
-.sitter-card__link {
+body {
   color: $text-color;
 }
 a {
@@ -14,7 +13,13 @@ a {
     color: $tertiary-color;
   }
 }
-.sitter-card__link {
+.sitter-card__link,
+.sitters-hero__link,
+.sitters-hero__content {
+  color: $secondary-color;
+}
+.sitter-card__link,
+.sitters-hero__link {
   @include on-event {
     color: $text-color;
   }
