@@ -4,6 +4,7 @@ import SignInForm from '../layouts/forms/SignInForm';
 import useRedirectIfLoggedIn from '../hooks/useRedirectIfLoggedIn';
 import Button from '../components/Button';
 import { useState } from 'react';
+import Header from '../layouts/Header';
 
 interface I_AuthProps {
   formType: 'signUp' | 'signIn';
@@ -29,10 +30,12 @@ const Auth: React.FC<I_AuthProps> = ({ formType }) => {
 
   return (
     <>
+      <Header />
       <main className={`auth ${formType}-page`}>
         {formType === 'signUp' && (
           <>
-            <div className='signUp__role-selection'>
+            <div className='auth__role-selection'>
+              <p>Je souhaite m'inscrire en tant que</p>
               <label>
                 <input
                   type='checkbox'
@@ -52,27 +55,18 @@ const Auth: React.FC<I_AuthProps> = ({ formType }) => {
                 Owner
               </label>
             </div>
-            {roles.length > 0 && <SignUpForm roles={roles} />}{' '}
+            {roles.length > 0 && (
+              <div className='auth__form-container'>
+                <SignUpForm roles={roles} />
+              </div>
+            )}
           </>
         )}
-        {/* {formType === 'signUp' && (
-          <>
-            <div className='signUp__role-selection'>
-              <Button
-                handleClick={() => handleRoleChange('sitter')}
-                classname='signUp__role-btn'
-                content='Sitter'
-              />
-              <Button
-                handleClick={() => handleRoleChange('owner')}
-                classname='signUp__role-btn'
-                content='Owner'
-              />
-            </div>
-            {roles && <SignUpForm roles={roles} />}
-          </>
-        )} */}
-        {formType === 'signIn' && <SignInForm />}
+        {formType === 'signIn' && (
+          <div className='auth__form-container'>
+            <SignInForm />
+          </div>
+        )}
         <Button handleClick={() => navigate(-1)} content='Retour' />
       </main>
     </>

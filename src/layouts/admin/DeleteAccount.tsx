@@ -47,11 +47,7 @@ const DeleteAccount: React.FC<I_DeleteAccountProps> = ({ setSettings }) => {
         Voulez vous vraiment supprimer votre compte ? cette action est
         irréversible et toutes vos données seront supprimées.
       </p>
-      <Button
-        handleClick={handleDelete}
-        classname='btn'
-        content='Supprimer mon compte'
-      />
+      <Button handleClick={handleDelete} content='Supprimer mon compte' />
       <Button
         handleClick={() => setSettings(null)}
         classname='btn--cancel'

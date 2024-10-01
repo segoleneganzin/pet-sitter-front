@@ -4,7 +4,9 @@
 
 /***************************** TYPOGRAPHY *****************************/
 /****************************************************** COLORS */
-body {
+body,
+input,
+select {
   color: $text-color;
 }
 a {
@@ -13,24 +15,26 @@ a {
     color: $tertiary-color;
   }
 }
-.sitter-card__link,
-.sitters-hero__link,
-.sitters-hero__content {
-  color: $secondary-color;
+.header__title,
+.sitters-hero__content,
+.landing__content {
+  color: $light-color;
 }
-.sitter-card__link,
+.sitter-card,
 .sitters-hero__link {
   @include on-event {
     color: $text-color;
   }
 }
+
 /****************************************************** FONTS */
-body {
+body,
+input,
+select {
   font-family: 'Manrope', sans-serif;
 }
 
 /***************************************** font weight */
-a,
 .bold {
   font-weight: 700;
 }

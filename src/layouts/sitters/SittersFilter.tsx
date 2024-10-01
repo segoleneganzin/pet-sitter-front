@@ -50,8 +50,8 @@ const SittersFilter: React.FC<I_SittersFilterProps> = ({
     setSitters(getFilteredSitters());
   }, [filter, originalSitters, setSitters]);
 
-  const resetFilter = () => {
-    setFilter({ choice: '', value: '' });
+  const emptyFilter = () => {
+    setFilter({ choice: filter.choice, value: '' });
     setSitters(originalSitters);
   };
 
@@ -68,7 +68,7 @@ const SittersFilter: React.FC<I_SittersFilterProps> = ({
       case 'location':
         return (
           <FormField
-            label='Rechercher'
+            label='Rechercher '
             name='location'
             type='text'
             value={filter.value}
@@ -80,7 +80,7 @@ const SittersFilter: React.FC<I_SittersFilterProps> = ({
       case 'acceptedPets':
         return (
           <FormField
-            label={"Sélectionner le type d'animal"}
+            label="Sélectionner le type d'animal"
             name='acceptedPets'
             type='select'
             value={filter.value}
@@ -101,15 +101,14 @@ const SittersFilter: React.FC<I_SittersFilterProps> = ({
 
   return (
     <section className='sitters-filter'>
-      <div className='filter__field-container'>
+      <div className='sitters-filter__field-container'>
         <Button
           handleClick={() => setIsFilterOpen(false)}
           content={<span>x</span>}
           ariaLabel='Fermer le filtre'
         />
-
         <FormField
-          label={'Filtrer par '}
+          label='Filtrer par '
           name='choice'
           type='select'
           value={filter.choice}
@@ -117,11 +116,12 @@ const SittersFilter: React.FC<I_SittersFilterProps> = ({
           options={FILTER_OPTIONS}
         />
       </div>
-      <div className='filter__field-container'>
+      <div className='sitters-filter__field-container'>
         {renderFilterInput()}
-        {filter.choice && (
+        {filter.choice && filter.value && (
           <Button
-            handleClick={resetFilter}
+            handleClick={emptyFilter}
+            classname='sitters-filter__empty'
             content={<CloseIcon />}
             ariaLabel='Vider le filtre'
           />

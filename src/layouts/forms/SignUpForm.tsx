@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { Form } from 'sg-form-lib';
 import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
@@ -48,7 +48,7 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
         firstName: datas.firstName!,
         lastName: datas.lastName!,
         city: datas.city!,
-        country: datas.country!,
+        country: 'France',
         tel: datas.tel,
         acceptedPets: datas.acceptedPets,
         presentation: datas.presentation,
@@ -89,8 +89,7 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
     'profilePicture',
     'firstName',
     'lastName',
-    'city',
-    'country'
+    'city'
   );
   if (roles.includes('sitter')) {
     fieldNames.push('tel', 'presentation', 'acceptedPets');
@@ -100,14 +99,22 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
   }
 
   return (
-    <Form
-      fieldsConfig={formFieldsProfile}
-      onSubmitFunction={handleForm}
-      btnText={"M'inscrire"}
-      errorMessage={errorMessage || errorUser}
-      title={'Inscription'}
-      fieldNames={fieldNames}
-    />
+    <>
+      <Form
+        fieldsConfig={formFieldsProfile}
+        onSubmitFunction={handleForm}
+        btnText={"M'inscrire"}
+        errorMessage={errorMessage || errorUser}
+        title={'Inscription'}
+        fieldNames={fieldNames}
+      />
+      <p className='sign-link'>
+        Vous avez déjà un compte ?{' '}
+        <Link to={'/sign-in'} className='link'>
+          Connexion
+        </Link>
+      </p>
+    </>
   );
 };
 

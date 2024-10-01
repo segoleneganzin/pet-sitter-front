@@ -4,7 +4,7 @@
 @import 'utils/variables', 'utils/functions', 'utils/mixins';
 
 // 2. Vendors
-@import 'vendors/normalize';
+@import 'vendors/normalize', 'vendors/sg-form-lib';
 
 // 3. Base stuff
 @import 'base/base', 'base/typography', 'base/helpers';
@@ -17,8 +17,9 @@
   'layouts/sittersList', 'layouts/updateLog', 'layouts/settingsForm';
 
 // 5. Components
-@import 'components/button', 'components/error', 'components/loader',
-  'components/scrollUp', 'components/sitterCard';
+@import 'components/button', 'components/cta', 'components/error',
+  'components/loader', 'components/scrollUp', 'components/sitterCard',
+  'components/signUpLink';
 
 // 6. Page-specific styles
 @import 'pages/auth', 'pages/landing', 'pages/owner', 'pages/settings',

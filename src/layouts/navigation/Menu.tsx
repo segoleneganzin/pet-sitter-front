@@ -31,6 +31,7 @@ const Menu = () => {
         handleClick={toggleMenu}
         classname='app-navigation__btn'
         content={<SettingsIcon />}
+        ariaLabel='Ouvrir le menu'
       />
       {isMenuOpen && (
         <div className='menu'>

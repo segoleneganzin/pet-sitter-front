@@ -10,6 +10,7 @@ import { formFieldsAuth } from '../../utils/formFieldsConfig/formFieldsAuth';
 import { selectUserStatus, getUserByIdAsync } from '../../features/userSlice';
 import Loader from '../../components/Loader';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import SignUpLink from '../../components/SignUpLink';
 
 interface I_FormData {
   email: string;
@@ -68,15 +69,18 @@ const SignInForm = () => {
   }
 
   return (
-    <Form
-      fieldsConfig={formFieldsAuth}
-      onSubmitFunction={handleForm}
-      btnText={'Connexion'}
-      errorMessage={error}
-      title={'Connexion'}
-      fieldNames={['email', 'password', 'rememberMe']}
-      fieldValue={formValues}
-    />
+    <>
+      <Form
+        fieldsConfig={formFieldsAuth}
+        onSubmitFunction={handleForm}
+        btnText={'Connexion'}
+        errorMessage={error}
+        title={'Connexion'}
+        fieldNames={['email', 'password', 'rememberMe']}
+        fieldValue={formValues}
+      />
+      <SignUpLink />
+    </>
   );
 };
 

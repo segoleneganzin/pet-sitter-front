@@ -1,9 +1,9 @@
 $primary-color: #354735;
-$secondary-color: #d4cbc2;
+$secondary-color: #e6e3e1;
 $tertiary-color: #3b7e40;
-$text-color: #000000;
+$text-color: $primary-color;
 $link-color: $primary-color;
-$background-color: #d4cbc2;
+$background-color: $secondary-color;
 $light-color: #fff;
 
 /// *********************** BREAKPOINTS

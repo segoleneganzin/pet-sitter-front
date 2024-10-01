@@ -1,5 +1,30 @@
 .header {
-  height: 80px;
-  background-color: transparent;
-  position: absolute;
+  background-color: $primary-color;
+  padding: 20px 0;
+  position: relative;
+  width: 100%;
+  &__title {
+    text-align: center;
+  }
+  .icon {
+    position: absolute;
+    &__dog {
+      left: 10px;
+      top: 25px;
+      transform: rotate(-25deg);
+    }
+    &__cat {
+      right: 10px;
+      top: 10px;
+      transform: rotate(25deg);
+    }
+    &__nac {
+      right: 25px;
+      bottom: 1px;
+    }
+  }
+  .icon,
+  .icon path {
+    fill: $secondary-color;
+  }
 }

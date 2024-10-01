@@ -13,7 +13,7 @@ const Button: React.FC<I_ButtonProps> = ({
 }) => {
   return (
     <button
-      className={`btn ${classname}`}
+      className={`${classname} bold`}
       onClick={handleClick}
       aria-label={ariaLabel}
     >

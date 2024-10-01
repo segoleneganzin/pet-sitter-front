@@ -1,0 +1,19 @@
+.sitter {
+  &__section {
+    @include flex-col;
+    gap: 10px;
+    padding: 0 5px;
+  }
+  &__contact {
+    @include flex-col;
+    border: 1px solid $primary-color;
+    border-radius: $small-radius;
+    font-size: 0.9rem;
+    gap: 15px;
+    margin: 0 5px;
+    padding: 10px;
+    .cta {
+      align-self: center;
+    }
+  }
+}

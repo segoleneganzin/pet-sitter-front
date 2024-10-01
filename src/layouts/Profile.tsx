@@ -10,8 +10,8 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
   const [petsList, setPetsList] = useState<string[]>([]);
 
   // Type guard to check if profile is I_UserDocument
-  const isOwner = (profile: I_UserDocument) => {
-    return profile.roles.includes('owner');
+  const isSitter = (profile: I_UserDocument) => {
+    return profile.roles.includes('sitter');
   };
 
   useEffect(() => {
@@ -22,12 +22,12 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
         }`
       );
       let translatedPets;
-      if (!isOwner(profile)) {
+      if (isSitter(profile)) {
         translatedPets = profile.roleDetails.sitter?.acceptedPets?.map(
           (element: string) => translateMessage(element)
         );
       }
-      if (isOwner(profile)) {
+      if (!isSitter(profile)) {
         translatedPets = profile.roleDetails.owner?.pets?.map(
           (element: string) => translateMessage(element)
         );
@@ -43,26 +43,27 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
         alt={`Photo de profil de ${profile.firstName} ${profile.lastName}`}
         className='profile__picture'
       />
-      <h1>
-        {profile.firstName} {profile.lastName}
-      </h1>
-      <p>
-        {profile.city} <br />
-        {profile.country} <br />
-        {!isOwner(profile) && (
-          <>
+      <div className='profile__identity'>
+        <h1>
+          {profile.firstName} {profile.lastName}
+        </h1>
+        <p>{profile.city} </p>
+        {isSitter(profile) && (
+          <p>
             {profile.roleDetails.sitter?.tel}
             <br />
-          </>
+          </p>
         )}
-        {!isOwner(profile) && (
-          <>
+        {isSitter(profile) && (
+          <p>
             {profile.roleDetails.sitter?.presentation}
             <br />
-          </>
+          </p>
         )}
-        {petsList.join(' ')}
-        <br />
+      </div>
+      <p className='profile__pets'>
+        {isSitter(profile) ? 'Je peux garder : ' : 'Animaux : '}
+        {petsList.join(', ')}
       </p>
     </section>
   );

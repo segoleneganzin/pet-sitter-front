@@ -71,7 +71,7 @@ const FormField: React.FC<I_FormFieldProps> = ({
             handleChange={handleChange}
             field={{ name: name, type: type }}
             value={value as string}
-            className='fomr__input'
+            className='form__input'
           />
         );
     }

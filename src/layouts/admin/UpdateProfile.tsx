@@ -31,7 +31,6 @@ const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
         firstName: user.firstName,
         lastName: user.lastName,
         city: user.city,
-        country: user.country,
         tel: isSitter ? user.roleDetails?.sitter?.tel : undefined,
         presentation: isSitter
           ? user.roleDetails?.sitter?.presentation
@@ -48,6 +47,7 @@ const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
     if (!user || !login) return;
     try {
       formDatas.roles = user.roles.join(', ');
+      formDatas.country = 'France';
       if (isSitter) {
         dispatch(clearSitters());
       }
@@ -63,7 +63,7 @@ const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
   };
 
   const fieldNames = [];
-  fieldNames.push('profilePicture', 'firstName', 'lastName', 'city', 'country');
+  fieldNames.push('profilePicture', 'firstName', 'lastName', 'city');
   if (user?.roles.includes('sitter')) {
     fieldNames.push('tel', 'presentation', 'acceptedPets');
   }

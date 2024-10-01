@@ -20,48 +20,46 @@ const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
   }, [sitter]);
 
   return (
-    <Link to={`/sitter/${sitter.id}`} className='sitter-card__link'>
-      <article className='card sitter-card'>
-        <div className='sitter-card__section'>
-          <img
-            src={imgSrc}
-            alt={`Photo de profil de ${sitter.firstName} ${sitter.lastName}`}
-            className='sitter-card__picture'
-          />
-        </div>
-        <div className='sitter-card__section'>
-          <h3 className='sitter-card__title'>
-            {sitter.firstName} {sitter.lastName}
-          </h3>
-          <p className='sitter-card__content'>
-            <span className='sitter-card__content-location'>
-              {sitter.city}, {sitter.country}
+    <article className='card sitter-card'>
+      <div className='sitter-card__section'>
+        <img
+          src={imgSrc}
+          alt={`Photo de profil de ${sitter.firstName} ${sitter.lastName}`}
+          className='sitter-card__picture'
+        />
+      </div>
+      <div className='sitter-card__section'>
+        <h3 className='sitter-card__title'>
+          {sitter.firstName} {sitter.lastName}
+        </h3>
+        <div className='sitter-card__content'>
+          <p className='sitter-card__content-location'>{sitter.city}</p>
+          <p className='sitter-card__content-acceptedPets'>
+            <span>
+              {sitter.roleDetails.sitter?.acceptedPets?.includes('dog')
+                ? '✔'
+                : 'X '}{' '}
+              Chien
             </span>
-
-            <div className='sitter-card__content-acceptedPets'>
-              <span>
-                {sitter.roleDetails.sitter?.acceptedPets?.includes('dog')
-                  ? '✔'
-                  : '❌'}{' '}
-                Chien
-              </span>
-              <span>
-                {sitter.roleDetails.sitter?.acceptedPets?.includes('cat')
-                  ? '✔'
-                  : '❌'}{' '}
-                Chat
-              </span>
-              <span>
-                {sitter.roleDetails.sitter?.acceptedPets?.includes('nac')
-                  ? '✔'
-                  : '❌'}{' '}
-                NAC
-              </span>
-            </div>
+            <span>
+              {sitter.roleDetails.sitter?.acceptedPets?.includes('cat')
+                ? '✔'
+                : 'X'}{' '}
+              Chat
+            </span>
+            <span>
+              {sitter.roleDetails.sitter?.acceptedPets?.includes('nac')
+                ? '✔'
+                : 'X '}{' '}
+              NAC
+            </span>
           </p>
         </div>
-      </article>
-    </Link>
+      </div>
+      <Link to={`/sitter/${sitter.id}`} className='sitter-card__link'>
+        +
+      </Link>
+    </article>
   );
 };
 

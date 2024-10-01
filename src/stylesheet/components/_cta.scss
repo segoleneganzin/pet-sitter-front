@@ -1,0 +1,35 @@
+.cta {
+  background-color: $tertiary-color;
+  border-radius: $small-radius;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  color: $secondary-color;
+  padding: 10px 20px;
+  position: relative;
+  width: fit-content;
+
+  .icon__paw {
+    fill: $primary-color;
+    position: absolute;
+    &:nth-child(1) {
+      height: 10px;
+      left: 5px;
+      top: 5px;
+      width: 10px;
+    }
+    &:nth-child(2) {
+      height: 9px;
+      right: 5px;
+      top: 10px;
+      width: 9px;
+    }
+  }
+  &:hover {
+    background-color: $secondary-color;
+    color: $primary-color;
+
+    .icon__paw {
+      fill: $tertiary-color;
+    }
+  }
+}

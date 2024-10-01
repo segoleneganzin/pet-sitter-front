@@ -1,9 +1,13 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { selectUser } from '../../features/userSlice';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import heroBg from '../../assets/sitters-hero.jpg';
+import Cta from '../../components/CTA';
+import SignUpLink from '../../components/SignUpLink';
 
 const SittersHero = () => {
+  const navigate = useNavigate();
+
   const user = useAppSelector(selectUser);
   const name = user ? ` ${user.firstName + ' ' + user.lastName}` : '';
 
@@ -12,22 +16,19 @@ const SittersHero = () => {
       <img src={heroBg} alt='' className='sitters-hero__bg' />
       <div className='sitters-hero__content'>
         <h2>Bonjour{name},</h2>
-        <h2>Trouvez le meilleur pet sitter pour votre animal !</h2>
+        <h3>Trouvez le meilleur pet sitter pour votre animal !</h3>
         {!user && (
           <>
-            <div className='sitters-hero__links'>
-              <p>
+            <div className='sitters-hero__ctas'>
+              <p className='sitters-hero__cta-container'>
                 Vous souhaitez contacter un pet-sitter ?
-                <Link to={'/sign-in'} className='sitters-hero__link'>
-                  Connectez-vous
-                </Link>
+                <Cta
+                  handleClick={() => navigate('/sign-in')}
+                  classname='btn sitters-hero__cta'
+                  content='Connectez-vous'
+                />
               </p>
-              <p>
-                Vous n'avez pas encore de compte ?{' '}
-                <Link to={'/sign-up'} className='sitters-hero__link'>
-                  Inscrivez-vous
-                </Link>
-              </p>
+              <SignUpLink />
             </div>
           </>
         )}

@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 *,
@@ -10,10 +11,8 @@ html {
 
 body {
   margin: 0;
-  padding: 0 0 $app-nav-height;
   overflow-x: hidden;
   min-height: 100vh;
-  background-color: $background-color;
 }
 
 main {
@@ -26,4 +25,8 @@ a {
   text-decoration: none;
   cursor: pointer;
   width: fit-content;
+}
+
+.link {
+  text-decoration: underline;
 }

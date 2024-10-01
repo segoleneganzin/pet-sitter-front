@@ -2,4 +2,20 @@
   &__picture {
     width: 100%;
   }
+  &__identity {
+    margin-bottom: 20px;
+    padding-left: 50px;
+    position: relative;
+    &::before {
+      background-color: $primary-color;
+      content: '';
+      height: 100%;
+      left: -10px;
+      position: absolute;
+      width: 50px;
+    }
+  }
+  &__pets {
+    padding: 0 10px;
+  }
 }

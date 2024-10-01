@@ -14,6 +14,7 @@ enum ErrorKeys {
   InvalidUsernamePasswordSupplied = 'Invalid username/password supplied',
   PetDog = 'dog',
   PetCat = 'cat',
+  PetNac = 'nac',
 }
 
 const errorMessages: Record<ErrorKeys, string> = {
@@ -36,6 +37,7 @@ const errorMessages: Record<ErrorKeys, string> = {
     "Nom d'utilisateur/mot de passe invalide",
   [ErrorKeys.PetDog]: 'Chien',
   [ErrorKeys.PetCat]: 'Chat',
+  [ErrorKeys.PetNac]: 'NAC',
 };
 
 export const translateMessage = (message: string): string => {
