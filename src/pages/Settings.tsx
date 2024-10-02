@@ -1,3 +1,4 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import UpdateLog from '../layouts/admin/UpdateLog';
 import UpdateProfile from '../layouts/admin/UpdateProfile';
 import PageLayout from '../layouts/templates/PageLayout';
@@ -15,6 +16,18 @@ const Settings = () => {
   >(null);
 
   const userStatus = useAppSelector(selectUserStatus);
+
+  const handleSettings = (
+    setting: 'auth' | 'profile' | 'deleteAccount' | null
+  ) => {
+    setSettings(setting);
+    // manage appNavigation goBack
+    if (setting === null) {
+      sessionStorage.removeItem('isSettingOpen');
+    } else {
+      sessionStorage.setItem('isSettingOpen', 'true');
+    }
+  };
 
   useEffect(() => {
     if (userStatus === 'succeeded' && settings !== 'deleteAccount') {
@@ -40,30 +53,30 @@ const Settings = () => {
   return (
     <PageLayout mainClassName='settings'>
       <h2 className='settings__title'>Paramètres</h2>
-      {!settings && (
+      {settings === null && (
         <div className='settings__choices'>
           <Button
-            handleClick={() => setSettings('auth')}
+            handleClick={() => handleSettings('auth')}
             content='Modifier mes informations de connexion'
             classname='settings__btn'
           />
           <Button
-            handleClick={() => setSettings('profile')}
+            handleClick={() => handleSettings('profile')}
             content='Modifier mon profil'
             classname='settings__btn'
           />
           <Button
-            handleClick={() => setSettings('deleteAccount')}
+            handleClick={() => handleSettings('deleteAccount')}
             content='Supprimer mon compte'
-            classname='settings__btn--delete'
+            classname='settings__btn settings__btn--delete'
           />
         </div>
       )}
       {renderForm()}
       {settings && (
         <Button
-          handleClick={() => setSettings(null)}
-          classname='btn btn--cancel'
+          handleClick={() => handleSettings(null)}
+          classname='btn settings__btn--cancel'
           content='Annuler'
         />
       )}

@@ -1,10 +1,7 @@
 .settings-form {
   @include flex-col;
   align-items: center;
-  .btn {
-    color: color(light);
-    margin: 35px auto 20px;
-  }
+
   .sg-form-lib__title {
     text-align: center;
   }
