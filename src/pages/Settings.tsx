@@ -1,4 +1,3 @@
-import { useLocation, useNavigate } from 'react-router-dom';
 import UpdateLog from '../layouts/admin/UpdateLog';
 import UpdateProfile from '../layouts/admin/UpdateProfile';
 import PageLayout from '../layouts/templates/PageLayout';

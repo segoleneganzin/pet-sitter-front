@@ -74,7 +74,11 @@ const Auth: React.FC<I_AuthProps> = ({ formType }) => {
             <SignInForm />
           </div>
         )}
-        <Button handleClick={() => navigate(-1)} content='Retour' />
+        <Button
+          handleClick={() => navigate(-1)}
+          content='Retour'
+          classname='auth__btn--cancel'
+        />
       </main>
     </>
   );
