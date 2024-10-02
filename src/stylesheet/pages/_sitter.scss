@@ -1,6 +1,6 @@
 .sitter {
   &__contact {
-    font-size: 0.9rem;
+    font-size: fontSize(medium);
     @include flex-col;
     gap: 15px;
     border: 1px solid color(primary);

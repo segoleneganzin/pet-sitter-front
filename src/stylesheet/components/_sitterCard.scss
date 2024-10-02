@@ -9,8 +9,11 @@
   height: 150px;
   width: 100%;
   overflow: hidden;
+  &__title,
+  &__link {
+    font-size: fontSize(large);
+  }
   &__title {
-    font-size: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -31,7 +34,7 @@
   }
   &__content {
     @include flex-col;
-    font-size: 0.8rem;
+    font-size: fontSize(small);
     gap: 50px;
     &-acceptedPets {
       @include flex-col;
@@ -42,7 +45,6 @@
   }
   &__link {
     color: color(light);
-    font-size: 1.2rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;

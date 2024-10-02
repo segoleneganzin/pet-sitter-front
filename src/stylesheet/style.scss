@@ -1,28 +1,41 @@
 @charset "UTF-8";
 
-// 1. Configuration and helpers
-@import 'utils/variables', 'utils/functions', 'utils/mixins';
+// ****** 1. Configuration and helpers
+@import 'abstracts/variables', 'abstracts/functions', 'abstracts/mixins';
 
-// 2. Vendors
+// ****** 2. Vendors
 @import 'vendors/sg-form-lib';
 
-// 3. Base stuff
-@import 'base/global', 'base/typography', 'base/helpers', 'base/normalize',
-  'base/links', 'base/main', 'base/text', 'base/buttons';
+// ****** 3. Base stuff
+@import 'base/global', 'base/typography', 'base/normalize', 'base/links',
+  'base/main', 'base/text', 'base/buttons';
 
-// 4. Layout-related sections
-@import 'layouts/appNavigation', 'layouts/contact', 'layouts/deleteAccount',
-  'layouts/footer', 'layouts/header', 'layouts/menu', 'layouts/pageLayout',
-  'layouts/profile', 'layouts/settingsForm', 'layouts/signInForm',
-  'layouts/signUpForm', 'layouts/sittersFilter', 'layouts/sittersHero',
-  'layouts/sittersList', 'layouts/updateLog', 'layouts/settingsForm',
-  'layouts/profileSection';
+// ****** 4. Layouts
+@import 'layouts/contact', 'layouts/footer', 'layouts/header', 'layouts/profile';
+// Layouts / admin
+@import 'layouts/admin/deleteAccount', 'layouts/admin/updateLog',
+  'layouts/admin/updateProfile';
+// Layouts / forms
+@import 'layouts/forms/settingsForm', 'layouts/forms/signInForm',
+  'layouts/forms/signUpForm';
+// Layouts / navigation
+@import 'layouts/navigation/appNavigation', 'layouts/navigation/menu';
+// Layouts / sitters
+@import 'layouts/sitters/sittersFilter', 'layouts/sitters/sittersHero',
+  'layouts/sitters/sittersList';
+// Layouts / templates
+@import 'layouts/templates/pageLayout', 'layouts/templates/profileSection';
 
-// 5. Components
+// ****** 5. Components
 @import 'components/button', 'components/cta', 'components/error',
   'components/loader', 'components/scrollUp', 'components/sitterCard',
   'components/signLink';
+// components / forms
+@import 'components/forms/formField', 'components/forms/input',
+  'components/forms/select';
 
-// 6. Page-specific styles
+// ****** 6. Pages
 @import 'pages/auth', 'pages/landing', 'pages/owner', 'pages/settings',
   'pages/sitter', 'pages/sitters';
+
+// ****** 7. Themes

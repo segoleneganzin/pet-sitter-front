@@ -1,6 +1,6 @@
 .footer {
   display: none;
-  @include media-breakpoint('min', small-laptop) {
+  @include media-breakpoint('min', laptop) {
     display: block;
   }
 }

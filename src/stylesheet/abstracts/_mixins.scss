@@ -41,10 +41,6 @@
     color: $color;
   }
 
-  .sign-link {
-    font-size: 0.9rem;
-  }
-
   @include media-breakpoint('min', medium-mobile) {
     border-radius: map-get($radius, small);
     padding: 20px;
