@@ -1,19 +1,37 @@
 .auth {
   @include flex-col;
+  background-color: color(primary);
+  min-height: 87vh;
   &__role-selection {
+    color: color(light);
     @include flex-col;
     gap: 10px;
-    padding: 10px 10px 0;
+    padding: 50px 15px 0;
   }
   &__form-container {
     margin: auto;
+    padding: 0 5px;
     width: 100vw;
   }
+  .sign-link,
+  .sign-link__link,
+  .btn {
+    color: color(light);
+  }
+
   @include media-breakpoint('min', medium-mobile) {
+    background-color: color(background);
+    // min-height: 100vh;
     &__form-container {
       padding-top: 15px;
       width: 90vw;
       max-width: 500px;
+    }
+    &__role-selection,
+    .sign-link,
+    .sign-link__link,
+    .btn {
+      color: color(text);
     }
   }
 }

@@ -11,11 +11,7 @@ import { I_ProfileUpdate } from '../../interfaces/profile.interface';
 import { I_UserUpdate } from '../../interfaces/user.interface';
 import { clearSitters } from '../../features/sittersSlice';
 
-interface I_UpdateProfileProps {
-  setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
-}
-
-const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
+const UpdateProfile = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const login = useAppSelector(selectLogin);
@@ -79,7 +75,6 @@ const UpdateProfile: React.FC<I_UpdateProfileProps> = ({ setSettings }) => {
       fieldNames={fieldNames}
       formValues={formValues || {}}
       succeededMessage={'Informations mises à jour'}
-      setSettings={setSettings}
     />
   );
 };

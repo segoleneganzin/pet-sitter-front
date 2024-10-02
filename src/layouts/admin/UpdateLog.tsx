@@ -10,11 +10,7 @@ import { I_UserUpdate } from '../../interfaces/user.interface';
 import Button from '../../components/Button';
 import SettingsForm from '../forms/SettingsForm';
 
-interface I_UpdateLogProps {
-  setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
-}
-
-const UpdateLog: React.FC<I_UpdateLogProps> = ({ setSettings }) => {
+const UpdateLog = () => {
   const dispatch = useAppDispatch();
 
   const login = useAppSelector(selectLogin);
@@ -51,14 +47,14 @@ const UpdateLog: React.FC<I_UpdateLogProps> = ({ setSettings }) => {
         {choice !== 'email' && (
           <Button
             handleClick={() => setChoice('email')}
-            classname='update-log__choices-btn'
+            classname='btn update-log__choices-btn'
             content='Modifier mon email'
           />
         )}
         {choice !== 'password' && (
           <Button
             handleClick={() => setChoice('password')}
-            classname='update-log__choices-btn'
+            classname='btn update-log__choices-btn'
             content='Modifier mon mot de passe'
           />
         )}
@@ -81,7 +77,6 @@ const UpdateLog: React.FC<I_UpdateLogProps> = ({ setSettings }) => {
               : ['password', 'passwordConfirmation']
           }
           succeededMessage={'Informations mises à jour'}
-          setSettings={setSettings}
         />
       )}
     </>

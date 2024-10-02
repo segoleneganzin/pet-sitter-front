@@ -1,5 +1,4 @@
 import { Form } from 'sg-form-lib';
-import Button from '../../components/Button';
 import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
 import { I_UserUpdate } from '../../interfaces/user.interface';
 import { useAppSelector } from '../../hooks/reduxHooks';
@@ -15,7 +14,6 @@ interface I_SettingsProps<T> {
   fieldNames: string[];
   formValues?: I_ProfileUpdate | I_UserUpdate | null;
   succeededMessage: string;
-  setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
 }
 
 const SettingsForm = <T extends object>({
@@ -26,7 +24,6 @@ const SettingsForm = <T extends object>({
   fieldNames,
   formValues,
   succeededMessage,
-  setSettings,
 }: I_SettingsProps<T>) => {
   const userStatus = useAppSelector(selectUserStatus);
 
@@ -50,11 +47,6 @@ const SettingsForm = <T extends object>({
         subtitle={subtitle ?? null}
         fieldNames={fieldNames}
         fieldValue={formValues ?? null}
-      />
-      <Button
-        handleClick={() => setSettings(null)}
-        classname='btn--cancel'
-        content='Annuler'
       />
     </div>
   );

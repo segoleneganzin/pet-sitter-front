@@ -7,7 +7,12 @@
     background-color: color(secondary);
     color: color(primary);
   }
+  &__title {
+    font-size: fontSize(large);
+    padding-bottom: 10px;
+  }
   &__btn {
+    @include buttons;
     background-color: color(tertiary);
   }
   @include media-breakpoint('max', medium-mobile) {

@@ -45,29 +45,35 @@ const Sitter = () => {
         <ProfileSection title='Disponibilités'>
           <p>google calendar ?</p>
         </ProfileSection>
-        <div className='sitter__contact'>
-          {user && user.roles.includes('owner') ? (
-            <Button handleClick={toggleContactModal} content='Contactez-moi' />
-          ) : (
-            <>
-              <p className='text'>
-                Vous souhaitez contacter {sitter.firstName} {sitter.lastName} ?{' '}
-                <br />
-                Connectez-vous en tant que propriétaire !
-              </p>
-              <Cta
-                handleClick={() => navigate('/sign-in')}
-                classname='btn sitters-hero__cta'
-                content='Connection'
+        {/* if no user or if it's not the profile of the log user, display the contact section */}
+        {(!user || user.id !== id) && (
+          <div className='sitter__contact'>
+            {user && user.roles.includes('owner') ? (
+              <Button
+                handleClick={toggleContactModal}
+                content='Contactez-moi'
               />
-              <SignLink
-                text={"Vous n'avez pas encore de compte ?"}
-                linkTo={'/sign-up'}
-                linkText={'Inscrivez-vous'}
-              />
-            </>
-          )}
-        </div>
+            ) : (
+              <>
+                <p className='text'>
+                  Vous souhaitez contacter {sitter.firstName} {sitter.lastName}{' '}
+                  ? <br />
+                  Connectez-vous en tant que propriétaire !
+                </p>
+                <Cta
+                  handleClick={() => navigate('/sign-in')}
+                  classname='btn sitters-hero__cta'
+                  content='Connection'
+                />
+                <SignLink
+                  text={"Vous n'avez pas encore de compte ?"}
+                  linkTo={'/sign-up'}
+                  linkText={'Inscrivez-vous'}
+                />
+              </>
+            )}
+          </div>
+        )}
       </>
       {contactModalOpen && (
         <Contact

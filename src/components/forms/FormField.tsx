@@ -45,10 +45,6 @@ const FormField: React.FC<I_FormFieldProps> = ({
               type='checkbox'
               name={name}
               value={option.value}
-              checked={
-                Array.isArray(value) &&
-                (value as string[]).includes(option.value)
-              }
               onChange={handleChange}
             />
             <label>{option.label}</label>

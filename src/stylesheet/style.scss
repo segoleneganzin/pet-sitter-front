@@ -4,7 +4,7 @@
 @import 'abstracts/variables', 'abstracts/functions', 'abstracts/mixins';
 
 // ****** 2. Vendors
-@import 'vendors/sg-form-lib';
+@import 'vendors/sg-form-lib', 'vendors/sg-modal-lib';
 
 // ****** 3. Base stuff
 @import 'base/global', 'base/typography', 'base/normalize', 'base/links',

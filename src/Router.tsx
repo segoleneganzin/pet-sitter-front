@@ -6,14 +6,36 @@ import Owner from './pages/Owner';
 import Settings from './pages/Settings';
 import ProtectedRoute from './middlewares/ProtectedRoute';
 import Auth from './pages/Auth';
+import RedirectIfLoggedIn from './middlewares/RedirectIfLoggedIn';
 
 const Router = () => {
   return (
     <Routes>
-      <Route index element={<LandingPage />} />
+      <Route
+        index
+        element={
+          <RedirectIfLoggedIn>
+            <LandingPage />
+          </RedirectIfLoggedIn>
+        }
+      />
       {/* auth routes */}
-      <Route path='/sign-in' element={<Auth formType='signIn' />} />
-      <Route path='/sign-up' element={<Auth formType='signUp' />} />
+      <Route
+        path='/sign-in'
+        element={
+          <RedirectIfLoggedIn>
+            <Auth formType='signIn' />
+          </RedirectIfLoggedIn>
+        }
+      />
+      <Route
+        path='/sign-up'
+        element={
+          <RedirectIfLoggedIn>
+            <Auth formType='signUp' />
+          </RedirectIfLoggedIn>
+        }
+      />
       {/* sitters routes */}
       <Route path='/sitters' element={<Sitters />} />
       <Route path='/sitter/:id' element={<Sitter />} />

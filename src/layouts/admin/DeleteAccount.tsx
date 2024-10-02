@@ -4,23 +4,21 @@ import {
   clearUser,
   deleteUserAsync,
   selectUser,
+  selectUserError,
   selectUserStatus,
 } from '../../features/userSlice';
 import { logout, selectLogin } from '../../features/authSlice';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button';
+import SettingsForm from '../forms/SettingsForm';
 
-interface I_DeleteAccountProps {
-  setSettings: (element: 'auth' | 'profile' | 'deleteAccount' | null) => void;
-}
-
-const DeleteAccount: React.FC<I_DeleteAccountProps> = ({ setSettings }) => {
+const DeleteAccount = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const login = useAppSelector(selectLogin);
   const user = useAppSelector(selectUser);
   const userStatus = useAppSelector(selectUserStatus);
+  const userError = useAppSelector(selectUserError);
 
   const handleDelete = async () => {
     try {
@@ -42,18 +40,16 @@ const DeleteAccount: React.FC<I_DeleteAccountProps> = ({ setSettings }) => {
   }, [navigate, dispatch, userStatus]);
 
   return (
-    <>
-      <p className='text'>
-        Voulez vous vraiment supprimer votre compte ? cette action est
-        irréversible et toutes vos données seront supprimées.
-      </p>
-      <Button handleClick={handleDelete} content='Supprimer mon compte' />
-      <Button
-        handleClick={() => setSettings(null)}
-        classname='btn--cancel'
-        content='Annuler'
-      />
-    </>
+    <SettingsForm
+      handleSubmit={handleDelete}
+      errorMessage={userError}
+      title={'Supprimer mon compte'}
+      subtitle={
+        'Attention, cette action est irréversible, toutes vos données seront supprimées.'
+      }
+      fieldNames={['email', 'password']}
+      succeededMessage={'Compte supprimé'}
+    />
   );
 };
 

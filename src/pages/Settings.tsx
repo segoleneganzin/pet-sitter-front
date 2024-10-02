@@ -29,35 +29,44 @@ const Settings = () => {
 
   const renderForm = () => {
     if (settings === 'profile') {
-      return <UpdateProfile setSettings={setSettings} />;
+      return <UpdateProfile />;
     } else if (settings === 'auth') {
-      return <UpdateLog setSettings={setSettings} />;
+      return <UpdateLog />;
     } else if (settings === 'deleteAccount') {
-      return <DeleteAccount setSettings={setSettings} />;
+      return <DeleteAccount />;
     }
   };
-  // TODO css to active button or hide active button ?
+
   return (
     <PageLayout mainClassName='settings'>
-      {settings !== 'auth' && (
-        <Button
-          handleClick={() => setSettings('auth')}
-          content='Modifier mes informations de connexion'
-        />
-      )}
-      {settings !== 'profile' && (
-        <Button
-          handleClick={() => setSettings('profile')}
-          content='Modifier mon profil'
-        />
-      )}
-      {settings !== 'deleteAccount' && (
-        <Button
-          handleClick={() => setSettings('deleteAccount')}
-          content='Supprimer mon compte'
-        />
+      <h2 className='settings__title'>Paramètres</h2>
+      {!settings && (
+        <div className='settings__choices'>
+          <Button
+            handleClick={() => setSettings('auth')}
+            content='Modifier mes informations de connexion'
+            classname='settings__btn'
+          />
+          <Button
+            handleClick={() => setSettings('profile')}
+            content='Modifier mon profil'
+            classname='settings__btn'
+          />
+          <Button
+            handleClick={() => setSettings('deleteAccount')}
+            content='Supprimer mon compte'
+            classname='settings__btn--delete'
+          />
+        </div>
       )}
       {renderForm()}
+      {settings && (
+        <Button
+          handleClick={() => setSettings(null)}
+          classname='btn btn--cancel'
+          content='Annuler'
+        />
+      )}
     </PageLayout>
   );
 };

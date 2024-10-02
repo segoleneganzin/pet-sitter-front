@@ -47,6 +47,13 @@
   }
 }
 
+@mixin buttons {
+  border-radius: map-get($radius, small);
+  padding: 10px 20px;
+  height: auto;
+  width: fit-content;
+}
+
 // type = min or max
 @mixin media-breakpoint($type, $breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
