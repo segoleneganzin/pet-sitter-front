@@ -33,8 +33,8 @@ const SitterCard: React.FC<I_SitterCardProps> = ({ sitter }) => {
           {sitter.firstName} {sitter.lastName}
         </h3>
         <div className='sitter-card__content'>
-          <p className='sitter-card__content-location'>{sitter.city}</p>
-          <p className='sitter-card__content-acceptedPets'>
+          <p className='text sitter-card__content-location'>{sitter.city}</p>
+          <p className='text sitter-card__content-acceptedPets'>
             <span>
               {sitter.roleDetails.sitter?.acceptedPets?.includes('dog')
                 ? '✔'

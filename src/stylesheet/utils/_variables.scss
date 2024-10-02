@@ -1,23 +1,27 @@
-$primary-color: #354735;
-$secondary-color: #e6e3e1;
-$tertiary-color: #3b7e40;
-$text-color: $primary-color;
-$link-color: $primary-color;
-$background-color: $secondary-color;
-$light-color: #fff;
+$colors: (
+  primary: rgb(53, 71, 53),
+  secondary: rgb(230, 227, 225),
+  tertiary: rgb(59, 126, 64),
+  light: rgb(255, 255, 255),
+  text: rgb(53, 71, 53),
+  link: rgb(53, 71, 53),
+  background: rgb(230, 227, 225),
+);
 
-/// *********************** BREAKPOINTS
-$breakpoint-mobileXS: 360px;
-$breakpoint-mobile: 425px;
-$breakpoint-mobileXL: 500px;
-$breakpoint-tablet: 768px;
-$breakpoint-laptop: 1024px;
-$breakpoint-laptopXL: 1400px;
-$breakpoint-desktopXL: 1850px;
+$breakpoints: (
+  small-mobile: 360px,
+  medium-mobile: 425px,
+  large-mobile: 500px,
+  tablet: 768px,
+  laptop: 1024px,
+  desktop: 1440px,
+  large-desktop: 1920px,
+);
 
-/// *********************** RADIUS
-$small-radius: 5px;
-$medium-radius: 10px;
-$large-radius: 25px;
+$radius: (
+  small: 5px,
+  medium: 10px,
+  large: 25px,
+);
 
 $app-nav-height: 60px;

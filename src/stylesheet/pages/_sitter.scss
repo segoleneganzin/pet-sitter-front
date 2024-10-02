@@ -1,15 +1,10 @@
 .sitter {
-  &__section {
-    @include flex-col;
-    gap: 10px;
-    padding: 0 5px;
-  }
   &__contact {
-    @include flex-col;
-    border: 1px solid $primary-color;
-    border-radius: $small-radius;
     font-size: 0.9rem;
+    @include flex-col;
     gap: 15px;
+    border: 1px solid color(primary);
+    border-radius: map-get($radius, small);
     margin: 0 5px;
     padding: 10px;
     .cta {

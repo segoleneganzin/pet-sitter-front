@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { translateMessage } from '../utils/responseTranslate';
 import { I_UserDocument } from '../interfaces/user.interface';
+import ProfileSection from './templates/ProfileSection';
 
 interface I_ProfileProps {
   profile: I_UserDocument;
@@ -47,24 +48,25 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
         <h1>
           {profile.firstName} {profile.lastName}
         </h1>
-        <p>{profile.city} </p>
+        <p className='text'>{profile.city} </p>
         {isSitter(profile) && (
-          <p>
+          <p className='text'>
             {profile.roleDetails.sitter?.tel}
             <br />
           </p>
         )}
         {isSitter(profile) && (
-          <p>
+          <p className='text'>
             {profile.roleDetails.sitter?.presentation}
             <br />
           </p>
         )}
       </div>
-      <p className='profile__pets'>
-        {isSitter(profile) ? 'Je peux garder : ' : 'Animaux : '}
-        {petsList.join(', ')}
-      </p>
+      <ProfileSection
+        title={isSitter(profile) ? 'Animaux acceptés' : 'Animaux à garder'}
+      >
+        <p className='text profile__pets'>{petsList.join(', ')}</p>
+      </ProfileSection>
     </section>
   );
 };

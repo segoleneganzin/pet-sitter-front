@@ -1,40 +1,22 @@
-/***************************** IMPORTS *****************************/
 /* google font Anton + Manrope*/
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700&display=swap');
-
-/***************************** TYPOGRAPHY *****************************/
-/****************************************************** COLORS */
-body,
-input,
-select {
-  color: $text-color;
-}
-a {
-  color: $link-color;
-  @include on-event {
-    color: $tertiary-color;
-  }
-}
-.header__title,
-.sitters-hero__content,
-.landing__content {
-  color: $light-color;
-}
-.sitter-card,
-.sitters-hero__link {
-  @include on-event {
-    color: $text-color;
-  }
-}
 
 /****************************************************** FONTS */
 body,
 input,
 select {
-  font-family: 'Manrope', sans-serif;
+  font-family: Manrope, sans-serif;
 }
 
-/***************************************** font weight */
-.bold {
-  font-weight: 700;
+/****************************************************** COLORS */
+body,
+input,
+select {
+  color: color(text);
+}
+a {
+  color: color(link);
+  @include on-event {
+    color: color(tertiary);
+  }
 }

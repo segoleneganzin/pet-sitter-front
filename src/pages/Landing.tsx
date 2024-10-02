@@ -1,9 +1,9 @@
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { selectLogin } from '../features/authSlice';
 import { useAppSelector } from '../hooks/reduxHooks';
-import SignUpLink from '../components/SignUpLink';
+import SignLink from '../components/SignLink';
 import landingMobileBg from '../assets/landing-mobile.jpg';
-import Cta from '../components/CTA';
+import Cta from '../components/Cta';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -24,7 +24,11 @@ const Landing = () => {
           classname='btn landing__cta'
           content='Trouvez votre futur pet sitter'
         />
-        <SignUpLink />
+        <SignLink
+          text={"Vous n'avez pas encore de compte ?"}
+          linkTo={'/sign-up'}
+          linkText={'Inscrivez-vous'}
+        />
       </div>
     </main>
   );

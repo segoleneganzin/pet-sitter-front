@@ -1,28 +1,16 @@
 .sitters-hero {
-  align-items: center;
   display: flex;
-  height: 400px;
+  align-items: center;
   justify-content: center;
-  overflow: hidden;
   position: relative;
+  height: 400px;
+  overflow: hidden;
   &__bg {
+    @include bg-image;
     height: 400px;
-    object-fit: cover;
-    opacity: 0.6;
-    position: absolute;
-    width: 100%;
-    z-index: -1;
   }
   &__content {
-    @include flex-col;
-    gap: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-    padding: 10px 10px 20px;
-    position: relative;
-    z-index: 1;
+    @include overlay-banner();
   }
   &__ctas {
     @include flex-col;
@@ -36,14 +24,12 @@
   .cta {
     align-self: center;
   }
-  .sign-link {
-    .link {
-      color: $light-color;
-    }
+  .underline {
+    color: color(light);
   }
-  @include min-media-breakpoint($breakpoint-mobileXL) {
+  @include media-breakpoint('min', large-mobile) {
     &__content {
-      border-radius: $small-radius;
+      border-radius: map-get($radius, small);
       padding: 20px;
     }
   }

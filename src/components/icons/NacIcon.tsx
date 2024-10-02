@@ -1,12 +1,10 @@
 const NacIcon = () => {
   return (
     <svg
-      fill='#000000'
       height='30px'
       width='30px'
-      version='1.1'
-      id='Layer_1'
       viewBox='0 0 512.001 512.001'
+      fill='#000000'
       className='icon icon__nac'
     >
       <g>

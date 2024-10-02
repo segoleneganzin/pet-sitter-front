@@ -1,7 +1,7 @@
 .sitters-filter {
   @include flex-col;
   gap: 10px;
-  label,
+  .label,
   .input {
     font-size: 0.8rem;
   }

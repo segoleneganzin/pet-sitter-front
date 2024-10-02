@@ -33,14 +33,14 @@ const SettingsForm = <T extends object>({
   if (userStatus === 'succeeded') {
     return (
       <>
-        <p className='settings__validation-message'>{succeededMessage}</p>
+        <p className='text settings__validation-message'>{succeededMessage}</p>
         <Loader />
       </>
     );
   }
 
   return (
-    <div className='settings__form-container'>
+    <div className='settings-form'>
       <Form
         fieldsConfig={formFieldsProfile}
         onSubmitFunction={handleSubmit}

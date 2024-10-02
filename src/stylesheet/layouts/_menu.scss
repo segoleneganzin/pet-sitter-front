@@ -1,11 +1,11 @@
 .menu {
   @include flex-col;
-  background-color: $background-color;
-  bottom: $app-nav-height;
-  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
   gap: 10px;
-  padding: 20px 15px;
+  background-color: color(background);
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
   position: absolute;
   right: 0;
+  bottom: $app-nav-height;
+  padding: 20px 15px;
   width: 100%;
 }

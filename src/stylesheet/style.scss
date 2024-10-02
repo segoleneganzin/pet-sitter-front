@@ -4,22 +4,24 @@
 @import 'utils/variables', 'utils/functions', 'utils/mixins';
 
 // 2. Vendors
-@import 'vendors/normalize', 'vendors/sg-form-lib';
+@import 'vendors/sg-form-lib';
 
 // 3. Base stuff
-@import 'base/base', 'base/typography', 'base/helpers';
+@import 'base/global', 'base/typography', 'base/helpers', 'base/normalize',
+  'base/links', 'base/main', 'base/text', 'base/buttons';
 
 // 4. Layout-related sections
 @import 'layouts/appNavigation', 'layouts/contact', 'layouts/deleteAccount',
   'layouts/footer', 'layouts/header', 'layouts/menu', 'layouts/pageLayout',
   'layouts/profile', 'layouts/settingsForm', 'layouts/signInForm',
   'layouts/signUpForm', 'layouts/sittersFilter', 'layouts/sittersHero',
-  'layouts/sittersList', 'layouts/updateLog', 'layouts/settingsForm';
+  'layouts/sittersList', 'layouts/updateLog', 'layouts/settingsForm',
+  'layouts/profileSection';
 
 // 5. Components
 @import 'components/button', 'components/cta', 'components/error',
   'components/loader', 'components/scrollUp', 'components/sitterCard',
-  'components/signUpLink';
+  'components/signLink';
 
 // 6. Page-specific styles
 @import 'pages/auth', 'pages/landing', 'pages/owner', 'pages/settings',

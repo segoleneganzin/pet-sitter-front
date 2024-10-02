@@ -3,15 +3,15 @@
     width: 100%;
   }
   &__identity {
+    position: relative;
     margin-bottom: 20px;
     padding-left: 50px;
-    position: relative;
     &::before {
-      background-color: $primary-color;
+      background-color: color(primary);
       content: '';
-      height: 100%;
-      left: -10px;
       position: absolute;
+      left: -10px;
+      height: 100%;
       width: 50px;
     }
   }

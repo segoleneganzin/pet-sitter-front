@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { selectUser } from '../../features/userSlice';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import heroBg from '../../assets/sitters-hero.jpg';
-import Cta from '../../components/CTA';
-import SignUpLink from '../../components/SignUpLink';
+import Cta from '../../components/Cta';
+import SignLink from '../../components/SignLink';
 
 const SittersHero = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const SittersHero = () => {
         {!user && (
           <>
             <div className='sitters-hero__ctas'>
-              <p className='sitters-hero__cta-container'>
+              <p className='text sitters-hero__cta-container'>
                 Vous souhaitez contacter un pet-sitter ?
                 <Cta
                   handleClick={() => navigate('/sign-in')}
@@ -28,7 +28,11 @@ const SittersHero = () => {
                   content='Connectez-vous'
                 />
               </p>
-              <SignUpLink />
+              <SignLink
+                text={"Vous n'avez pas encore de compte ?"}
+                linkTo={'/sign-up'}
+                linkText={'Inscrivez-vous'}
+              />
             </div>
           </>
         )}

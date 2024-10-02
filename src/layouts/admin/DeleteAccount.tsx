@@ -43,7 +43,7 @@ const DeleteAccount: React.FC<I_DeleteAccountProps> = ({ setSettings }) => {
 
   return (
     <>
-      <p>
+      <p className='text'>
         Voulez vous vraiment supprimer votre compte ? cette action est
         irréversible et toutes vos données seront supprimées.
       </p>
@@ -54,19 +54,6 @@ const DeleteAccount: React.FC<I_DeleteAccountProps> = ({ setSettings }) => {
         content='Annuler'
       />
     </>
-    // <SettingsForm
-    //   handleSubmit={handleDelete}
-    //   errorMessage={userError}
-    //   title={'Supprimer votre compte'}
-    //   subtitle={
-    //     'Veuillez rentrer vos données de connexion pour valider la suppression'
-    //   }
-    //   fieldNames={['email', 'password']}
-    //   succeededMessage={
-    //     "Compte supprimé, veuillez patienter vous allez être redirigé vers la page d'accueil"
-    //   }
-    //   setSettings={setSettings}
-    // />
   );
 };
 

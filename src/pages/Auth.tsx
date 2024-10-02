@@ -5,6 +5,7 @@ import useRedirectIfLoggedIn from '../hooks/useRedirectIfLoggedIn';
 import Button from '../components/Button';
 import { useState } from 'react';
 import Header from '../layouts/Header';
+import SignLink from '../components/SignLink';
 
 interface I_AuthProps {
   formType: 'signUp' | 'signIn';
@@ -31,11 +32,11 @@ const Auth: React.FC<I_AuthProps> = ({ formType }) => {
   return (
     <>
       <Header />
-      <main className={`auth ${formType}-page`}>
+      <main className='main auth'>
         {formType === 'signUp' && (
           <>
             <div className='auth__role-selection'>
-              <p>Je souhaite m'inscrire en tant que</p>
+              <p className='text'>Je souhaite m'inscrire en tant que</p>
               <label>
                 <input
                   type='checkbox'
@@ -60,6 +61,11 @@ const Auth: React.FC<I_AuthProps> = ({ formType }) => {
                 <SignUpForm roles={roles} />
               </div>
             )}
+            <SignLink
+              text={'Vous avez déjà un compte ?'}
+              linkTo={'/sign-in'}
+              linkText={'Connexion'}
+            />
           </>
         )}
         {formType === 'signIn' && (

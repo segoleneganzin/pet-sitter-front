@@ -11,7 +11,7 @@ interface I_PageLayoutProps {
 
 const PageLayout: React.FC<I_PageLayoutProps> = ({
   children,
-  mainClassName,
+  mainClassName = '',
 }) => {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const showScrollButtonThreshold = 200;
@@ -31,7 +31,7 @@ const PageLayout: React.FC<I_PageLayoutProps> = ({
     <div className='page-layout'>
       <Header />
       <AppNavigation />
-      <main className={mainClassName}>{children}</main>
+      <main className={`main ${mainClassName}`}>{children}</main>
       {showScrollButton && <ScrollUp />}
       {/* only display on desktop */}
       <Footer />

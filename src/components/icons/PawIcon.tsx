@@ -3,8 +3,6 @@ const PawIcon = () => {
     <svg
       height='20px'
       width='20px'
-      version='1.1'
-      id='_x32_'
       viewBox='0 0 512 512'
       className='icon icon__paw'
     >

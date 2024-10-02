@@ -79,9 +79,9 @@ const FormField: React.FC<I_FormFieldProps> = ({
 
   return (
     <div className='form-data'>
-      <label className='form-data__label'>{label}</label>
+      <label className='form-data__label label'>{label}</label>
       {renderInput()}
-      <p className='form-data__field--error'></p>
+      <p className='text form-data__field--error'></p>
     </div>
   );
 };

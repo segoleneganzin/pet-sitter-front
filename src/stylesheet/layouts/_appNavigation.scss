@@ -1,12 +1,12 @@
 .app-navigation {
-  background-color: $background-color;
-  bottom: 0;
+  background-color: color(background);
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
   display: flex;
-  height: $app-nav-height;
   justify-content: space-around;
-  padding: 15px 0;
   position: fixed;
+  bottom: 0;
+  padding: 15px 0;
+  height: $app-nav-height;
   width: 100%;
   z-index: 99;
 }

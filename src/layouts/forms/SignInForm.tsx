@@ -10,7 +10,7 @@ import { formFieldsAuth } from '../../utils/formFieldsConfig/formFieldsAuth';
 import { selectUserStatus, getUserByIdAsync } from '../../features/userSlice';
 import Loader from '../../components/Loader';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
-import SignUpLink from '../../components/SignUpLink';
+import SignLink from '../../components/SignLink';
 
 interface I_FormData {
   email: string;
@@ -79,7 +79,11 @@ const SignInForm = () => {
         fieldNames={['email', 'password', 'rememberMe']}
         fieldValue={formValues}
       />
-      <SignUpLink />
+      <SignLink
+        text={"Vous n'avez pas encore de compte ?"}
+        linkTo={'/sign-up'}
+        linkText={'Inscrivez-vous'}
+      />
     </>
   );
 };

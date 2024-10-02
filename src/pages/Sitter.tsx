@@ -9,8 +9,9 @@ import { selectUser } from '../features/userSlice';
 import { useAppSelector } from '../hooks/reduxHooks';
 import { getUserById } from '../services/userApi';
 import { I_UserDocument } from '../interfaces/user.interface';
-import Cta from '../components/CTA';
-import SignUpLink from '../components/SignUpLink';
+import Cta from '../components/Cta';
+import SignLink from '../components/SignLink';
+import ProfileSection from '../layouts/templates/ProfileSection';
 
 const Sitter = () => {
   const navigate = useNavigate();
@@ -41,13 +42,15 @@ const Sitter = () => {
     <PageLayout mainClassName='sitter'>
       <>
         <Profile profile={sitter} />
-
+        <ProfileSection title='Disponibilités'>
+          <p>google calendar ?</p>
+        </ProfileSection>
         <div className='sitter__contact'>
           {user && user.roles.includes('owner') ? (
             <Button handleClick={toggleContactModal} content='Contactez-moi' />
           ) : (
             <>
-              <p>
+              <p className='text'>
                 Vous souhaitez contacter {sitter.firstName} {sitter.lastName} ?{' '}
                 <br />
                 Connectez-vous en tant que propriétaire !
@@ -57,14 +60,13 @@ const Sitter = () => {
                 classname='btn sitters-hero__cta'
                 content='Connection'
               />
-              <SignUpLink />
+              <SignLink
+                text={"Vous n'avez pas encore de compte ?"}
+                linkTo={'/sign-up'}
+                linkText={'Inscrivez-vous'}
+              />
             </>
           )}
-        </div>
-
-        <div className='sitter__section'>
-          <h2>Disponibilités</h2>
-          <p>google calendar ?</p>
         </div>
       </>
       {contactModalOpen && (

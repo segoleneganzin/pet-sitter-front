@@ -81,10 +81,10 @@ const Contact: React.FC<I_ContactProps> = ({
     >
       {isSend ? (
         <div className='contact__validation'>
-          <p>Votre demande de contact a bien été envoyée</p>
+          <p className='text'>Votre demande de contact a bien été envoyée</p>
         </div>
       ) : (
-        <>
+        <div className='contact'>
           <Form
             formId={'contactForm'}
             fieldsConfig={formFieldsContact}
@@ -101,7 +101,7 @@ const Contact: React.FC<I_ContactProps> = ({
             ]}
             fieldValue={formValues}
           />
-        </>
+        </div>
       )}
     </Modal>
   );

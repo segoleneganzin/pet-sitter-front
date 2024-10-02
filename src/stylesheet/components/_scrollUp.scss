@@ -1,9 +1,6 @@
 .scroll-up {
-  margin-left: 94vw;
   position: fixed;
   top: 85vh;
+  right: 5px;
   z-index: 99;
-  @include max-media-breakpoint(490px) {
-    margin-left: 88vw;
-  }
 }
