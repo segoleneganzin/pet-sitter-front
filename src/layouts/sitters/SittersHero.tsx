@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { selectUser } from '../../features/userSlice';
 import { useAppSelector } from '../../hooks/reduxHooks';
-import heroBg from '../../assets/sitters-hero.jpg';
+import heroBg from '../../assets/sitters-hero.webp';
 import Cta from '../../components/Cta';
 import SignLink from '../../components/SignLink';
 

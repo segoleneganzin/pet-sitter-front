@@ -41,11 +41,11 @@ const FormField: React.FC<I_FormFieldProps> = ({
       case 'checkbox':
         return options?.map((option) => (
           <div key={option.value} className='form__checkbox'>
-            <input
-              type='checkbox'
-              name={name}
+            <Input
+              handleChange={handleChange}
+              field={{ name: name, type: type }}
               value={option.value}
-              onChange={handleChange}
+              className='form__checkbox'
             />
             <label>{option.label}</label>
           </div>
@@ -74,10 +74,10 @@ const FormField: React.FC<I_FormFieldProps> = ({
   };
 
   return (
-    <div className='form-data'>
-      <label className='form-data__label label'>{label}</label>
+    <div className='form-field'>
+      <label className='form-field__label label'>{label}</label>
       {renderInput()}
-      <p className='text form-data__field--error'></p>
+      <p className='text form-field__message--error'></p>
     </div>
   );
 };

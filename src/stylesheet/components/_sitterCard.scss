@@ -11,13 +11,13 @@
   overflow: hidden;
   &__title,
   &__link {
-    font-size: fontSize(large);
+    font-size: fontSize(medium);
   }
   &__title {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 145px;
+    max-width: 95%;
   }
   &__section {
     padding: 5px;

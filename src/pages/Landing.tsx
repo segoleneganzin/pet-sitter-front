@@ -2,7 +2,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { selectLogin } from '../features/authSlice';
 import { useAppSelector } from '../hooks/reduxHooks';
 import SignLink from '../components/SignLink';
-import landingMobileBg from '../assets/landing-mobile.jpg';
+import landingMobileBg from '../assets/landing-mobile.webp';
 import Cta from '../components/Cta';
 
 const Landing = () => {
