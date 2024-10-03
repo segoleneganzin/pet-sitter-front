@@ -9,4 +9,10 @@
   bottom: $app-nav-height;
   padding: 20px 15px;
   width: 100%;
+  &__button {
+    background-color: color(primary);
+    color: color(light);
+    border-radius: map-get($radius, small);
+    padding: 10px 15px;
+  }
 }
