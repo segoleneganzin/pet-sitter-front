@@ -74,7 +74,7 @@ const Sitter = () => {
                     />
                   </>
                 )}
-                {user?.roles.includes('sitter') ? (
+                {user?.roles.includes('sitter') && (
                   <>
                     {' '}
                     <p className='text'>
@@ -87,12 +87,6 @@ const Sitter = () => {
                       content='Modifier votre profil pour être également propriétaire 😉'
                     />
                   </>
-                ) : (
-                  <SignLink
-                    text={"Vous n'avez pas encore de compte ?"}
-                    linkTo={'/sign-up'}
-                    linkText={'Inscrivez-vous'}
-                  />
                 )}
               </>
             )}
