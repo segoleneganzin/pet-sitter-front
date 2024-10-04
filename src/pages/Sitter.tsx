@@ -65,7 +65,7 @@ const Sitter = () => {
                     <Cta
                       handleClick={() => navigate('/sign-in')}
                       classname='btn sitters-hero__cta'
-                      content='Connection'
+                      content='Connexion'
                     />
                     <SignLink
                       text={"Vous n'avez pas encore de compte ?"}
