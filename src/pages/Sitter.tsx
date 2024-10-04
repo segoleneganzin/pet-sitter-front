@@ -55,21 +55,45 @@ const Sitter = () => {
               />
             ) : (
               <>
-                <p className='text'>
-                  Vous souhaitez contacter {sitter.firstName} {sitter.lastName}{' '}
-                  ? <br />
-                  Connectez-vous en tant que propriétaire !
-                </p>
-                <Cta
-                  handleClick={() => navigate('/sign-in')}
-                  classname='btn sitters-hero__cta'
-                  content='Connection'
-                />
-                <SignLink
-                  text={"Vous n'avez pas encore de compte ?"}
-                  linkTo={'/sign-up'}
-                  linkText={'Inscrivez-vous'}
-                />
+                {!user && (
+                  <>
+                    <p className='text'>
+                      Vous souhaitez contacter {sitter.firstName}{' '}
+                      {sitter.lastName} ? <br />
+                      Connectez-vous en tant que propriétaire !
+                    </p>
+                    <Cta
+                      handleClick={() => navigate('/sign-in')}
+                      classname='btn sitters-hero__cta'
+                      content='Connection'
+                    />
+                    <SignLink
+                      text={"Vous n'avez pas encore de compte ?"}
+                      linkTo={'/sign-up'}
+                      linkText={'Inscrivez-vous'}
+                    />
+                  </>
+                )}
+                {user?.roles.includes('sitter') ? (
+                  <>
+                    {' '}
+                    <p className='text'>
+                      Vous souhaitez contacter {sitter.firstName}{' '}
+                      {sitter.lastName} ?
+                    </p>
+                    <Cta
+                      handleClick={() => navigate('/settings')}
+                      classname='btn'
+                      content='Modifier votre profil pour être également propriétaire 😉'
+                    />
+                  </>
+                ) : (
+                  <SignLink
+                    text={"Vous n'avez pas encore de compte ?"}
+                    linkTo={'/sign-up'}
+                    linkText={'Inscrivez-vous'}
+                  />
+                )}
               </>
             )}
           </div>
