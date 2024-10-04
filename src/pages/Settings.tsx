@@ -1,26 +1,10 @@
-import UpdateLog from '../layouts/UpdateLog';
-import UpdateProfile from '../layouts/UpdateProfile';
-import PageLayout from '../layouts/PageLayout';
+import UpdateLog from '../layouts/admin/UpdateLog';
+import UpdateProfile from '../layouts/admin/UpdateProfile';
+import PageLayout from '../layouts/templates/PageLayout';
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
-import {
-  getOwnerAsync,
-  resetOwnerStatus,
-  selectOwner,
-  selectOwnerStatus,
-} from '../features/ownerSlice';
-import {
-  getSitterAsync,
-  resetSitterStatus,
-  selectSitter,
-  selectSitterStatus,
-} from '../features/sitterSlice';
-import {
-  resetUserStatus,
-  selectUser,
-  selectUserStatus,
-} from '../features/userSlice';
-import DeleteAccount from '../layouts/DeleteAccount';
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
+import { resetUserStatus, selectUserStatus } from '../features/userSlice';
+import DeleteAccount from '../layouts/admin/DeleteAccount';
 import Button from '../components/Button';
 
 const Settings = () => {
@@ -30,78 +14,71 @@ const Settings = () => {
     'auth' | 'profile' | 'deleteAccount' | null
   >(null);
 
-  const user = useAppSelector(selectUser);
   const userStatus = useAppSelector(selectUserStatus);
-  const owner = useAppSelector(selectOwner);
-  const ownerStatus = useAppSelector(selectOwnerStatus);
-  const sitter = useAppSelector(selectSitter);
-  const sitterStatus = useAppSelector(selectSitterStatus);
 
-  // to secure access
-  useEffect(() => {
-    if (user && user.role === 'owner') {
-      if (owner?.id !== user.profileId) {
-        dispatch(getOwnerAsync(user.profileId));
-      }
+  const handleSettings = (
+    setting: 'auth' | 'profile' | 'deleteAccount' | null
+  ) => {
+    setSettings(setting);
+    // manage appNavigation goBack
+    if (setting === null) {
+      sessionStorage.removeItem('isSettingOpen');
+    } else {
+      sessionStorage.setItem('isSettingOpen', 'true');
     }
-  }, [dispatch, user, owner]);
-  useEffect(() => {
-    if (user && user.role === 'sitter') {
-      if (sitter?.id !== user.profileId) {
-        dispatch(getSitterAsync(user.profileId));
-      }
-    }
-  }, [dispatch, user, sitter]);
+  };
 
   useEffect(() => {
-    if (
-      (ownerStatus === 'succeeded' ||
-        sitterStatus === 'succeeded' ||
-        userStatus === 'succeeded') &&
-      settings !== 'deleteAccount'
-    ) {
+    if (userStatus === 'succeeded' && settings !== 'deleteAccount') {
       const timeoutId = setTimeout(() => {
         dispatch(resetUserStatus());
-        dispatch(resetSitterStatus());
-        dispatch(resetOwnerStatus());
         setSettings(null);
       }, 2000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [dispatch, ownerStatus, sitterStatus, userStatus, settings]);
+  }, [dispatch, userStatus, settings]);
 
   const renderForm = () => {
     if (settings === 'profile') {
-      return <UpdateProfile setSettings={setSettings} />;
+      return <UpdateProfile />;
     } else if (settings === 'auth') {
-      return <UpdateLog setSettings={setSettings} />;
+      return <UpdateLog />;
     } else if (settings === 'deleteAccount') {
-      return <DeleteAccount setSettings={setSettings} />;
+      return <DeleteAccount />;
     }
   };
-  // TODO css to active button or hide active button ?
+
   return (
-    <PageLayout>
-      {settings !== 'auth' && (
-        <Button
-          handleClick={() => setSettings('auth')}
-          content='Modifier mes informations de connexion'
-        />
-      )}
-      {settings !== 'profile' && (
-        <Button
-          handleClick={() => setSettings('profile')}
-          content='Modifier mon profil'
-        />
-      )}
-      {settings !== 'deleteAccount' && (
-        <Button
-          handleClick={() => setSettings('deleteAccount')}
-          content='Supprimer mon compte'
-        />
+    <PageLayout mainClassName='settings'>
+      <h2 className='settings__title'>Paramètres</h2>
+      {settings === null && (
+        <div className='settings__choices'>
+          <Button
+            handleClick={() => handleSettings('auth')}
+            content='Modifier mes informations de connexion'
+            classname='settings__btn'
+          />
+          <Button
+            handleClick={() => handleSettings('profile')}
+            content='Modifier mon profil'
+            classname='settings__btn'
+          />
+          <Button
+            handleClick={() => handleSettings('deleteAccount')}
+            content='Supprimer mon compte'
+            classname='settings__btn settings__btn--delete'
+          />
+        </div>
       )}
       {renderForm()}
+      {settings && (
+        <Button
+          handleClick={() => handleSettings(null)}
+          classname='btn settings__btn--cancel'
+          content='Annuler'
+        />
+      )}
     </PageLayout>
   );
 };

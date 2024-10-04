@@ -1,0 +1,36 @@
+.sitters-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  &__bg {
+    @include bg-image;
+    height: 400px;
+  }
+  &__content {
+    @include overlay-banner();
+  }
+  &__ctas {
+    @include flex-col;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  &__cta-container {
+    @include flex-col;
+    gap: 15px;
+  }
+  .cta {
+    align-self: center;
+  }
+  .underline {
+    color: color(light);
+  }
+  @include media-breakpoint('min', large-mobile) {
+    &__content {
+      border-radius: map-get($radius, small);
+      padding: 20px;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.sg-form-lib {
+  background-color: color(primary);
+  border-radius: 0;
+  input,
+  select,
+  textarea {
+    background-color: color(secondary);
+    color: color(primary);
+  }
+  &__title {
+    font-size: fontSize(large);
+    padding-bottom: 10px;
+  }
+  &__btn {
+    @include buttons;
+    background-color: color(tertiary);
+  }
+  @include media-breakpoint('max', medium-mobile) {
+    box-shadow: none;
+  }
+  @include media-breakpoint('min', medium-mobile) {
+    border-radius: map-get($radius, small);
+    margin: 5px;
+  }
+}

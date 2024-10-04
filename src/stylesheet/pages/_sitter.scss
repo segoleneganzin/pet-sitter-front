@@ -1,0 +1,14 @@
+.sitter {
+  &__contact {
+    font-size: fontSize(medium);
+    @include flex-col;
+    gap: 15px;
+    border: 1px solid color(primary);
+    border-radius: map-get($radius, small);
+    margin: 0 5px;
+    padding: 10px;
+    .cta {
+      align-self: center;
+    }
+  }
+}

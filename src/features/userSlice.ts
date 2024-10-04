@@ -1,44 +1,57 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { handleAsyncActions } from '../utils/slicerFunctions';
+import { handleAsyncActions } from '../utils/redux/slicerFunctions';
 import {
   createUser,
-  getUser,
+  getUserById,
   updateUser,
   deleteUser,
 } from '../services/userApi';
-import { I_UserUpdate, I_UserCreate, I_UserDocument } from '../models/user';
-import { I_Auth } from '../models/auth';
+import {
+  I_UserUpdate,
+  I_User,
+  I_UserDocument,
+} from '../interfaces/user.interface';
+import { updateLog } from '../services/authApi';
+import { I_Auth } from '../interfaces/auth.interface';
 
 const CREATE_USER = 'user/createUser';
-const GET_USER = 'user/getUser';
+const GET_USER = 'user/getUserById';
 const UPDATE_USER = 'user/updateUser';
+const UPDATE_LOG = 'user/updateLog';
 const DELETE_USER = 'user/deleteUser';
 
 export const createUserAsync = createAsyncThunk(
   CREATE_USER,
-  async (datas: I_UserCreate) => {
+  async (datas: I_User) => {
     const response = await createUser(datas);
     return response;
   }
 );
-export const getUserAsync = createAsyncThunk(
+export const getUserByIdAsync = createAsyncThunk(
   GET_USER,
-  async (token: string) => {
-    const response = await getUser(token);
+  async (id: string) => {
+    const response = await getUserById(id);
     return response;
   }
 );
 export const updateUserAsync = createAsyncThunk(
-  UPDATE_USER,
+  UPDATE_LOG,
   async ({ datas, token }: { datas: I_UserUpdate; token: string }) => {
     const response = await updateUser({ datas, token });
     return response;
   }
 );
+export const updateUserLogAsync = createAsyncThunk(
+  UPDATE_USER,
+  async ({ datas, token }: { datas: I_Auth; token: string }) => {
+    const response = await updateLog({ datas, token });
+    return response;
+  }
+);
 export const deleteUserAsync = createAsyncThunk(
   DELETE_USER,
-  async ({ datas, token }: { datas: I_Auth; token: string }) => {
-    const response = await deleteUser({ datas, token });
+  async (token: string) => {
+    const response = await deleteUser(token);
     return response;
   }
 );
@@ -75,8 +88,9 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     handleAsyncActions(builder, createUserAsync, 'user');
-    handleAsyncActions(builder, getUserAsync, 'user');
+    handleAsyncActions(builder, getUserByIdAsync, 'user');
     handleAsyncActions(builder, updateUserAsync, 'user');
+    handleAsyncActions(builder, updateUserLogAsync, 'user');
     handleAsyncActions(builder, deleteUserAsync, 'user');
   },
   selectors: {
@@ -86,19 +100,9 @@ export const userSlice = createSlice({
   },
 });
 
-export const {
-  resetUserStatus,
-  // resetNewUserStatus,
-  // resetDeleteStatus,
-  clearUser,
-} = userSlice.actions;
+export const { resetUserStatus, clearUser } = userSlice.actions;
 
-export const {
-  selectUser,
-  selectUserStatus,
-  selectUserError,
-  // selectNewUserStatus,
-  // selectDeleteStatus,
-} = userSlice.selectors;
+export const { selectUser, selectUserStatus, selectUserError } =
+  userSlice.selectors;
 
 export default userSlice.reducer;

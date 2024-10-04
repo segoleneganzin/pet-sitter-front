@@ -4,26 +4,55 @@ import Sitters from './pages/Sitters';
 import Sitter from './pages/Sitter';
 import Owner from './pages/Owner';
 import Settings from './pages/Settings';
-import ProtectedRoute from './layouts/ProtectedRoute';
-import AuthPage from './pages/AuthPage';
+import ProtectedRoute from './middlewares/ProtectedRoute';
+import Auth from './pages/Auth';
+import RedirectIfLoggedIn from './middlewares/RedirectIfLoggedIn';
 
 const Router = () => {
   return (
     <Routes>
-      <Route index element={<LandingPage />} />
+      <Route
+        index
+        element={
+          <RedirectIfLoggedIn>
+            <LandingPage />
+          </RedirectIfLoggedIn>
+        }
+      />
       {/* auth routes */}
-      <Route path='/sign-in' element={<AuthPage formType='signIn' />} />
-      <Route path='/sign-up' element={<AuthPage formType='signUp' />} />
+      <Route
+        path='/sign-in'
+        element={
+          <RedirectIfLoggedIn>
+            <Auth formType='signIn' />
+          </RedirectIfLoggedIn>
+        }
+      />
+      <Route
+        path='/sign-up'
+        element={
+          <RedirectIfLoggedIn>
+            <Auth formType='signUp' />
+          </RedirectIfLoggedIn>
+        }
+      />
       {/* sitters routes */}
       <Route path='/sitters' element={<Sitters />} />
       <Route path='/sitter/:id' element={<Sitter />} />
       {/* owner route */}
-      <Route path='/owner/:id' element={<Owner />} />
+      <Route
+        path='/owner/:id'
+        element={
+          <ProtectedRoute authorizeRole='sitter'>
+            <Owner />
+          </ProtectedRoute>
+        }
+      />
       {/* administration route */}
       <Route
         path='/settings'
         element={
-          <ProtectedRoute>
+          <ProtectedRoute authorizeRole='all'>
             <Settings />
           </ProtectedRoute>
         }

@@ -1,36 +1,34 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { I_SitterDocument } from '../models/sitter';
+import { useNavigate, useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
-import Contact from '../components/Contact';
-import PageLayout from '../layouts/PageLayout';
-import { getSitter } from '../services/sitterApi';
+import Contact from '../layouts/Contact';
+import PageLayout from '../layouts/templates/PageLayout';
 import Button from '../components/Button';
+import Profile from '../layouts/Profile';
+import { selectUser } from '../features/userSlice';
+import { useAppSelector } from '../hooks/reduxHooks';
+import { getUserById } from '../services/userApi';
+import { I_UserDocument } from '../interfaces/user.interface';
+import Cta from '../components/Cta';
+import SignLink from '../components/SignLink';
+import ProfileSection from '../layouts/templates/ProfileSection';
 
 const Sitter = () => {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const [sitter, setSitter] = useState<I_SitterDocument | null>();
-  const [imgSrc, setImgSrc] = useState<string>('');
+  const [sitter, setSitter] = useState<I_UserDocument | null>();
   const [contactModalOpen, setContactModalOpen] = useState<boolean>(false);
+
+  const user = useAppSelector(selectUser);
 
   // get the sitter and update sitter redux state
   useEffect(() => {
-    if (id && !sitter) {
-      getSitter(id).then((response) => {
+    if (id && sitter?.id !== id) {
+      getUserById(id).then((response) => {
         setSitter(response.body);
       });
     }
   }, [id, sitter]);
-
-  useEffect(() => {
-    if (sitter) {
-      setImgSrc(
-        `${import.meta.env.VITE_API_URL}/uploads/profilePicture${
-          sitter.profilePicture
-        }`
-      );
-    }
-  }, [sitter]);
 
   const toggleContactModal = () => {
     setContactModalOpen((prevState) => !prevState);
@@ -41,26 +39,65 @@ const Sitter = () => {
   }
 
   return (
-    <PageLayout>
+    <PageLayout mainClassName='sitter'>
       <>
-        <img
-          src={imgSrc}
-          alt={`Photo de profil de ${sitter.firstName} ${sitter.lastName}`}
-          className='sitter__profile-picture'
-        />
-        <h1>
-          {sitter.firstName} {sitter.lastName}
-        </h1>
-        <p>
-          {sitter.city} <br />
-          {sitter.country} <br />
-          {sitter.tel} <br />
-          {sitter.presentation} <br />
-          {sitter.acceptedPets.join(' ')} <br />
-        </p>
-        <h2>Disponibilités</h2>
-        <p>google calendar ?</p>
-        <Button handleClick={toggleContactModal} content='Contactez-moi' />
+        <Profile profile={sitter} />
+        <ProfileSection title='Disponibilités'>
+          <p>google calendar ?</p>
+        </ProfileSection>
+        {/* if no user or if it's not the profile of the log user, display the contact section */}
+        {(!user || user.id !== id) && (
+          <div className='sitter__contact'>
+            {user && user.roles.includes('owner') ? (
+              <Button
+                handleClick={toggleContactModal}
+                content='Contactez-moi'
+              />
+            ) : (
+              <>
+                {!user && (
+                  <>
+                    <p className='text'>
+                      Vous souhaitez contacter {sitter.firstName}{' '}
+                      {sitter.lastName} ? <br />
+                      Connectez-vous en tant que propriétaire !
+                    </p>
+                    <Cta
+                      handleClick={() => navigate('/sign-in')}
+                      classname='btn sitters-hero__cta'
+                      content='Connection'
+                    />
+                    <SignLink
+                      text={"Vous n'avez pas encore de compte ?"}
+                      linkTo={'/sign-up'}
+                      linkText={'Inscrivez-vous'}
+                    />
+                  </>
+                )}
+                {user?.roles.includes('sitter') ? (
+                  <>
+                    {' '}
+                    <p className='text'>
+                      Vous souhaitez contacter {sitter.firstName}{' '}
+                      {sitter.lastName} ?
+                    </p>
+                    <Cta
+                      handleClick={() => navigate('/settings')}
+                      classname='btn'
+                      content='Modifier votre profil pour être également propriétaire 😉'
+                    />
+                  </>
+                ) : (
+                  <SignLink
+                    text={"Vous n'avez pas encore de compte ?"}
+                    linkTo={'/sign-up'}
+                    linkText={'Inscrivez-vous'}
+                  />
+                )}
+              </>
+            )}
+          </div>
+        )}
       </>
       {contactModalOpen && (
         <Contact

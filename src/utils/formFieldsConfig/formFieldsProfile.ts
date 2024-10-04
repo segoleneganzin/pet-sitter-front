@@ -49,15 +49,30 @@ export const formFieldsProfile = {
     type: 'text',
     fieldErrorMessage: 'Veuillez renseigner votre nom',
   },
+  country: {
+    type: 'select',
+    label: 'Pays',
+    defaultValue: 'Choisir votre pays',
+    fieldErrorMessage: 'Veuillez renseigner votre pays',
+    options: [
+      {
+        label: 'Angleterre',
+        value: 'england',
+      },
+      {
+        label: 'Espagne',
+        value: 'spain',
+      },
+      {
+        label: 'France',
+        value: 'france',
+      },
+    ],
+  },
   city: {
     label: 'Ville',
     type: 'text',
     fieldErrorMessage: 'Veuillez renseigner votre ville',
-  },
-  country: {
-    label: 'Pays',
-    type: 'text',
-    fieldErrorMessage: 'Veuillez renseigner votre pays',
   },
   tel: {
     label: 'Téléphone',

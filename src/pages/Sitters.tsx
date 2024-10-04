@@ -1,64 +1,71 @@
 import { useState, useEffect, useMemo } from 'react';
-import SittersFilter from '../layouts/SittersFilter';
-import SittersHero from '../layouts/SittersHero';
-import SittersList from '../layouts/SittersList';
-import { I_SitterDocument } from '../models/sitter';
-import { useAppDispatch, useAppSelector } from '../utils/hooks/reduxHooks';
+import SittersFilter from '../layouts/sitters/SittersFilter';
+import SittersHero from '../layouts/sitters/SittersHero';
+import SittersList from '../layouts/sitters/SittersList';
+import { I_UserDocument } from '../interfaces/user.interface';
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import {
   getAllSittersAsync,
-  resetSitterStatus,
-  selectSitterError,
+  resetSittersStatus,
+  selectSittersError,
   selectSitters,
-  selectSitterStatus,
-} from '../features/sitterSlice';
-import PageLayout from '../layouts/PageLayout';
+  selectSittersStatus,
+} from '../features/sittersSlice';
+import PageLayout from '../layouts/templates/PageLayout';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
+import Button from '../components/Button';
 
 const Sitters = () => {
   const dispatch = useAppDispatch();
-  const [sitters, setSitters] = useState<I_SitterDocument[] | null>([]);
+  const [sitters, setSitters] = useState<I_UserDocument[] | null>([]);
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const sittersFromStore = useAppSelector(selectSitters);
-  const sitterStatus = useAppSelector(selectSitterStatus);
-  const sitterError = useAppSelector(selectSitterError);
+  const sittersStatus = useAppSelector(selectSittersStatus);
+  const sittersError = useAppSelector(selectSittersError);
 
   // Memoize originalSitters to prevent unnecessary recalculation
   const originalSitters = useMemo(() => sittersFromStore, [sittersFromStore]);
 
   useEffect(() => {
-    if (sittersFromStore.length === 0) {
+    if (sittersFromStore.length === 0 && sittersStatus === 'idle') {
       dispatch(getAllSittersAsync());
     }
-  }, [dispatch, sittersFromStore]);
-
-  useEffect(() => {
-    if (sitterStatus === 'succeeded') {
-      dispatch(resetSitterStatus());
+    if (sittersStatus === 'succeeded') {
+      setSitters(sittersFromStore);
+      dispatch(resetSittersStatus());
     }
-  }, [dispatch, sitterStatus]);
+  }, [dispatch, sittersFromStore, sittersStatus]);
 
   // Update the sitters state whenever originalSitters changes
   useEffect(() => {
     setSitters(originalSitters);
   }, [originalSitters]);
 
-  if (sitterStatus === 'loading') {
+  if (sittersStatus === 'loading') {
     return <Loader />;
   }
 
-  if (sitterStatus === 'failed') {
-    return <Error textError={sitterError} />;
+  if (sittersStatus === 'failed') {
+    return <Error textError={sittersError} />;
   }
 
   return (
-    <PageLayout>
+    <PageLayout mainClassName='sitters'>
       <SittersHero />
-      <SittersFilter
-        setSitters={setSitters}
-        originalSitters={sittersFromStore}
-      />
-      <SittersList sitters={sitters} />
+      <div className='sitters__main-content'>
+        {isFilterOpen ? (
+          <SittersFilter
+            setSitters={setSitters}
+            originalSitters={sittersFromStore}
+            setIsFilterOpen={setIsFilterOpen}
+          />
+        ) : (
+          <Button handleClick={() => setIsFilterOpen(true)} content='Filtrer' />
+        )}
+        <SittersList sitters={sitters} />
+      </div>
     </PageLayout>
   );
 };

@@ -1,0 +1,31 @@
+.header {
+  background-color: color(primary);
+  position: relative;
+  padding: 20px 0;
+  width: 100%;
+  &__title {
+    color: color(light);
+    text-align: center;
+  }
+  .icon {
+    position: absolute;
+    &__dog {
+      top: 25px;
+      left: 10px;
+      transform: rotate(-25deg);
+    }
+    &__cat {
+      top: 10px;
+      right: 10px;
+      transform: rotate(25deg);
+    }
+    &__nac {
+      right: 25px;
+      bottom: 1px;
+    }
+  }
+  .icon,
+  .icon path {
+    fill: color(secondary);
+  }
+}

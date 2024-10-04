@@ -1,0 +1,8 @@
+.contact {
+  @include flex-col;
+  align-items: center;
+  .sg-form-lib {
+    box-shadow: none;
+    padding: 0;
+  }
+}

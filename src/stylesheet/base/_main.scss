@@ -1,0 +1,6 @@
+.main {
+  @include flex-col;
+  flex: 1;
+  gap: 20px;
+  padding-bottom: $app-nav-height + 25px;
+}

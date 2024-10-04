@@ -1,0 +1,14 @@
+.landing {
+  @include flex-col;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  &__bg {
+    @include bg-image;
+    height: 100vh;
+    width: 100vw;
+  }
+  &__content {
+    @include overlay-banner();
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { Form } from 'sg-form-lib';
 import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
 import {
@@ -12,17 +12,17 @@ import {
 } from '../../features/userSlice';
 import { loginAsync } from '../../features/authSlice';
 import Loader from '../../components/Loader';
-import { I_UserCreate } from '../../models/user';
+import { I_User } from '../../interfaces/user.interface';
 
 interface I_SignUpFormProps {
-  role: 'sitter' | 'owner'; // Define role prop type
+  roles: ('sitter' | 'owner')[]; // Define role prop type
 }
 
-interface I_FormData extends I_UserCreate {
+interface I_FormData extends I_User {
   passwordConfirmation: string;
 }
 
-const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
+const SignUpForm: React.FC<I_SignUpFormProps> = ({ roles }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -40,20 +40,19 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
       if (!(datas.password === datas.passwordConfirmation)) {
         throw new Error('Les mots de passe ne correspondent pas');
       }
-      //   let newUser: I_UserCreate;
-      const newUser: I_UserCreate = {
+      const newUser: I_User = {
         email: datas.email!,
         password: datas.password!,
         profilePicture: datas.profilePicture!,
         firstName: datas.firstName!,
         lastName: datas.lastName!,
         city: datas.city!,
-        country: datas.country!,
+        country: 'France',
         tel: datas.tel,
         acceptedPets: datas.acceptedPets,
         presentation: datas.presentation,
         pets: datas.pets,
-        role: role!,
+        roles: roles!.join(', '),
       };
       setLogPassword(datas.password ?? '');
       dispatch(createUserAsync(newUser));
@@ -81,41 +80,34 @@ const SignUpForm: React.FC<I_SignUpFormProps> = ({ role }) => {
     return <Loader />;
   }
 
+  const fieldNames = [];
+  fieldNames.push(
+    'email',
+    'password',
+    'passwordConfirmation',
+    'profilePicture',
+    'firstName',
+    'lastName',
+    'city'
+  );
+  if (roles.includes('sitter')) {
+    fieldNames.push('tel', 'presentation', 'acceptedPets');
+  }
+  if (roles.includes('owner')) {
+    fieldNames.push('pets');
+  }
+
   return (
-    <Form
-      fieldsConfig={formFieldsProfile}
-      onSubmitFunction={handleForm}
-      btnText={"M'inscrire"}
-      errorMessage={errorMessage || errorUser}
-      title={'Inscription'}
-      fieldNames={
-        role === 'sitter'
-          ? [
-              'email',
-              'password',
-              'passwordConfirmation',
-              'profilePicture',
-              'firstName',
-              'lastName',
-              'city',
-              'country',
-              'tel',
-              'presentation',
-              'acceptedPets',
-            ]
-          : [
-              'email',
-              'password',
-              'passwordConfirmation',
-              'profilePicture',
-              'firstName',
-              'lastName',
-              'city',
-              'country',
-              'pets',
-            ]
-      }
-    />
+    <>
+      <Form
+        fieldsConfig={formFieldsProfile}
+        onSubmitFunction={handleForm}
+        btnText={"M'inscrire"}
+        errorMessage={errorMessage || errorUser}
+        title={'Inscription'}
+        fieldNames={fieldNames}
+      />
+    </>
   );
 };
 
