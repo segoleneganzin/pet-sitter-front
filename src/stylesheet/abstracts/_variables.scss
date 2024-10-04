@@ -1,0 +1,33 @@
+$colors: (
+  primary: rgb(53, 71, 53),
+  secondary: rgb(230, 227, 225),
+  tertiary: rgb(59, 126, 64),
+  light: rgb(255, 255, 255),
+  text: rgb(53, 71, 53),
+  link: rgb(53, 71, 53),
+  background: rgb(230, 227, 225),
+);
+
+$breakpoints: (
+  small-mobile: 360px,
+  medium-mobile: 425px,
+  large-mobile: 500px,
+  tablet: 768px,
+  laptop: 1024px,
+  desktop: 1440px,
+  large-desktop: 1920px,
+);
+
+$radius: (
+  small: 5px,
+  medium: 10px,
+  large: 25px,
+);
+
+$font-sizes: (
+  small: 0.8rem,
+  medium: 1rem,
+  large: 1.4rem,
+);
+
+$app-nav-height: 60px;

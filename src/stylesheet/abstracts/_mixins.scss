@@ -1,0 +1,75 @@
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin on-event() {
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-within {
+    @content;
+  }
+}
+
+@mixin bg-image() {
+  object-fit: cover;
+  opacity: 0.6;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+@mixin overlay-banner($color: color(light), $bg-opacity: 0.5) {
+  color: $color;
+  text-align: center;
+  @include flex-col;
+  align-items: center;
+  gap: 15px;
+  background-color: rgba(0, 0, 0, $bg-opacity);
+  box-shadow: rgba(50, 50, 93, 0.25) 0 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0 -2px 6px 0 inset;
+  margin: 0;
+  padding: 10px 10px 20px;
+  position: relative;
+  z-index: 99;
+
+  a,
+  .link {
+    color: $color;
+  }
+
+  @include media-breakpoint('min', medium-mobile) {
+    border-radius: map-get($radius, small);
+    padding: 20px;
+  }
+}
+
+@mixin buttons {
+  border-radius: map-get($radius, small);
+  padding: 10px 20px;
+  height: auto;
+  width: fit-content;
+}
+
+// type = min or max
+@mixin media-breakpoint($type, $breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @if $type == 'min' {
+      @media screen and (min-width: #{map-get($breakpoints, $breakpoint)}) {
+        @content;
+      }
+    } @else if $type == 'max' {
+      @media screen and (max-width: #{map-get($breakpoints, $breakpoint)}) {
+        @content;
+      }
+    } @else {
+      @warn "Invalid type `#{$type}` provided. Use either 'min' or 'max'.";
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}

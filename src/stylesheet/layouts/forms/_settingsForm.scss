@@ -1,0 +1,8 @@
+.settings-form {
+  @include flex-col;
+  align-items: center;
+
+  .sg-form-lib__title {
+    text-align: center;
+  }
+}

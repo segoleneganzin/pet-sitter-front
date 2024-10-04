@@ -1,0 +1,20 @@
+.sg-modal-lib {
+  &__body {
+    @include flex-col;
+    align-items: center;
+    justify-content: center;
+    background-color: color(primary);
+    padding: 5px 5px 20px;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
+    &-content {
+      row-gap: 0;
+      padding-bottom: 0;
+    }
+  }
+  &__btn {
+    @include buttons;
+    margin-top: 20px;
+  }
+}
