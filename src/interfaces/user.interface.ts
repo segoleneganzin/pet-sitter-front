@@ -39,7 +39,7 @@ export interface I_UserUpdate {
   email?: string;
   password?: string;
   passwordConfirmation?: string;
-  roles?: string;
+  roles?: string[] | string;
   profilePicture?: string;
   firstName?: string;
   lastName?: string;
@@ -47,6 +47,6 @@ export interface I_UserUpdate {
   country?: string;
   tel?: string;
   presentation?: string;
-  acceptedPets?: string;
-  pets?: string;
+  acceptedPets?: ('cat' | 'dog' | 'nac')[] | string;
+  pets?: string[] | string;
 }

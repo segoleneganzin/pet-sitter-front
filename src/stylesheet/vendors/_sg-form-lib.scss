@@ -11,6 +11,7 @@
     font-size: fontSize(large);
     padding-bottom: 10px;
   }
+
   &__btn {
     @include buttons;
     background-color: color(tertiary);

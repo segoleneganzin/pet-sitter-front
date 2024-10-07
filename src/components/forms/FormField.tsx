@@ -16,7 +16,7 @@ interface I_FormFieldProps {
     | 'select';
   value?: string | boolean;
   handleChange: (e: InputChangeEvent) => void;
-  options?: { label: string; value: string }[];
+  options?: { label: string; value: string; checked?: boolean }[];
 }
 
 const FormField: React.FC<I_FormFieldProps> = ({
@@ -45,6 +45,7 @@ const FormField: React.FC<I_FormFieldProps> = ({
               handleChange={handleChange}
               field={{ name: name, type: type }}
               value={option.value}
+              checked={option.checked}
               className='form__checkbox'
             />
             <label>{option.label}</label>

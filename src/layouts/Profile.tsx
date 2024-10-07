@@ -2,17 +2,24 @@ import { useEffect, useState } from 'react';
 import { translateMessage } from '../utils/responseTranslate';
 import { I_UserDocument } from '../interfaces/user.interface';
 import ProfileSection from './templates/ProfileSection';
+import { useAppSelector } from '../hooks/reduxHooks';
+import { selectUser } from '../features/userSlice';
 
 interface I_ProfileProps {
   profile: I_UserDocument;
 }
 const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
+  const user = useAppSelector(selectUser);
+
   const [imgSrc, setImgSrc] = useState<string>('');
   const [petsList, setPetsList] = useState<string[]>([]);
 
   // Type guard to check if profile is I_UserDocument
   const isSitter = (profile: I_UserDocument) => {
     return profile.roles.includes('sitter');
+  };
+  const isOwner = (profile: I_UserDocument) => {
+    return profile.roles.includes('owner');
   };
 
   useEffect(() => {
@@ -28,7 +35,7 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
           (element: string) => translateMessage(element)
         );
       }
-      if (!isSitter(profile)) {
+      if (isOwner(profile)) {
         translatedPets = profile.roleDetails.owner?.pets?.map(
           (element: string) => translateMessage(element)
         );
@@ -50,23 +57,34 @@ const Profile: React.FC<I_ProfileProps> = ({ profile }) => {
         </h1>
         <p className='text'>{profile.city} </p>
         {isSitter(profile) && (
-          <p className='text'>
-            {profile.roleDetails.sitter?.tel}
-            <br />
-          </p>
-        )}
-        {isSitter(profile) && (
-          <p className='text'>
-            {profile.roleDetails.sitter?.presentation}
-            <br />
-          </p>
+          <>
+            <p className='text'>
+              {profile.roleDetails.sitter?.tel}
+              <br />
+            </p>
+            <p className='text'>
+              {profile.roleDetails.sitter?.presentation}
+              <br />
+            </p>
+          </>
         )}
       </div>
-      <ProfileSection
-        title={isSitter(profile) ? 'Animaux acceptés' : 'Animaux à garder'}
-      >
-        <p className='text profile__pets'>{petsList.join(', ')}</p>
-      </ProfileSection>
+      {isSitter(profile) && (
+        <ProfileSection title={'Animaux acceptés'}>
+          <p className='text profile__pets'>{petsList.join(', ')}</p>
+        </ProfileSection>
+      )}
+      {/* only display on profile page (private) */}
+      {isOwner(profile) && user?.id === profile.id && (
+        <ProfileSection title={'Mes animaux'}>
+          <p className='text profile__pets'>{petsList.join(', ')}</p>
+        </ProfileSection>
+      )}
+      {isSitter(profile) && (
+        <ProfileSection title='Disponibilités'>
+          <p>google calendar ?</p>
+        </ProfileSection>
+      )}
     </section>
   );
 };

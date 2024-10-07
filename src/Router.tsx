@@ -2,11 +2,11 @@ import { Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/Landing';
 import Sitters from './pages/Sitters';
 import Sitter from './pages/Sitter';
-import Owner from './pages/Owner';
 import Settings from './pages/Settings';
 import ProtectedRoute from './middlewares/ProtectedRoute';
 import Auth from './pages/Auth';
 import RedirectIfLoggedIn from './middlewares/RedirectIfLoggedIn';
+import PrivateProfile from './pages/PrivateProfile';
 
 const Router = () => {
   return (
@@ -41,10 +41,10 @@ const Router = () => {
       <Route path='/sitter/:id' element={<Sitter />} />
       {/* owner route */}
       <Route
-        path='/owner/:id'
+        path='/profile/:id'
         element={
-          <ProtectedRoute authorizeRole='sitter'>
-            <Owner />
+          <ProtectedRoute authorizeRole='all'>
+            <PrivateProfile />
           </ProtectedRoute>
         }
       />

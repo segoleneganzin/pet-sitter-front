@@ -51,14 +51,7 @@ const Menu = () => {
             </Link>
           )}
           {user && login && (
-            <Link
-              to={
-                user.roles.includes('sitter')
-                  ? `/sitter/${user?.id}`
-                  : `/owner/${user?.id}`
-              }
-              className='menu__link'
-            >
+            <Link to={`/profile/${user?.id}`} className='menu__link'>
               Profil
             </Link>
           )}

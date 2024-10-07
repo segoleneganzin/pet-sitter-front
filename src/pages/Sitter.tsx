@@ -10,7 +10,6 @@ import { getUserById } from '../services/userApi';
 import { I_UserDocument } from '../interfaces/user.interface';
 import Cta from '../components/Cta';
 import SignLink from '../components/SignLink';
-import ProfileSection from '../layouts/templates/ProfileSection';
 
 const Sitter = () => {
   const navigate = useNavigate();
@@ -45,9 +44,6 @@ const Sitter = () => {
     <PageLayout mainClassName='sitter'>
       <>
         <Profile profile={sitter} />
-        <ProfileSection title='Disponibilités'>
-          <p>google calendar ?</p>
-        </ProfileSection>
         {/* if no user or if it's not the profile of the log user, display the contact section */}
         {(!user || user.id !== id) && (
           <div className='sitter__contact'>

@@ -3,35 +3,34 @@ import { useParams } from 'react-router-dom';
 import { I_UserDocument } from '../interfaces/user.interface';
 import Loader from '../components/Loader';
 import PageLayout from '../layouts/templates/PageLayout';
-import { getOwnerById } from '../services/ownerApi';
 import Profile from '../layouts/Profile';
+import { getUserById } from '../services/userApi';
 
-const Owner = () => {
+const PivateProfile = () => {
   const { id } = useParams<{ id: string }>();
-  const [owner, setOwner] = useState<I_UserDocument | null>();
+  const [profile, setProfile] = useState<I_UserDocument | null>();
 
-  // get the owner and update owner redux state
   useEffect(() => {
-    if (id && !owner) {
-      getOwnerById(id).then((response) => {
-        setOwner(response.body);
+    if (id && !profile) {
+      getUserById(id).then((response) => {
+        setProfile(response.body);
       });
     }
-  }, [id, owner]);
+  }, [id, profile]);
 
-  if (!owner) {
+  if (!profile) {
     return (
-      <PageLayout mainClassName='owner'>
+      <PageLayout mainClassName='profile'>
         <Loader />
       </PageLayout>
     );
   }
 
   return (
-    <PageLayout mainClassName='owner'>
-      <Profile profile={owner} />
+    <PageLayout mainClassName='profile'>
+      <Profile profile={profile} />
     </PageLayout>
   );
 };
 
-export default Owner;
+export default PivateProfile;

@@ -41,17 +41,17 @@ const Contact: React.FC<I_ContactProps> = ({
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       setFormValues((prevValues) => ({
         ...prevValues,
         senderEmail: user.email,
+        senderFirstname: user.firstName,
+        senderLastname: user.lastName,
       }));
     }
   }, [user]);
 
   useEffect(() => {
     if (sitter) {
-      console.log(sitter);
       setFormValues((prevValues) => ({
         ...prevValues,
         sitterEmail: sitter.email,
@@ -60,7 +60,6 @@ const Contact: React.FC<I_ContactProps> = ({
   }, [sitter]);
 
   const sendEmail = () => {
-    console.log('coucou');
     emailjs
       .sendForm(
         import.meta.env.VITE_MAIL_JS_SERVICE_ID,
@@ -95,6 +94,9 @@ const Contact: React.FC<I_ContactProps> = ({
             formId={'contactForm'}
             fieldsConfig={formFieldsContact}
             title={'Contact'}
+            subtitle={
+              'Le pet sitter reçoit automatiquement vos coordonées (nom, prénom et email)'
+            }
             btnText={'Envoyer'}
             onSubmitFunction={sendEmail}
             errorMessage={errorMessage}

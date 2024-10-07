@@ -17,8 +17,8 @@ export const formFieldsProfile = {
     // pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
     fieldErrorMessage: 'Veuillez confirmer votre mot de passe',
   },
-  role: {
-    type: 'radio',
+  roles: {
+    type: 'checkbox',
     label: 'Rôle',
     fieldErrorMessage: 'Veuillez renseigner votre rôle',
     options: [
@@ -77,7 +77,6 @@ export const formFieldsProfile = {
   tel: {
     label: 'Téléphone',
     type: 'text',
-    isRequired: false,
   },
   presentation: {
     tag: 'textarea',
@@ -95,17 +94,17 @@ export const formFieldsProfile = {
       {
         label: 'Chien',
         value: 'dog',
-        name: 'dog',
+        name: 'acceptDog',
       },
       {
         label: 'Chat',
         value: 'cat',
-        name: 'cat',
+        name: 'acceptCat',
       },
       {
         label: 'NAC',
         value: 'nac',
-        name: 'nac',
+        name: 'acceptNac',
       },
     ],
   },
@@ -118,17 +117,17 @@ export const formFieldsProfile = {
       {
         label: 'Chien',
         value: 'dog',
-        name: 'dog',
+        name: 'ownDog',
       },
       {
         label: 'Chat',
         value: 'cat',
-        name: 'cat',
+        name: 'ownCat',
       },
       {
         label: 'NAC',
         value: 'nac',
-        name: 'nac',
+        name: 'ownNac',
       },
     ],
   },

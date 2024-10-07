@@ -1,7 +1,6 @@
 import { Form } from 'sg-form-lib';
 import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
 import { I_UserUpdate } from '../../interfaces/user.interface';
-import { I_ProfileUpdate } from '../../interfaces/profile.interface';
 
 interface I_SettingsProps<T> {
   handleSubmit: (data: T) => void;
@@ -9,7 +8,7 @@ interface I_SettingsProps<T> {
   title: string;
   subtitle?: string | null;
   fieldNames: string[];
-  formValues?: I_ProfileUpdate | I_UserUpdate | null;
+  formValues?: I_UserUpdate | null;
 }
 
 const SettingsForm = <T extends object>({

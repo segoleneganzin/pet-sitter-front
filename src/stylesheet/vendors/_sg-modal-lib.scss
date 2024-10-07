@@ -12,6 +12,9 @@
       row-gap: 0;
       padding-bottom: 0;
     }
+    &-children-container p {
+      color: color(light);
+    }
   }
   &__btn {
     @include buttons;

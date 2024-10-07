@@ -8,11 +8,13 @@ export const formFieldsContact = {
     label: 'Prénom',
     type: 'text',
     fieldErrorMessage: 'Veuillez renseigner votre prénom',
+    hidden: true,
   },
   senderLastname: {
     label: 'Nom',
     type: 'text',
     fieldErrorMessage: 'Veuillez renseigner votre nom',
+    hidden: true,
   },
   senderEmail: {
     label: 'Email',

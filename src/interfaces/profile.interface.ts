@@ -11,14 +11,15 @@ export interface I_ProfileDocument {
   userId: string;
 }
 
-export interface I_ProfileUpdate {
-  profilePicture?: string;
-  firstName?: string;
-  lastName?: string;
-  city?: string;
-  country?: string;
-  tel?: string;
-  presentation?: string;
-  acceptedPets?: ('cat' | 'dog' | 'nac')[];
-  pets?: string[];
-}
+// export interface I_ProfileUpdate {
+//   roles?: string;
+//   profilePicture?: string;
+//   firstName?: string;
+//   lastName?: string;
+//   city?: string;
+//   country?: string;
+//   tel?: string;
+//   presentation?: string;
+//   acceptedPets?: ('cat' | 'dog' | 'nac')[];
+//   pets?: string[];
+// }

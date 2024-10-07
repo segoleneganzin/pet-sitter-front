@@ -7,6 +7,7 @@ interface I_InputProps {
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   field: I_Field;
   value: string;
+  checked?: boolean;
   className: string;
 }
 
@@ -14,6 +15,7 @@ const Input: React.FC<I_InputProps> = ({
   handleChange,
   field,
   value,
+  checked = false,
   className = '',
 }) => {
   const {
@@ -28,6 +30,7 @@ const Input: React.FC<I_InputProps> = ({
       className={'input ' + className}
       onChange={handleChange}
       value={value}
+      checked={checked}
     />
   );
 };
