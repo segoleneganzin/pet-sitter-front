@@ -44,11 +44,19 @@ const Sitters = () => {
   }, [originalSitters]);
 
   if (sittersStatus === 'loading') {
-    return <Loader />;
+    return (
+      <PageLayout mainClassName='sitters'>
+        <Loader />
+      </PageLayout>
+    );
   }
 
   if (sittersStatus === 'failed') {
-    return <Error textError={sittersError} />;
+    return (
+      <PageLayout mainClassName='sitters'>
+        <Error textError={sittersError} />
+      </PageLayout>
+    );
   }
 
   return (

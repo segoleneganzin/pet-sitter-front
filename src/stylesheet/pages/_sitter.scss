@@ -1,5 +1,9 @@
 .sitter {
   &__contact {
+    @include flex-col;
+    align-items: center;
+  }
+  &__connection {
     font-size: fontSize(medium);
     @include flex-col;
     gap: 15px;

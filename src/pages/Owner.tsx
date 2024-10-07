@@ -20,7 +20,11 @@ const Owner = () => {
   }, [id, owner]);
 
   if (!owner) {
-    return <Loader />;
+    return (
+      <PageLayout mainClassName='owner'>
+        <Loader />
+      </PageLayout>
+    );
   }
 
   return (

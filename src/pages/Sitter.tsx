@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Contact from '../layouts/Contact';
 import PageLayout from '../layouts/templates/PageLayout';
-import Button from '../components/Button';
 import Profile from '../layouts/Profile';
 import { selectUser } from '../features/userSlice';
 import { useAppSelector } from '../hooks/reduxHooks';
@@ -35,7 +34,11 @@ const Sitter = () => {
   };
 
   if (!sitter) {
-    return <Loader />;
+    return (
+      <PageLayout mainClassName='sitter'>
+        <Loader />
+      </PageLayout>
+    );
   }
 
   return (
@@ -49,14 +52,11 @@ const Sitter = () => {
         {(!user || user.id !== id) && (
           <div className='sitter__contact'>
             {user && user.roles.includes('owner') ? (
-              <Button
-                handleClick={toggleContactModal}
-                content='Contactez-moi'
-              />
+              <Cta handleClick={toggleContactModal} content='Contactez-moi' />
             ) : (
               <>
                 {!user && (
-                  <>
+                  <div className='sitter__connection'>
                     <p className='text'>
                       Vous souhaitez contacter {sitter.firstName}{' '}
                       {sitter.lastName} ? <br />
@@ -72,7 +72,7 @@ const Sitter = () => {
                       linkTo={'/sign-up'}
                       linkText={'Inscrivez-vous'}
                     />
-                  </>
+                  </div>
                 )}
                 {user?.roles.includes('sitter') && (
                   <>
