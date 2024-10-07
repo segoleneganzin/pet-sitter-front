@@ -1,11 +1,12 @@
 import UpdateLog from '../layouts/admin/UpdateLog';
 import UpdateProfile from '../layouts/admin/UpdateProfile';
 import PageLayout from '../layouts/templates/PageLayout';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import { resetUserStatus, selectUserStatus } from '../features/userSlice';
 import DeleteAccount from '../layouts/admin/DeleteAccount';
 import Button from '../components/Button';
+import Loader from '../components/Loader';
 
 const Settings = () => {
   const dispatch = useAppDispatch();
@@ -16,17 +17,17 @@ const Settings = () => {
 
   const userStatus = useAppSelector(selectUserStatus);
 
-  const handleSettings = (
-    setting: 'auth' | 'profile' | 'deleteAccount' | null
-  ) => {
-    setSettings(setting);
-    // manage appNavigation goBack
-    if (setting === null) {
-      sessionStorage.removeItem('isSettingOpen');
-    } else {
-      sessionStorage.setItem('isSettingOpen', 'true');
-    }
-  };
+  const handleSettings = useCallback(
+    (setting: 'auth' | 'profile' | 'deleteAccount' | null) => {
+      setSettings(setting);
+      if (setting === null) {
+        sessionStorage.removeItem('isSettingOpen');
+      } else {
+        sessionStorage.setItem('isSettingOpen', 'true');
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     if (userStatus === 'succeeded' && settings !== 'deleteAccount') {
@@ -40,6 +41,16 @@ const Settings = () => {
   }, [dispatch, userStatus, settings]);
 
   const renderForm = () => {
+    if (userStatus === 'succeeded') {
+      return (
+        <>
+          <p className='text settings__validation-message'>
+            Les modifications ont été éffectuées avec succès
+          </p>
+          <Loader />
+        </>
+      );
+    }
     if (settings === 'profile') {
       return <UpdateProfile />;
     } else if (settings === 'auth') {
@@ -72,7 +83,7 @@ const Settings = () => {
         </div>
       )}
       {renderForm()}
-      {settings && (
+      {settings && userStatus !== 'succeeded' && (
         <Button
           handleClick={() => handleSettings(null)}
           classname='btn settings__btn--cancel'

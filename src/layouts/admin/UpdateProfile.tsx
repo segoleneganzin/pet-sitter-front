@@ -74,7 +74,6 @@ const UpdateProfile = () => {
       title={'Modifier mon profil'}
       fieldNames={fieldNames}
       formValues={formValues || {}}
-      succeededMessage={'Informations mises à jour'}
     />
   );
 };

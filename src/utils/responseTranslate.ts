@@ -12,6 +12,7 @@ enum ErrorKeys {
   FailedToRetrieveOwners = 'Failed to retrieve Owners. Please try again later.',
   OwnerNotFound = 'Owner not found',
   InvalidUsernamePasswordSupplied = 'Invalid username/password supplied',
+  InvalidPictureFormat = 'Invalid file type. Only JPG, JPEG, and PNG files are allowed.',
   PetDog = 'dog',
   PetCat = 'cat',
   PetNac = 'nac',
@@ -35,12 +36,15 @@ const errorMessages: Record<ErrorKeys, string> = {
   [ErrorKeys.OwnerNotFound]: 'Propriétaire non trouvé',
   [ErrorKeys.InvalidUsernamePasswordSupplied]:
     "Nom d'utilisateur/mot de passe invalide",
+  [ErrorKeys.InvalidPictureFormat]:
+    "Format d'image invalide. Formats acceptés : JPG, JPEG, PNG.",
   [ErrorKeys.PetDog]: 'Chien',
   [ErrorKeys.PetCat]: 'Chat',
   [ErrorKeys.PetNac]: 'NAC',
 };
 
 export const translateMessage = (message: string): string => {
+  console.log(message);
   // return translation or original message if no translation founded
   return errorMessages[message as ErrorKeys] || message;
 };

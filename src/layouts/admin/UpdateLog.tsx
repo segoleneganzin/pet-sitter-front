@@ -76,7 +76,6 @@ const UpdateLog = () => {
               ? ['email']
               : ['password', 'passwordConfirmation']
           }
-          succeededMessage={'Informations mises à jour'}
         />
       )}
     </div>

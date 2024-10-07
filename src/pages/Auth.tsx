@@ -6,8 +6,6 @@ import { useState } from 'react';
 import Header from '../layouts/Header';
 import SignLink from '../components/SignLink';
 import FormField from '../components/forms/FormField';
-import { useAppSelector } from '../hooks/reduxHooks';
-import { selectUser } from '../features/userSlice';
 
 interface I_AuthProps {
   formType: 'signUp' | 'signIn';
@@ -17,7 +15,7 @@ type Roles = ('sitter' | 'owner')[];
 
 const Auth: React.FC<I_AuthProps> = ({ formType }) => {
   const navigate = useNavigate();
-  const user = useAppSelector(selectUser);
+
   const [roles, setRoles] = useState<Roles>([]);
 
   const handleRoleChange = (role: 'sitter' | 'owner') => {
@@ -29,10 +27,6 @@ const Auth: React.FC<I_AuthProps> = ({ formType }) => {
       }
     });
   };
-
-  if (user) {
-    navigate('/sitters');
-  }
 
   return (
     <>

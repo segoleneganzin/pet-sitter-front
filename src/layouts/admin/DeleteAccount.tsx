@@ -48,7 +48,6 @@ const DeleteAccount = () => {
         'Attention, cette action est irréversible, toutes vos données seront supprimées.'
       }
       fieldNames={['email', 'password']}
-      succeededMessage={'Compte supprimé'}
     />
   );
 };

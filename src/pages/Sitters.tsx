@@ -15,6 +15,7 @@ import PageLayout from '../layouts/templates/PageLayout';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
 import Button from '../components/Button';
+import { resetUserStatus } from '../features/userSlice';
 
 const Sitters = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ const Sitters = () => {
   const originalSitters = useMemo(() => sittersFromStore, [sittersFromStore]);
 
   useEffect(() => {
+    dispatch(resetUserStatus()); // to manage settings
     if (sittersFromStore.length === 0 && sittersStatus === 'idle') {
       dispatch(getAllSittersAsync());
     }

@@ -1,9 +1,6 @@
 import { Form } from 'sg-form-lib';
 import { formFieldsProfile } from '../../utils/formFieldsConfig/formFieldsProfile';
 import { I_UserUpdate } from '../../interfaces/user.interface';
-import { useAppSelector } from '../../hooks/reduxHooks';
-import { selectUserStatus } from '../../features/userSlice';
-import Loader from '../../components/Loader';
 import { I_ProfileUpdate } from '../../interfaces/profile.interface';
 
 interface I_SettingsProps<T> {
@@ -13,7 +10,6 @@ interface I_SettingsProps<T> {
   subtitle?: string | null;
   fieldNames: string[];
   formValues?: I_ProfileUpdate | I_UserUpdate | null;
-  succeededMessage: string;
 }
 
 const SettingsForm = <T extends object>({
@@ -23,19 +19,7 @@ const SettingsForm = <T extends object>({
   subtitle,
   fieldNames,
   formValues,
-  succeededMessage,
 }: I_SettingsProps<T>) => {
-  const userStatus = useAppSelector(selectUserStatus);
-
-  if (userStatus === 'succeeded') {
-    return (
-      <>
-        <p className='text settings__validation-message'>{succeededMessage}</p>
-        <Loader />
-      </>
-    );
-  }
-
   return (
     <div className='settings-form'>
       <Form
