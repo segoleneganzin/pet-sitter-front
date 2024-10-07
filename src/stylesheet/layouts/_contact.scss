@@ -4,5 +4,11 @@
   .sg-form-lib {
     box-shadow: none;
     padding: 0;
+    &__data--error {
+      color: color(error);
+    }
+  }
+  &__validation .text {
+    color: color(light);
   }
 }

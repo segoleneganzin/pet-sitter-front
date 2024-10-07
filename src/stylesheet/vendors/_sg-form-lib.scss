@@ -15,6 +15,9 @@
     @include buttons;
     background-color: color(tertiary);
   }
+  &__data--error {
+    color: color(error);
+  }
   @include media-breakpoint('max', medium-mobile) {
     box-shadow: none;
   }

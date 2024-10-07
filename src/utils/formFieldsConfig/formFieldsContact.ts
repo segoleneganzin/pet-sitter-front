@@ -1,6 +1,6 @@
 export const formFieldsContact = {
-  userEmail: {
-    label: '',
+  sitterEmail: {
+    label: 'Email',
     type: 'email',
     hidden: true,
   },
@@ -17,8 +17,7 @@ export const formFieldsContact = {
   senderEmail: {
     label: 'Email',
     type: 'email',
-    pattern: /\S+@\S+\.\S+/,
-    fieldErrorMessage: 'Veuillez renseigner votre email',
+    hidden: true,
   },
   message: {
     tag: 'textarea',
