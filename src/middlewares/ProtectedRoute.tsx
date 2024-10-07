@@ -17,7 +17,10 @@ const ProtectedRoute: React.FC<I_ProtectedRouteProps> = ({
   const { id } = useParams<{ id: string }>();
 
   const hasAccess = () => {
-    if (!login) return false;
+    if (!login || !user) {
+      sessionStorage.clear();
+      return false;
+    }
     if (
       authorizeRole === 'all' ||
       user?.roles.includes(authorizeRole) ||

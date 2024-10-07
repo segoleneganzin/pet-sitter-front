@@ -45,7 +45,9 @@ const Settings = () => {
       return (
         <>
           <p className='text settings__validation-message'>
-            Les modifications ont été éffectuées avec succès
+            {settings === 'deleteAccount'
+              ? 'Votre compte a bien été supprimé, vous allez être redirigé vers la page principale'
+              : 'Les modifications ont été éffectuées avec succès'}
           </p>
           <Loader />
         </>

@@ -52,6 +52,7 @@ export const deleteUserAsync = createAsyncThunk(
   DELETE_USER,
   async (token: string) => {
     const response = await deleteUser(token);
+    sessionStorage.clear();
     return response;
   }
 );
@@ -80,10 +81,10 @@ export const userSlice = createSlice({
       state.error = null;
     },
     clearUser: (state) => {
+      sessionStorage.removeItem('user');
       state.user = null;
       state.status = 'idle';
       state.error = null;
-      sessionStorage.removeItem('user');
     },
   },
   extraReducers: (builder) => {

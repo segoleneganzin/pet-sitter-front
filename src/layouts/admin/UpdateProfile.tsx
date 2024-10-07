@@ -21,8 +21,10 @@ const UpdateProfile = () => {
 
   const isSitter = user?.roles.includes('sitter');
   const isOwner = user?.roles.includes('owner');
+
   const [formValues, setFormValues] = useState<I_UserUpdate | null>(null);
   const [roles, setRoles] = useState<Roles>([]);
+
   const handleRoleChange = (role: 'sitter' | 'owner') => {
     setRoles((prevRoles: Roles) => {
       if (prevRoles.includes(role)) {
@@ -32,6 +34,7 @@ const UpdateProfile = () => {
       }
     });
   };
+
   useEffect(() => {
     if (user && user.id) {
       setRoles(user.roles);

@@ -1,23 +1,18 @@
-import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import {
-  clearUser,
   deleteUserAsync,
   selectUser,
   selectUserError,
-  selectUserStatus,
 } from '../../features/userSlice';
-import { logout, selectLogin } from '../../features/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { selectLogin } from '../../features/authSlice';
 import SettingsForm from '../forms/SettingsForm';
 
 const DeleteAccount = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const login = useAppSelector(selectLogin);
   const user = useAppSelector(selectUser);
-  const userStatus = useAppSelector(selectUserStatus);
+  // const userStatus = useAppSelector(selectUserStatus);
   const userError = useAppSelector(selectUserError);
 
   const handleDelete = async () => {
@@ -29,15 +24,6 @@ const DeleteAccount = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (userStatus === 'succeeded') {
-      localStorage.removeItem('userEmail');
-      dispatch(clearUser());
-      dispatch(logout());
-      navigate('/');
-    }
-  }, [navigate, dispatch, userStatus]);
 
   return (
     <SettingsForm

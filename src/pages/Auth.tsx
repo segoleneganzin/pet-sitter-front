@@ -43,10 +43,15 @@ const Auth: React.FC<I_AuthProps> = ({ formType }) => {
                   handleRoleChange(evt.target.value as 'sitter' | 'owner')
                 }
                 options={[
-                  { label: 'Sitter', value: 'sitter' },
+                  {
+                    label: 'Sitter',
+                    value: 'sitter',
+                    checked: roles.includes('sitter'),
+                  },
                   {
                     label: 'Propriétaire',
                     value: 'owner',
+                    checked: roles.includes('owner'),
                   },
                 ]}
               />
