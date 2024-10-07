@@ -42,19 +42,19 @@ const UpdateLog = () => {
   };
 
   return (
-    <>
+    <div className='update-log'>
       <div className='update-log__choices'>
         {choice !== 'email' && (
           <Button
             handleClick={() => setChoice('email')}
-            classname='btn update-log__choices-btn'
+            classname='btn update-log__choice-btn'
             content='Modifier mon email'
           />
         )}
         {choice !== 'password' && (
           <Button
             handleClick={() => setChoice('password')}
-            classname='btn update-log__choices-btn'
+            classname='btn update-log__choice-btn'
             content='Modifier mon mot de passe'
           />
         )}
@@ -79,7 +79,7 @@ const UpdateLog = () => {
           succeededMessage={'Informations mises à jour'}
         />
       )}
-    </>
+    </div>
   );
 };
 

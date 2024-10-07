@@ -1,4 +1,17 @@
-.update-log__choices {
-  margin: 0 auto;
-  width: fit-content;
+.update-log {
+  @include flex-col;
+  align-items: center;
+  &__choices {
+    @include flex-col;
+    align-items: center;
+    gap: 15px;
+    padding-top: 10px;
+    width: fit-content;
+  }
+  &__choice-btn {
+    color: color(light);
+    border: 1px solid color(light);
+    border-radius: map-get($radius, small);
+    padding: 10px;
+  }
 }
